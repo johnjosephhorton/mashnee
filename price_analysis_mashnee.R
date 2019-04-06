@@ -127,3 +127,38 @@ print(g)
 pdf("with_predictions.pdf", width = 3, height = 3)
 print(g)
 dev.off()
+
+
+## Bourne data
+
+df.bourne <- read.csv("bourne_median_price_index.csv")
+colnames(df.bourne) <- c("date", "price")
+
+df.bourne %<>% mutate(date = as.Date(date))
+
+g <- ggplot(data = df.bourne, aes(x = date, y = price)) +
+    geom_line() +
+    geom_smooth(span = 0.2) +
+    geom_vline(xintercept = as.Date("2007-01-01"), colour = "red", linetype = "dashed") +
+    xlab("Date") + ylab("Median sale\nprice in Bourne") +
+    theme_bw()
+
+pdf("bourne_median_sale_prices.pdf", width = 5, height = 3)
+print(g)
+dev.off()
+
+df.bourne$index <- 1:nrow(df.bourne)
+
+
+PredictPrice <- function(span){
+    loess.smoother  <- loess(price ~ index, data = df.bourne, span = span)
+    df.bourne$price.hat <- predict(loess.smoother)
+    df.bourne %<>% mutate(days.away = abs(difftime(as.Date("2007-01-01"), date)) %>% as.numeric)
+    sale.date <- df.bourne %>% filter(days.away == min(df.bourne$days.away)) %$% date
+    p0 <- df.bourne %>% filter(date == sale.date) %$% price.hat
+    p1 <- df.bourne %>% filter(date == max(df.bourne$date)) %$% price.hat
+    pct.change <- ((p1 - p0)/p0)
+    975 * (1 + pct.change)
+}
+
+sapply(seq(0.1, 0.8, 0.01), PredictPrice)
