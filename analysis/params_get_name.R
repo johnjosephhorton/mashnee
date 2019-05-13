@@ -13,6 +13,16 @@ df.raw <- read.csv("../data/data.csv") %>%
   mutate(price = gsub(",","",price) %>% as.numeric)
 
 addParam("\\PropertyName",  df.raw %>% filter(comp == 0) %$% address)
+
+addParam("\\PropertySqFt",  df.raw %>% filter(comp == 0) %$% square_feet %>% round(0) %>%
+                            formatC(format = "f", digits = 0, big.mark = ",")
+         )
+
+addParam("\\PropertyPrice",  df.raw %>% filter(comp == 0) %$% price %>% round(0) %>%
+                            formatC(format = "f", digits = 0, big.mark = ",")
+         )
+
+
 addParam("\\NumberOfComps",  df.raw %>% filter(comp == 1) %>% nrow() )
 
 addParam("\\MinPrice", df.raw %>% filter(comp == 1) %$% price %>% min %>% round(0) %>% formatC(format = "f", digits = 0, big.mark = ","))
@@ -28,3 +38,14 @@ m <- lm(price ~ square_feet, data = df.raw %>% filter(comp == 1))
 
 addParam("\\MarginalPricePerFoot", coef(m)["square_feet"] %>% round(0))
 
+addParam("\\Intercept", coef(m)["(Intercept)"] %>% round(0) %>% formatC(format = "f", digits = 0, big.mark = ","))
+
+addParam("\\PropertyPredict", predict(m, newdata = df.raw %>% filter(comp == 0)) %>% as.numeric %>%
+                              formatC(format = "f", digits = 0, big.mark = ","))
+
+property.price <- df.raw %>% filter(comp == 0) %$% price
+predicted.price <- predict(m, newdata = df.raw %>% filter(comp == 0)) %>% as.numeric
+
+
+addParam("\\ComparePredictedToActual", ifelse(predicted.price > property.price, "more", "less"))
+addParam("\\PctDiff", ((predicted.price - property.price)/predicted.price) %>% multiply_by(100) %>% round(0))

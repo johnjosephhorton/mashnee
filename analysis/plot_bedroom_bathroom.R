@@ -20,7 +20,8 @@ df <- df.raw %>% select(address, comp, baths, bedrooms) %>% melt(id.vars = c("ad
 
 df$address <- with(df, reorder(address, value, max))
 
-g <- ggplot(data = df, aes(y = address, x = value,  
+g <- ggplot(data = df, aes(y = address, x = value,
+                           colour = factor(comp), 
                            shape = factor(variable))) +
     facet_wrap(~variable, ncol = 2) +  
     geom_point()  + 
@@ -28,6 +29,10 @@ g <- ggplot(data = df, aes(y = address, x = value,
     xlab("Number of rooms") +
     theme_bw() +
     theme(legend.position = "none") +
-    geom_vline(data = df %>% filter(comp == 0), aes(xintercept = value), colour = "red", linetype = "dashed")
+    geom_vline(data = df %>% filter(comp == 0), aes(xintercept = value), colour = "red", linetype = "dashed") 
 
-JJHmisc::writeImage(g, "bedroom_bathroom", width = 4, height = 4, path = "../writeup/plots/")
+JJHmisc::writeImage(g, "bedroom_bathroom", width = 4, height = 3, path = "../writeup/plots/")
+
+
+
+

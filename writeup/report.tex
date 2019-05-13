@@ -24,6 +24,8 @@ dottedtoc % Dotted lines leading to the page numbers in the table of contents
 \usepackage{subfig} % Required for creating figures with multiple parts (subfigures)
 \usepackage{varioref} % More descriptive referencing
 
+\usepackage{amsmath}
+
 \input{parameters_name.tex}
 
 %----------------------------------------------------------------------------------------
@@ -47,11 +49,11 @@ pdfproducer={LaTeX with hyperref and ClassicThesis} % PDF producer
 %	TITLE AND AUTHOR(S)
 %----------------------------------------------------------------------------------------
 
-\title{\normalfont\spacedallcaps{{Comps Analysis for}}: \\ \PropertyName} % The article title
+%\title{\normalfont\spacedallcaps{{Comparables to}} } % The article title
+\title{\PropertyName{}}
+\subtitle{A Comparables analysis} % Uncomment to display a subtitle
 
-%\subtitle{Subtitle} % Uncomment to display a subtitle
-
-\author{\spacedlowsmallcaps{By: Galton Gauss}}
+\author{\spacedlowsmallcaps{By} \\ \href{https://www.galtongauss.com}{GaltonGauss.com}}
 % The article author(s) - author affiliations need to be specified in the AUTHOR AFFILIATIONS block
 
 \date{} % An optional date to appear under the author(s)
@@ -100,48 +102,72 @@ pdfproducer={LaTeX with hyperref and ClassicThesis} % PDF producer
 %----------------------------------------------------------------------------------------
 
 \section{Introduction}
-This report is designed to help compare the attributes to \PropertyName{} to a selected group of comparable properties. 
+This report compares the attributes of \PropertyName{} to a selected group of properties.
 The report is based on \NumberOfComps{} comparable properties.
-The full data it is based upon is in Appendix~\ref{sec:raw_data} 
+The full raw data is reported in Appendix~\ref{sec:raw_data}. 
 
 \section{Description of the comparable properties}
 
 Figure~\ref{fig:price} shows the recorded price for each of the comparables.
-The min price in the comparables data is \$\MinPrice{}, while the max is \$\MaxPrice{}.
+The minimum price in the comparables data is \$\MinPrice{}, while the maximum price is \$\MaxPrice{}.
+The \PropertyName{} price [is|is not] within the range. 
 
 \begin{figure}[tb]
 \centering
-\caption{Prices} \label{fig:price}  
+\caption{Reported prices for properties comparable to \PropertyName{}} \label{fig:price}  
 \includegraphics[width=0.95\columnwidth]{plots/price.pdf} 
 \end{figure}
 
-
 \begin{figure}[tb]
 \centering
-\caption{Square feet} \label{fig:square_feet}  
+\caption{Reported livable square feet for properties comparable to \PropertyName{}} \label{fig:square_feet}  
 \includegraphics[width=0.95\columnwidth]{plots/square_feet.pdf} 
 \end{figure}
 
 \begin{figure}[tb]
 \centering
-\caption{Bedrooms and bathrooms} \label{fig:bedroom_bathroom}  
+\caption{Reported bedrooms and bathrooms for properties comparable to \PropertyName{}} \label{fig:bedroom_bathroom}  
 \includegraphics[width=0.95\columnwidth]{plots/bedroom_bathroom.pdf} 
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\caption{Reported bedrooms and bathrooms for properties comparable to \PropertyName{}} \label{fig:bedroom_bathroom}  
+\includegraphics[width=0.95\columnwidth]{plots/baths_versus_bedrooms.pdf} 
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+\caption{Overall characteristics of properties comparable to \PropertyName{}} \label{fig:ecdf}  
+\includegraphics[width=0.95\columnwidth]{plots/ecdf.pdf} 
 \end{figure}
 
 
 \section{Price versus square footage}
 
 Figure~\ref{fig:price_versus_square_feet} plots the recorded price versus square footage.
-In this data, the average price per square foot---not including \PropertyName{}---is \$\MeanPricePerFoot{}/$ft^2$.
-At the listed price for \PropertyName{}, the price per square foot is \$\MeanPricePerFootFocal{}/$ft^2$.
-Among the comparables, each additional square foot is worth another \$\MarginalPricePerFoot{}/$ft^2$. 
-This is essentially a measure of how ``steep'' the best-fit line is in Figure~\ref{fig:price_versus_square_feet}.
 
 \begin{figure}[tb]
 \centering
 \caption{Price versus square footage} \label{fig:price_versus_square_feet}  
 \includegraphics[width=0.95\columnwidth]{plots/price_versus_square_feet.pdf} 
 \end{figure}
+
+In this data, the average price per square foot---not including \PropertyName{}---is \$\MeanPricePerFoot{}/$ft^2$.
+At the listed price for \PropertyName{}, the price per square foot is \$\MeanPricePerFootFocal{}/$ft^2$.
+Among the comparables, each additional square foot is worth another \$\MarginalPricePerFoot{}/$ft^2$. 
+This is essentially a measure of how ``steep'' the best-fit line is in Figure~\ref{fig:price_versus_square_feet}.
+
+The price formula based only on square footage would be
+\begin{equation}
+  \textsc{Price} = \$ \Intercept{} + (\$ \MarginalPricePerFoot{}/\textsc{SqFt}) \times \textsc{SqFt}. \nonumber
+\end{equation}
+Using this formula, the predicted price for \PropertyName{}, given that is is \PropertySqFt{} \textsc{SqFT}, would be
+\begin{align}
+\textsc{Predicted Price} & = \$ \Intercept{} + (\$ \MarginalPricePerFoot{}/\textsc{SqFt}) \times \PropertySqFt{}. \\ \nonumber
+                         & = \$ \PropertyPredict{} \nonumber 
+\end{align}
+which is \PctDiff{}\% \ComparePredictedToActual{} than the asking price of \$\PropertyPrice{}.
 
 
 \renewcommand{\refname}{\spacedlowsmallcaps{References}} % For modifying the bibliography heading

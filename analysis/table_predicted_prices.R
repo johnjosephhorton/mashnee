@@ -45,4 +45,4 @@ stargazer::stargazer(m.base,m.rooms, m.water, m.water.loc, type = "text", no.spa
 ##################################################
 
 df.raw %>% filter(comp == 0) %>% select(contains("price.hat")) %>%
-    melt 
+    melt %>% stargaze
