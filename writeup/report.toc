@@ -1,0 +1,3 @@
+\contentsline {section}{\numberline {1}{Introduction}}{2}{section.1}
+\contentsline {section}{\numberline {2}{Description of the comparable properties}}{2}{section.2}
+\contentsline {section}{\numberline {3}{Price versus square footage}}{2}{section.3}
