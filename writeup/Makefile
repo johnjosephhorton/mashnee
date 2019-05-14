@@ -43,6 +43,13 @@ plots += plots/bootstrap_price_predictions.pdf
 plots/bootstrap_price_predictions.pdf: ../analysis/plot_bootstrap_price_predictions.R $(data)
 	cd ../analysis && Rscript plot_bootstrap_price_predictions.R
 
+plots += plots/predictive_model.pdf 
+plots/predictive_model.pdf: ../analysis/plot_predictive_model.R $(data)
+	cd ../analysis && Rscript plot_predictive_model.R
+
+
+
+
 report.pdf: report.tex $(plots) $(params) $(tables)
 	pdflatex report.tex
 	pdflatex report.tex

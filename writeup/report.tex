@@ -260,13 +260,45 @@ People care a great deal
 \includegraphics[width=0.95\columnwidth]{plots/ecdf.pdf} 
 \end{figure}
 
+\section{More sophisticated predictive models}
+
+Suppose you meet someone named ``Dave'' who happens to be very rich.
+Would you start assuming that everyone you meet named Dave is rich?
+Of course not---you would rightly view this as an over-generalization.
+You would also rely on your knowledge that there probably is not much of a relationship between name and wealth---unlike say occupation and wealth.
+If you learned that Dave was a banker and rich, you might use your knowledge of the world to generalize about future bankers.
+
+Statistical models don't ``know'' what features are general and which are not.
+As such, they are prone to over-generalization that is analgous to the rich-Dave example. 
+This is called \href{https://en.wikipedia.org/wiki/Overfitting}{``over-fitting.''}
+To prevent this, we can do a number of things, including penalizing models that are too complicted.
+If we use both name and occupation to make a prediction about Dave, we'd find that getting rid of the name part and keeping the occupation part is helpful, especially since the occupation part is the better predictor. 
+
+Among our comparables, we can leave one comparable out and try to predict the price.
+As we know the price for this, we can assess how well our model does.
+Doing this many, many times, we can learn what's the best model we have, subject to the data we have.
+This is called \href{https://en.wikipedia.org/wiki/Cross-validation_(statistics)}{``cross-validation.''}
+
+For \PropertyName{}, the best model is
+\begin{align}
+\mbox{Predicted Price} = \input{formula.tex}
+\end{align}
+
+\begin{figure}
+\centering
+\caption{Predictive model predicttions for properties versus prices for \PropertyName{}} \label{fig:predictive_model}  
+\includegraphics[width=0.95\columnwidth]{plots/predictive_model.pdf} 
+\end{figure}
+
 \subsection{Bedrooms and bathrooms}
 
 \renewcommand{\refname}{\spacedlowsmallcaps{References}} % For modifying the bibliography heading
 \bibliographystyle{unsrt}
 \bibliography{sample.bib} % The file containing the bibliography
 
+
 \appendix
+
 \section{Raw data} \label{sec:raw_data} 
 
 \end{document}

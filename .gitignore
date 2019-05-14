@@ -1,0 +1,9 @@
+*pdf
+writeup/tables/*
+writeup/plots/*
+*aux
+*out
+*log
+*toc
+*bbl
+*~
