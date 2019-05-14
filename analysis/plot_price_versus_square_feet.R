@@ -22,10 +22,10 @@ g <- ggplot(data = df.raw, aes(x = square_feet, y = price,
     geom_smooth(data = df.raw %>% filter(comp == 1), method = "lm", linetype = "dashed", size = 0.5) + 
     geom_text_repel(aes(label = address), size = 1.25) +
     scale_x_continuous(labels = scales::comma) + 
-    scale_y_continuous(labels = scales::comma) + 
+    scale_y_continuous(labels = scales::dollar_format()) + 
     theme_bw() + 
     theme(legend.position = "none") + 
-    ylab("Price ($)") + 
+    ylab("Price") + 
     xlab("Square Feet") 
 
 JJHmisc::writeImage(g, "price_versus_square_feet", width = 3.5, height = 2.25, path = "../writeup/plots/")
