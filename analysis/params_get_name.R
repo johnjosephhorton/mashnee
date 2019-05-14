@@ -52,26 +52,3 @@ addParam("\\ComparePredictedToActual", ifelse(predicted.price > property.price, 
 addParam("\\PctDiff", ((predicted.price - property.price)/predicted.price) %>% multiply_by(100) %>% round(0))
 
 
-property.price <- df.raw %>% filter(comp == 0) %$% price
-predicted.price <- predict(m, newdata = df.raw %>% filter(comp == 0)) %>% as.numeric
-
-
-GetPrediction <- function(){
-    df.sample <- df.raw %>% filter(comp ==1)
-    n <- nrow(df.sample)
-    df.sample.bs <- df.raw[sample(1:n, replace = TRUE), ]
-    m <- lm(price ~ square_feet, data = df.sample.bs)
-    predicted.price <- predict(m, newdata = df.raw %>% filter(comp == 0)) %>% as.numeric
-    predicted.price
-}
-
-df.results <- data.frame(sapply(1:500, function(x) GetPrediction() ))
-colnames(df.results) <- c("predictions")
-
-g <- ggplot(data = df.results, aes(x = predictions)) +
-    geom_histogram() +
-    geom_vline(xintercept = property.price, colour = "red", linetype = "dashed") +
-    theme_bw() +
-    scale_x_continuous(labels = scales::comma)
-
-print(g)

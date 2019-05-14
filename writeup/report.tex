@@ -7,6 +7,9 @@ headinclude,footinclude, % Extra spacing for the header and footer
 BCOR5mm, % Binding correction
 ]{scrartcl}
 
+\usepackage{longtable}
+
+
 \usepackage[
 nochapters, % Turn off chapters since this is an article        
 beramono, % Use the Bera Mono font for monospaced text (\texttt)
@@ -123,9 +126,34 @@ If you have \emph{any} questions or feedback, please email us at \texttt{info@Ga
 \item The report can be used to figure out how much various other attributes have to be ``worth'' to justify a differnt price. For example, if the target house has an outdated kitched but the comparables do not, does the listing price discount reflect this difference? 
 \end{itemize} 
 
+\section{Methods}
+The basic idea behind \href{https://en.wikipedia.org/wiki/Comparables}{comparables} analysis is to find similar properties, but then ``adjust'' for differences.
+What should we adjust for and by how much? 
+An extra square foot might be more valuable in one neighborhood than an other. 
+
+This report focuses on what economists call ``vertical'' attributes of a property, or things that most people value in a ``more is better'' fashion.
+Examples include things like more square footage, more land, more bathrooms, more bedrooms, a newer roof, a newer furnace and so on.
+Because these factors are nearly universally valued, more/newer means a higher price.
+These are the factors that should be considered when making ``comparables'' more, well, comparable. 
+
+There are also other factors that economists call ``horizontal'' that have an unclear or even non-existent relationship to price because they just reflect tasts.  
+Some people like modern houses; some people like the Cape Cod style.
+If these factors are associated with price, it is typically just because they are related to some other factor.
+
+Some of the factors considered: 
+\begin{itemize}
+\item Conditions of sale
+\item Financing
+\item Market conditions
+\item Location comparability
+\item Physical comparability 
+\end{itemize}
+
 \section{Description of the comparable properties}
 This report compares the attributes of \PropertyName{} to \NumberOfComps{} comparable properties.
 The full raw data is reported in Appendix~\ref{sec:raw_data}. 
+
+\input{tables/comps.tex}
 
 \subsection{Price range} 
 Figure~\ref{fig:price} shows the recorded price for each of the comparables.
@@ -145,7 +173,6 @@ An important determinant of price in any real estate market is the square footag
 \PropertyName{} square footage is TK.
 The smallest property in the comparables is TK, while the largest is TK, and so \PropertyName{} [is|is not] in the range. 
 The two closest properties in size are TK and TK, which are TK\% larger and TK\% smaller than \PropertyName{}, respectively.
-
 To see all the sizes at once, Figure~\ref{fig:square_feet} shows the reported livable square feet for each property.
 The square footage for \PropertyName{} is plotted in pink. 
 
@@ -154,6 +181,8 @@ The square footage for \PropertyName{} is plotted in pink.
 \caption{Reported livable square feet for properties comparable to \PropertyName{}} \label{fig:square_feet}  
 \includegraphics[width=0.95\columnwidth]{plots/square_feet.pdf} 
 \end{figure}
+
+\subsection{Predicting the price from the square footage}
 
 Figure~\ref{fig:price_versus_square_feet} plots the recorded price versus square footage.
 In this data, the average price per square foot---not including \PropertyName{}---is \$\MeanPricePerFoot{}/$ft^2$.
@@ -169,7 +198,6 @@ In this data, each additional square foot is worth \$\MarginalPricePerFoot{}/$ft
 \includegraphics[width=0.95\columnwidth]{plots/price_versus_square_feet.pdf} 
 \end{figure}
 
-\subsection{Predicting the price from the square footage} 
 We can use this regression line to make a prediction about the price. 
 The price formula based only on square footage would be
 \begin{equation}
@@ -185,15 +213,17 @@ which is \PctDiff{}\% \ComparePredictedToActual{} than the asking price of \$\Pr
 \subsection{Dealing with uncertainty} 
 In any estimate about the future, there is uncertainty.
 There are many sources of uncertainty that could cause the prediction for any particular property to differ from the price the property is ultimately sold at.
-For example, there could be local market conditions, a motivated seller, unique amenities not captured by relatively crude metrics like square footage (is the house particularly charming? have an interesting history? great views?). 
-These factors also show up in the particular comparable properties chosen.
+For example, there could be local market conditions, a motivated seller, unique amenities not captured by relatively crude metrics like square footage---is the house particularly charming? have an interesting history? great views?---and so on. 
+
+These idiosyncratic factors certainly affected the price of the comparables.
+This in turn can affect the prediction for the focal property. 
 For example, suppose a particularly beautiful but small house was chosen as a comparable.
 This small house ``punches above its weight'' having a higher-than-anticipated price, given the size.
 This will tend to cause the regression line to be not quite as steep, in turn implying that size doesn't matter as much.
 Similarly, a large but ugly that does poorly on the market will also make our regression line not as steep.
 
 To see how our choice of comparables affects our prediction, we can do something called \href{https://en.wikipedia.org/wiki/Bootstrapping_(statistics)}{``bootstrapping.''}
-In essence, we create new sets of comparables out of thin air---or not exactly---we create a new set of comparables from our existing set. 
+In essence, we create ``new'' sets of comparables from our existing set.
 We take our comparables and then ``draw'' from that pool TK times, \emph{with replacement} meaning that one property could show up more than once or not at all.
 We then pretend that this bootrap sample of comparables is real and estimate our regression model, just like before.
 With a computer, we can do this many, many times and see the range of predictions we get. 
@@ -210,7 +240,8 @@ We can see that 5\% to 95\% is TK.
 \end{figure}
 
 \subsection{Bedrooms and bathrooms}
-
+The square footage alone is not the only factor that matters.
+People care a great deal 
 \begin{figure}
 \centering
 \caption{Reported bedrooms and bathrooms for properties comparable to \PropertyName{}} \label{fig:bedroom_bathroom}  
@@ -228,6 +259,8 @@ We can see that 5\% to 95\% is TK.
 \caption{Overall characteristics of properties comparable to \PropertyName{}} \label{fig:ecdf}  
 \includegraphics[width=0.95\columnwidth]{plots/ecdf.pdf} 
 \end{figure}
+
+\subsection{Bedrooms and bathrooms}
 
 \renewcommand{\refname}{\spacedlowsmallcaps{References}} % For modifying the bibliography heading
 \bibliographystyle{unsrt}

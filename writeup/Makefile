@@ -6,6 +6,13 @@ params += parameters_name.tex
 parameters_name.tex: $(data) ../analysis/params_get_name.R
 	cd ../analysis && Rscript params_get_name.R 
 
+
+tables =
+
+tables += tables/comps.tex
+tables/comps.tex: ../analysis/table_comps.R
+	cd ../analysis && Rscript table_comps.R
+
 plots =
 
 plots += plots/square_feet.pdf 
@@ -32,7 +39,11 @@ plots += plots/ecdf.pdf
 plots/ecdf.pdf: ../analysis/plot_ecdf.R $(data)
 	cd ../analysis && Rscript plot_ecdf.R
 
-report.pdf: report.tex $(plots) $(params)
+plots += plots/bootstrap_price_predictions.pdf 
+plots/bootstrap_price_predictions.pdf: ../analysis/plot_bootstrap_price_predictions.R $(data)
+	cd ../analysis && Rscript plot_bootstrap_price_predictions.R
+
+report.pdf: report.tex $(plots) $(params) $(tables)
 	pdflatex report.tex
 	pdflatex report.tex
 
