@@ -20,9 +20,9 @@ dottedtoc % Dotted lines leading to the page numbers in the table of contents
 \usepackage{graphicx} % Required for including images
 \graphicspath{{Figures/}} % Set the default folder for images
 \usepackage{enumitem} % Required for manipulating the whitespace between and within lists
-\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 \usepackage{subfig} % Required for creating figures with multiple parts (subfigures)
 \usepackage{varioref} % More descriptive referencing
+
 
 \usepackage{amsmath}
 
@@ -49,11 +49,13 @@ pdfproducer={LaTeX with hyperref and ClassicThesis} % PDF producer
 %	TITLE AND AUTHOR(S)
 %----------------------------------------------------------------------------------------
 
-%\title{\normalfont\spacedallcaps{{Comparables to}} } % The article title
-\title{\PropertyName{}}
-\subtitle{A Comparables analysis} % Uncomment to display a subtitle
+\newcommand{\GG}{$\mathbb{G}\mathbb{G}$}
 
-\author{\spacedlowsmallcaps{By} \\ \href{https://www.galtongauss.com}{GaltonGauss.com}}
+%\title{\normalfont\spacedallcaps{{Comparables to}} } % The article title
+\title{Comparables Analysis of:\\ \PropertyName{}\footnote{\textcopyright  Galton Gauss, LLC. 2019. Feel free to share this report with others, but please do not post at a publicly available URL.}}
+\subtitle{} % Uncomment to display a subtitle
+
+\author{\spacedlowsmallcaps{By} \\ \href{https://www.galtongauss.com}{Galton Gauss} \\ $\mathbb{G}\mathbb{G}$}
 % The article author(s) - author affiliations need to be specified in the AUTHOR AFFILIATIONS block
 
 \date{} % An optional date to appear under the author(s)
@@ -101,63 +103,74 @@ pdfproducer={LaTeX with hyperref and ClassicThesis} % PDF producer
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
 
-\section{Introduction}
-This report compares the attributes of \PropertyName{} to a selected group of properties.
-The report is based on \NumberOfComps{} comparable properties.
-The full raw data is reported in Appendix~\ref{sec:raw_data}. 
+\section{About this report}
+This report was prepared by Galton Gauss LLC, using comparable properties provided by the user.
+Although the report was carefully prepared, there could be errors.
+Was there a problem with one of the comparables imported?
+Question about what a number or figure means?
+If you have \emph{any} questions or feedback, please email us at \texttt{info@GaltonGauss.com}.
+
+%% \begin{huge}
+%% \begin{align}
+%%   \mathbb{G}\mathbb{G} \nonumber
+%% \end{align}
+%% \end{huge}
+
+\section{How can this report be used?}
+\begin{itemize}
+\item The report can be used to assess whether buyer or seller is making a reasonable offer, and provide some justification for a price. 
+\item The report can be used to discover whether the comps reasonable. For example, the report can make it clear whether the target property lies outside the range for the most important attributes. As buyers and sellers try to arrive at a price, aggreeing on comps can be an important first step. 
+\item The report can be used to figure out how much various other attributes have to be ``worth'' to justify a differnt price. For example, if the target house has an outdated kitched but the comparables do not, does the listing price discount reflect this difference? 
+\end{itemize} 
 
 \section{Description of the comparable properties}
+This report compares the attributes of \PropertyName{} to \NumberOfComps{} comparable properties.
+The full raw data is reported in Appendix~\ref{sec:raw_data}. 
 
+\subsection{Price range} 
 Figure~\ref{fig:price} shows the recorded price for each of the comparables.
 The minimum price in the comparables data is \$\MinPrice{}, while the maximum price is \$\MaxPrice{}.
-The \PropertyName{} price [is|is not] within the range. 
+The \PropertyName{} price [is|is not] within the range, and is at the TK percentile (i.e., TK\% have prices less than \PropertyName{}, while TK\% have a higher price).
+It is useful that the target house is within the range.
+The two closest properties in terms of price to \PropertyName{} are TK and TK. 
 
-\begin{figure}[tb]
+\begin{figure}
 \centering
 \caption{Reported prices for properties comparable to \PropertyName{}} \label{fig:price}  
 \includegraphics[width=0.95\columnwidth]{plots/price.pdf} 
 \end{figure}
 
-\begin{figure}[tb]
+\subsection{Square footage}
+An important determinant of price in any real estate market is the square footage.
+\PropertyName{} square footage is TK.
+The smallest property in the comparables is TK, while the largest is TK, and so \PropertyName{} [is|is not] in the range. 
+The two closest properties in size are TK and TK, which are TK\% larger and TK\% smaller than \PropertyName{}, respectively.
+
+To see all the sizes at once, Figure~\ref{fig:square_feet} shows the reported livable square feet for each property.
+The square footage for \PropertyName{} is plotted in pink. 
+
+\begin{figure}
 \centering
 \caption{Reported livable square feet for properties comparable to \PropertyName{}} \label{fig:square_feet}  
 \includegraphics[width=0.95\columnwidth]{plots/square_feet.pdf} 
 \end{figure}
 
-\begin{figure}[tb]
-\centering
-\caption{Reported bedrooms and bathrooms for properties comparable to \PropertyName{}} \label{fig:bedroom_bathroom}  
-\includegraphics[width=0.95\columnwidth]{plots/bedroom_bathroom.pdf} 
-\end{figure}
-
-\begin{figure}[tb]
-\centering
-\caption{Reported bedrooms and bathrooms for properties comparable to \PropertyName{}} \label{fig:bedroom_bathroom}  
-\includegraphics[width=0.95\columnwidth]{plots/baths_versus_bedrooms.pdf} 
-\end{figure}
-
-\begin{figure}[tb]
-\centering
-\caption{Overall characteristics of properties comparable to \PropertyName{}} \label{fig:ecdf}  
-\includegraphics[width=0.95\columnwidth]{plots/ecdf.pdf} 
-\end{figure}
-
-
-\section{Price versus square footage}
-
 Figure~\ref{fig:price_versus_square_feet} plots the recorded price versus square footage.
+In this data, the average price per square foot---not including \PropertyName{}---is \$\MeanPricePerFoot{}/$ft^2$.
+At the listed price for \PropertyName{}, the price per square foot is \$\MeanPricePerFootFocal{}/$ft^2$.
 
-\begin{figure}[tb]
+Note that in Figure~\ref{fig:price_versus_square_feet}, there is a sloped line.
+This is a \href{https://en.wikipedia.org/wiki/Linear_regression}{regression} line that can tell us, among among the comparables, how much each additional square foot is ``worth.''
+In this data, each additional square foot is worth \$\MarginalPricePerFoot{}/$ft^2$. 
+
+\begin{figure}
 \centering
 \caption{Price versus square footage} \label{fig:price_versus_square_feet}  
 \includegraphics[width=0.95\columnwidth]{plots/price_versus_square_feet.pdf} 
 \end{figure}
 
-In this data, the average price per square foot---not including \PropertyName{}---is \$\MeanPricePerFoot{}/$ft^2$.
-At the listed price for \PropertyName{}, the price per square foot is \$\MeanPricePerFootFocal{}/$ft^2$.
-Among the comparables, each additional square foot is worth another \$\MarginalPricePerFoot{}/$ft^2$. 
-This is essentially a measure of how ``steep'' the best-fit line is in Figure~\ref{fig:price_versus_square_feet}.
-
+\subsection{Predicting the price from the square footage} 
+We can use this regression line to make a prediction about the price. 
 The price formula based only on square footage would be
 \begin{equation}
   \textsc{Price} = \$ \Intercept{} + (\$ \MarginalPricePerFoot{}/\textsc{SqFt}) \times \textsc{SqFt}. \nonumber
@@ -169,6 +182,52 @@ Using this formula, the predicted price for \PropertyName{}, given that is is \P
 \end{align}
 which is \PctDiff{}\% \ComparePredictedToActual{} than the asking price of \$\PropertyPrice{}.
 
+\subsection{Dealing with uncertainty} 
+In any estimate about the future, there is uncertainty.
+There are many sources of uncertainty that could cause the prediction for any particular property to differ from the price the property is ultimately sold at.
+For example, there could be local market conditions, a motivated seller, unique amenities not captured by relatively crude metrics like square footage (is the house particularly charming? have an interesting history? great views?). 
+These factors also show up in the particular comparable properties chosen.
+For example, suppose a particularly beautiful but small house was chosen as a comparable.
+This small house ``punches above its weight'' having a higher-than-anticipated price, given the size.
+This will tend to cause the regression line to be not quite as steep, in turn implying that size doesn't matter as much.
+Similarly, a large but ugly that does poorly on the market will also make our regression line not as steep.
+
+To see how our choice of comparables affects our prediction, we can do something called \href{https://en.wikipedia.org/wiki/Bootstrapping_(statistics)}{``bootstrapping.''}
+In essence, we create new sets of comparables out of thin air---or not exactly---we create a new set of comparables from our existing set. 
+We take our comparables and then ``draw'' from that pool TK times, \emph{with replacement} meaning that one property could show up more than once or not at all.
+We then pretend that this bootrap sample of comparables is real and estimate our regression model, just like before.
+With a computer, we can do this many, many times and see the range of predictions we get. 
+
+Figure~\ref{fig:bootstrap_price_predictions} plots the distribution of predictions for \PropertyName{}.
+It uses samples from the comparable properties with replacement.
+The listing price for \PropertyName{} is plotted as a vertical line. 
+We can see that 5\% to 95\% is TK.
+
+\begin{figure}
+\centering
+\caption{Price predictions for \PropertyName{} versus listing price} \label{fig:bootstrap_price_predictions}  
+\includegraphics[width=0.55\columnwidth]{plots/bootstrap_price_predictions.pdf} 
+\end{figure}
+
+\subsection{Bedrooms and bathrooms}
+
+\begin{figure}
+\centering
+\caption{Reported bedrooms and bathrooms for properties comparable to \PropertyName{}} \label{fig:bedroom_bathroom}  
+\includegraphics[width=0.95\columnwidth]{plots/bedroom_bathroom.pdf} 
+\end{figure}
+
+\begin{figure}
+\centering
+\caption{Reported bedrooms and bathrooms for properties comparable to \PropertyName{}} \label{fig:baths_versus_bedrooms}  
+\includegraphics[width=0.95\columnwidth]{plots/baths_versus_bedrooms.pdf} 
+\end{figure}
+
+\begin{figure}
+\centering
+\caption{Overall characteristics of properties comparable to \PropertyName{}} \label{fig:ecdf}  
+\includegraphics[width=0.95\columnwidth]{plots/ecdf.pdf} 
+\end{figure}
 
 \renewcommand{\refname}{\spacedlowsmallcaps{References}} % For modifying the bibliography heading
 \bibliographystyle{unsrt}
