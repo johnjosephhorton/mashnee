@@ -151,16 +151,17 @@ Some of the factors considered:
 
 \section{Description of the comparable properties}
 This report compares the attributes of \PropertyName{} to \NumberOfComps{} comparable properties.
-The full raw data is reported in Appendix~\ref{sec:raw_data}. 
+%The full raw data is reported in Appendix~\ref{sec:raw_data}. 
+The most important data collected is shown in the table below:
 
 \input{tables/comps.tex}
 
 \subsection{Price range} 
 Figure~\ref{fig:price} shows the recorded price for each of the comparables.
 The minimum price in the comparables data is \$\MinPrice{}, while the maximum price is \$\MaxPrice{}.
-The \PropertyName{} price [is|is not] within the range, and is at the TK percentile (i.e., TK\% have prices less than \PropertyName{}, while TK\% have a higher price).
-It is useful that the target house is within the range.
-The two closest properties in terms of price to \PropertyName{} are TK and TK. 
+The \PropertyName{} price \InPriceRange{} within the range, and is at the \PricePercentile{} percentile.
+It is useful that the target house is within the price range, though it is important to keep in mind that the target property price is not a sale price and the eventual sale price may be far away from this initial ask. 
+The closest property to \PropertyName{} strictly in terms of price is \ClosestOnPrice{}. 
 
 \begin{figure}
 \centering
@@ -170,10 +171,9 @@ The two closest properties in terms of price to \PropertyName{} are TK and TK.
 
 \subsection{Square footage}
 An important determinant of price in any real estate market is the square footage.
-\PropertyName{} square footage is TK.
-The smallest property in the comparables is TK, while the largest is TK, and so \PropertyName{} [is|is not] in the range. 
-The two closest properties in size are TK and TK, which are TK\% larger and TK\% smaller than \PropertyName{}, respectively.
-To see all the sizes at once, Figure~\ref{fig:square_feet} shows the reported livable square feet for each property.
+\PropertyName{} square footage is \PropertySize{} $ft^2$.
+The smallest property in the comparables is \MinSize{}$ft^2$, while the largest is \MaxSize{}$ft^2$, and so \PropertyName{} \InSizeRange{} in the range. 
+To see all the sizes at once, Figure~\ref{fig:square_feet} shows the reported livable square footage for each property.
 The square footage for \PropertyName{} is plotted in pink. 
 
 \begin{figure}
@@ -210,7 +210,7 @@ Using this formula, the predicted price for \PropertyName{}, given that is is \P
 \end{align}
 which is \PctDiff{}\% \ComparePredictedToActual{} than the asking price of \$\PropertyPrice{}.
 
-\subsection{Dealing with uncertainty} 
+\subsection{Dealing with prediction uncertainty} 
 In any estimate about the future, there is uncertainty.
 There are many sources of uncertainty that could cause the prediction for any particular property to differ from the price the property is ultimately sold at.
 For example, there could be local market conditions, a motivated seller, unique amenities not captured by relatively crude metrics like square footage---is the house particularly charming? have an interesting history? great views?---and so on. 
@@ -241,7 +241,9 @@ We can see that 5\% to 95\% is TK.
 
 \subsection{Bedrooms and bathrooms}
 The square footage alone is not the only factor that matters.
-People care a great deal 
+People care a great deal about the number of bedrooms and bathrooms.
+Figure~\ref{fig:bedroom_bathroom}
+
 \begin{figure}
 \centering
 \caption{Reported bedrooms and bathrooms for properties comparable to \PropertyName{}} \label{fig:bedroom_bathroom}  
@@ -281,16 +283,16 @@ This is called \href{https://en.wikipedia.org/wiki/Cross-validation_(statistics)
 
 For \PropertyName{}, the best model is
 \begin{align}
-\mbox{Predicted Price} = \input{formula.tex}
+\mbox{Predicted Price} = \input{formula.tex}.
 \end{align}
+
+In Figure~\ref{fig:predictive_model}, we plot the predictions of the model versus the actual values.
 
 \begin{figure}
 \centering
 \caption{Predictive model predicttions for properties versus prices for \PropertyName{}} \label{fig:predictive_model}  
 \includegraphics[width=0.95\columnwidth]{plots/predictive_model.pdf} 
 \end{figure}
-
-\subsection{Bedrooms and bathrooms}
 
 \renewcommand{\refname}{\spacedlowsmallcaps{References}} % For modifying the bibliography heading
 \bibliographystyle{unsrt}

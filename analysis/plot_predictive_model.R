@@ -70,4 +70,4 @@ g <- ggplot(data = df.raw, aes(x = square_feet, y = price,
   annotate("text", x = df.raw %>% filter(comp == 0) %$% square_feet, y = df.raw %>% filter(comp == 0) %$% price, label = 'Actual') + 
   annotate("text", x = df.raw %>% filter(comp == 0) %$% square_feet, y = df.raw %>% filter(comp == 0) %$% price.hat, label = "Predicted") 
 
-JJHmisc::writeImage(g, "predictive_model", width = 4, height = 4, path = "../writeup/plots/")
+JJHmisc::writeImage(g, "predictive_model", width = 5, height = 4, path = "../writeup/plots/")
