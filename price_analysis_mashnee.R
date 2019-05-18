@@ -10,8 +10,10 @@ library(reshape2)
 
 # Load comparables data 
 
-df.raw <- read.csv("captains_row_80_comps.csv") %>% 
-  mutate(price = gsub(",","",price) %>% as.numeric)
+df.raw <- read.csv("../data/data.csv") %>% 
+  mutate(price = gsub(",","",price) %>% as.numeric) %>%
+    mutate(sq.ft.k = square_feet / 1000)
+
 
 ############################
 ### Price versus square feet
@@ -81,7 +83,7 @@ for (i in 1:1000){
 }
 
 pp <- predicted.price[predicted.price > 100 & predicted.price < 2000]
-qplot(pp) 
+g <- qplot(pp) 
 
 pdf("predicted_price_bootstrap.pdf", width = 3, height = 3)
 print(g)
@@ -92,15 +94,25 @@ dev.off()
 ## Predictive model - ridge w/ CV for model tuning. All 2nd degree interactions
 ###############################################################################
 
-X <- model.matrix(~ (square_feet + water_views + mashnee_island)^2,
+# Create comps data set 
+df.comps <- df.raw %>% filter(comp == 1) 
+
+X <- model.matrix(~ (sq.ft.k + bedrooms + baths)^2,
                   data = df.comps)
+
 y <- df.comps$price
 m.ridge <- glmnet(X,y)
+
+plot(m.ridge)
 
 cv.out <- cv.glmnet(X,y)
 bestlam <- cv.out$lambda.min
 
-X.full <- model.matrix(~ (square_feet + water_views + mashnee_island)^2, 
+fit <- glmnet(X, y, lambda=bestlam)
+
+coef(fit)
+
+X.full <- model.matrix(~ (sq.ft.k + bedrooms + baths)^2, 
                             data = df.raw)
 
 df.raw$price.hat <- predict(m.ridge, s = bestlam, newx = X.full) %>% as.numeric
@@ -134,16 +146,27 @@ dev.off()
 df.bourne <- read.csv("bourne_median_price_index.csv")
 colnames(df.bourne) <- c("date", "price")
 
+df.bourne$year <- with(df.bourne, difftime(date, min(df.bourne$date), unit = "days") %>% as.numeric %>% multiply_by(1/365))
+
+m <- lm(log(price) ~ year, data = df.bourne %>% filter(date > as.Date("2016-08-01")))
+
+ggplot(data = df.bourne %>% filter(date > as.Date("2016-08-01")), aes(x = date, y = price)) + geom_line()
+
 df.bourne %<>% mutate(date = as.Date(date))
 
 g <- ggplot(data = df.bourne, aes(x = date, y = price)) +
     geom_line() +
     geom_smooth(span = 0.2) +
+    geom_smooth(span = 0.8, colour = "green") + 
     geom_vline(xintercept = as.Date("2007-01-01"), colour = "red", linetype = "dashed") +
     xlab("Date") + ylab("Median sale\nprice in Bourne") +
     theme_bw()
 
 pdf("bourne_median_sale_prices.pdf", width = 5, height = 3)
+print(g)
+dev.off()
+
+png("bourne_median_sale_prices.png", width = 800, height = 480)
 print(g)
 dev.off()
 
@@ -161,4 +184,21 @@ PredictPrice <- function(span){
     975 * (1 + pct.change)
 }
 
-sapply(seq(0.1, 0.8, 0.01), PredictPrice)
+summary(sapply(seq(0.1, 0.7, 0.01), PredictPrice))
+
+
+PredictPrice <- function(span, price){
+    loess.smoother  <- loess(price ~ index, data = df.bourne, span = span)
+    df.bourne$price.hat <- predict(loess.smoother)
+    df.bourne %<>% mutate(days.away = abs(difftime(as.Date("2015-11-01"), date)) %>% as.numeric)
+    sale.date <- df.bourne %>% filter(days.away == min(df.bourne$days.away)) %$% date
+    p0 <- df.bourne %>% filter(date == sale.date) %$% price.hat
+    p1 <- df.bourne %>% filter(date == max(df.bourne$date)) %$% price.hat
+    pct.change <- ((p1 - p0)/p0)
+    price * (1 + pct.change)
+}
+
+summary(sapply(seq(0.1, 0.7, 0.01), function(span) PredictPrice(span, 579)))
+
+
+

@@ -22,8 +22,8 @@ df <- df.raw %>% select(address, comp, baths, bedrooms)
 g <- ggplot(data = df, aes(x = bedrooms, y = baths, colour = factor(comp))) +
     geom_point() +
     theme_bw() +
-    geom_smooth(data = df %>% filter(comp == 1), method = "lm", linetype = "dashed", size = 0.5) + 
-    geom_text_repel(aes(label = address), size = 1.5) +
+    geom_smooth(data = df %>% filter(comp == 1), method = "lm", linetype = "dashed") + 
+    geom_text_repel(aes(label = address)) +
     geom_smooth(method = "lm") +
     theme_bw() +
     theme(legend.position = "none") +

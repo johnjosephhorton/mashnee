@@ -38,17 +38,21 @@ addParam("\\InPriceRange", ifelse(property.price > min.price & property.price < 
 
 F <- df.raw %>% filter(comp == 1) %$% price %>% ecdf
 
-addParam("\\PricePercentile", F(property.price))
+addParam("\\PricePercentile", 100 * F(property.price))
 
 df.raw %<>% mutate(price.error = (price - property.price)^2)
-df.raw <- df.raw[order(df.raw$price.error),]
 
 ###############
 # Property size 
 ###############
 
-property.size <- df.raw %>% filter(comp == 0) %$% square_feet %>% formatC(format = "f", big.mark = ",", digits = 0)
-addParam("\\PropertySize", property.size)
+property.size <- df.raw %>% filter(comp == 0) %$% square_feet 
+addParam("\\PropertySize", property.size %>% formatC(format = "f", big.mark = ",", digits = 0))
+
+df.raw %<>% mutate(size.error = (square_feet - property.size)^2)
+
+df.raw <- df.raw[order(df.raw$size.error),]
+addParam("\\ClosestOnSize", df.raw[2,"address"] %>% as.character)
 
 min.size <- df.raw %>% filter(comp == 1) %$% square_feet %>% min
 max.size <- df.raw %>% filter(comp == 1) %$% square_feet %>% max
@@ -56,10 +60,9 @@ max.size <- df.raw %>% filter(comp == 1) %$% square_feet %>% max
 addParam("\\MinSize", min.size %>% round(0) %>% formatC(format = "f", digits = 0, big.mark = ","))
 addParam("\\MaxSize", max.size %>% round(0) %>% formatC(format = "f", digits = 0, big.mark = ","))
 
-addParam("\\InSizeRange", ifelse(property.size > min.size & property.size < max.sizeo, "is", "is not"))
+addParam("\\InSizeRange", ifelse(property.size > min.size & property.size < max.size, "is", "is not"))
 
-
-
+df.raw <- df.raw[order(df.raw$size.error),]
 addParam("\\ClosestOnPrice", df.raw[2,"address"] %>% as.character)
 
 addParam("\\MeanPricePerFoot",  df.raw %>% filter(comp == 1) %>% mutate(price.per.foot = price / square_feet) %$%

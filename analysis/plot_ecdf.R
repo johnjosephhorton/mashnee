@@ -15,20 +15,32 @@ suppressPackageStartupMessages({
 df.raw <- read.csv("../data/data.csv") %>% 
   mutate(price = gsub(",","",price) %>% as.numeric)
 
-df <- df.raw %>% select(address, comp, baths, bedrooms, square_feet, price) %>% melt(id.vars = c("address", "comp"))  %>%
-    group_by(variable) %>%
-    mutate(percentile = ecdf(value)(value))
+df.comps <- df.raw %>% filter(comp == 1) %>% select(address,  baths, bedrooms, square_feet, price) %>% melt(id.vars = c("address"))
 
-df.comps <- df %>% filter(comp == 1)
-df.comps$address <- with(df.comps, reorder(address, -percentile, mean))
+df.target <- df.raw %>% filter(comp == 0) %>% select(address, baths, bedrooms, square_feet, price) %>% melt(id.vars = c("address")) %>%
+    mutate(target.value = value) %>%
+    select(-value) %>%
+    select(-address)
 
-g <- ggplot(data = df.comps, aes(x = variable, y = percentile)) +
-    geom_point() +
-    geom_point(data = df %>% filter(comp == 0) %>% select(variable, percentile), colour = "pink") + 
+df.combo <- df.comps %>% left_join(df.target, by = c("variable")) %>%
+    mutate(percentile = (value - target.value)/target.value) %>%
+    mutate(direction = ifelse(value > target.value, "pos", "neg"))
+
+df.combo$address <- with(df.combo, reorder(address, -percentile, mean))
+     
+g <- ggplot(data = df.combo, aes(x = variable, y = percentile)) +
     facet_wrap(~address, ncol = 3) +
+    geom_bar(stat = "identity", aes(fill = direction), colour = "black") + 
     theme_bw() +
     scale_y_continuous(label = scales::percent) +
-    theme(axis.text.x = element_text(angle = 45))
+    theme(axis.text.x = element_text(angle = 90)) +
+    geom_hline(yintercept = 0, colour = "black") +
+    scale_fill_manual("direction",
+                      values = c("same" = "gray", "pos" = "lightgreen", "neg" = "pink")
+                      ) +
+    theme(legend.position = "none") +
+    ylab("% relative to target property") +
+    xlab("")
 
 JJHmisc::writeImage(g, "ecdf", width = 5, height = 5, path = "../writeup/plots/")
 

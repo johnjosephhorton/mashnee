@@ -16,7 +16,8 @@ df.raw <- read.csv("../data/data.csv") %>%
 df.raw$address <- with(df.raw, reorder(address, price,  mean))
 
 g <- ggplot(data = df.raw, aes(x = price, y = address, 
-                          colour = factor(comp))) + 
+                               colour = factor(comp),
+                               shape = factor(comp))) + 
     geom_point() + 
     theme_bw() + 
     theme(legend.position = "none") + 

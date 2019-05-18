@@ -23,7 +23,8 @@ df.raw %>% select(-mashnee_island, -water_views, -sale_price) %>%
     cols_align(align = "left", columns = vars(address)) %>%
     cols_label("address" = "Address") %>% 
     tab_header(title = paste0("Comparable properties for:"),
-               subtitle = as.character(property.name)) %>%
+               subtitle = as.character(property.name)
+               ) %>%
     fmt_currency(
         columns = vars(price),
         currency = "USD",
