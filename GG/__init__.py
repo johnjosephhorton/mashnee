@@ -10,12 +10,15 @@ from flask import Flask
 from flask import render_template
 from flask import send_file
 
+def root_dir():  # pragma: no cover
+    return os.path.abspath(os.path.dirname(__file__))
+
 app = Flask(__name__)
 
 # Eventually, do these dynamically 
-static_dir = "/var/www/GG/GG/static"
-template_dir = "/var/www/GG/GG/templates"
-report_dir = "/var/www/GG/report"
+static_dir = os.path.join(root_dir(), "static")
+template_dir = os.path.join(root_dir(), "templates")
+report_dir = os.path.join(root_dir(), "../report")
 
 @app.route("/")
 def hello():

@@ -2,9 +2,15 @@
 
 # Run on Flask development server
 
+Setup:
+```
+python3 -m venv venv
+```
+
 From the command line: 
 ```
-export FLASK_APP=flaskr
+source venv/bin/activate
+export FLASK_APP=GG.py
 export FLASK_ENV=development
 flask run
 ```
