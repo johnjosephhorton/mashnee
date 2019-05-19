@@ -1,6 +1,8 @@
 *pdf
-writeup/tables/*
-writeup/plots/*
+report/writeup/tables/*
+report/writeup/plots/*
+report/writeup/formula*
+report/writeup/para*
 *aux
 *out
 *log
