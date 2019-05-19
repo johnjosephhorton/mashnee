@@ -1,3 +1,4 @@
+
 #! /usr/bin/env Rscript
 
 suppressPackageStartupMessages({
@@ -14,6 +15,10 @@ df.raw <- read.csv("../data/data.csv") %>%
   mutate(price = gsub(",","",price) %>% as.numeric)
 
 addParam("\\PropertyName",  df.raw %>% filter(comp == 0) %$% address)
+
+addParam("\\NumberOfBedrooms",  df.raw %>% filter(comp == 0) %$% bedrooms)
+
+addParam("\\NumberOfBaths",  df.raw %>% filter(comp == 0) %$% baths)
 
 addParam("\\PropertySqFt",  df.raw %>% filter(comp == 0) %$% square_feet %>% round(0) %>%
                             formatC(format = "f", digits = 0, big.mark = ",")

@@ -21,10 +21,10 @@ property.name <- df.raw %>% filter(comp == 0) %$% address
 df.raw %>% select(-mashnee_island, -water_views, -sale_price) %>%
     gt() %>%
     cols_align(align = "left", columns = vars(address)) %>%
-    cols_label("address" = "Address") %>% 
-    tab_header(title = paste0("Comparable properties for:"),
-               subtitle = as.character(property.name)
-               ) %>%
+    cols_label("address" = "Address", "square_feet" = "sqft", "bedrooms" = "Bedrooms", "baths" = "Baths", "price" = "Price") %>% 
+#    tab_header(title = paste0("Comparable properties for:"),
+#               subtitle = as.character(property.name)
+#               ) %>%
     fmt_currency(
         columns = vars(price),
         currency = "USD",
