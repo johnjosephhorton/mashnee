@@ -48,6 +48,8 @@ static_dir = os.path.join(root_dir(), "static")
 template_dir = os.path.join(root_dir(), "templates")
 report_dir = os.path.join(root_dir(), "../report")
 
+full_db_path = os.path.join(root_dir(), "../instance/GG.sqlite")
+
 @app.route("/")
 def hello():
     # landing page for Galton Gauss 
@@ -58,15 +60,21 @@ def hello():
 def properties():
     return render_template("enter_properties.html")
 
-@app.route("/report")
-def report():
+@app.route("/report/<report_id>")
+def report(report_id):
     d = tempfile.mkdtemp(prefix='tmp')
     copy_tree(report_dir, d) # copies the report to the temporary directory
+    ## Copy over a configuration file w/ order number
+    lines = ['order.number <- ' + report_id, "path.to.db <- '%s'" % full_db_path]
+    with open(os.path.join(d, "analysis/config.R"),  'w') as the_file:
+        the_file.write("\n".join(lines))
+    #print(subprocess.check_output(["cat", os.path.join(d, "analysis/config.R")]))
     cmd = ['make', '-C', os.path.join(d, "writeup"), "-B", "report.pdf"] # runs make to build the report
     build_log = subprocess.check_output(cmd)
     copyfile(os.path.join(d, "writeup/report.pdf"), os.path.join(static_dir, "report.pdf")) # copies out the report 
     static_file = os.path.join(static_dir,"report.pdf")
     return send_file(static_file, attachment_filename='report.pdf')
+    #return "test"
 
 @app.route('/store_urls', methods=['POST'])
 def handle_data():
@@ -91,7 +99,7 @@ def handle_data():
         cur.execute("INSERT INTO properties (url_id, address, square_feet, bedrooms, baths, price, comp, order_id) VALUES (?,?,?,?,?,?,?,?)",
                     (url_id, address, square_feet, bedrooms, baths, price, comp, order_id))
         db.commit()
-    return "URLS Entered"
+    return "The order ID is %s" % order_id
 
 if __name__ == "__main__":
     app.run()

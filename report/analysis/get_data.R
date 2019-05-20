@@ -1,6 +1,7 @@
-
 library(DBI)
 
-con <- dbConnect(RSQLite::SQLite(), "/home/john/GG/instance/GG.sqlite")
+source("config.R")
 
-df.raw <- dbGetQuery(con, "select * from properties where order_id = 3")
+con <- dbConnect(RSQLite::SQLite(), path.to.db)
+
+df.raw <- dbGetQuery(con, paste0("select * from properties where order_id = ", order.number))
