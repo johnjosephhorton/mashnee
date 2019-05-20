@@ -12,9 +12,10 @@ suppressPackageStartupMessages({
 
 # Load comparables data 
 
-df.raw <- read.csv("../data/data.csv") %>% 
-  mutate(price = gsub(",","",price) %>% as.numeric)
+## df.raw <- read.csv("../data/data.csv") %>% 
+##   mutate(price = gsub(",","",price) %>% as.numeric)
 
+source("get_data.R")
 
 
 df <- df.raw %>% select(address, comp, baths, bedrooms)

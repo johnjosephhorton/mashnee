@@ -50,7 +50,7 @@ def GetData(url):
     for paragraph in soup.findAll('p', attrs={'id': 'propertyDescription'}):
         product_json['broad-description'] = paragraph.text.strip()
         product_json['overview'] = []
-            # This code block will get you the important points regarding the listed property
+        # This code block will get you the important points regarding the listed property
         for divs in soup.findAll('div', attrs={'data-auto-test-id': 'home-details-overview'}):
             for divs_second in divs.findAll('div'):
                 for uls in divs_second.findAll('ul'):
@@ -58,23 +58,4 @@ def GetData(url):
                         product_json['overview'].append(lis.text.strip())
     return product_json
 
-# Creates a json file with all the information that you extracted
-#with open('house_details.json', 'w') as outfile:
-#    json.dump(product_json, outfile, indent=4)
-
-# Creates an html file in your local with the html content of the page you parsed.
-
-#with open('output_file.html', 'wb') as file:
-#    file.write(html)
-
-
-#print(GetData("https://www.trulia.com/p/ma/bourne/2-plow-penny-rd-bourne-ma-02532--1042554522"))
-
-#print(Getproduct_json)
-
-#print ('----------Extraction of data is complete. Check json file.----------')
-
-#If you enter the HTML mentioned in the example, you will get this JSON saved in your folder-
-
-#Here is the link to download and compare the JSON.
 

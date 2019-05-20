@@ -11,9 +11,9 @@ library(reshape2)
 
 # Load comparables data 
 
-df.raw <- read.csv("../data/data.csv") %>% 
-  mutate(price = gsub(",","",price) %>% as.numeric)
-
+## df.raw <- read.csv("../data/data.csv") %>% 
+##   mutate(price = gsub(",","",price) %>% as.numeric)
+source("get_data.R")
 
 df.raw$address <- with(df.raw, reorder(address, square_feet, mean))
 

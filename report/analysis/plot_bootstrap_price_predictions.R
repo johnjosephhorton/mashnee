@@ -5,8 +5,10 @@ suppressPackageStartupMessages({
     library(ggplot2)
 })
 
-df.raw <- read.csv("../data/data.csv") %>% 
-  mutate(price = gsub(",","",price) %>% as.numeric)
+source("get_data.R")
+
+#df.raw <- read.csv("../data/data.csv") %>% 
+#  mutate(price = gsub(",","",price) %>% as.numeric)
 
 m <- lm(price ~ square_feet, data = df.raw %>% filter(comp == 1))
 

@@ -8,11 +8,13 @@ suppressPackageStartupMessages({
     library(ggplot2)
 })
 
+source("get_data.R")
+## df.raw <- read.csv("../data/data.csv") %>% 
+##   mutate(price = gsub(",","",price) %>% as.numeric)
 # Load comparables data 
+
 addParam <- genParamAdder("../writeup/parameters_name.tex")
 
-df.raw <- read.csv("../data/data.csv") %>% 
-  mutate(price = gsub(",","",price) %>% as.numeric)
 
 addParam("\\PropertyName",  df.raw %>% filter(comp == 0) %$% address)
 
