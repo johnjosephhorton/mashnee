@@ -20,6 +20,14 @@ addParam("\\NumberOfBedrooms",  df.raw %>% filter(comp == 0) %$% bedrooms)
 
 addParam("\\NumberOfBaths",  df.raw %>% filter(comp == 0) %$% baths)
 
+avg.beds  <- df.raw %>% filter(comp==1) %$% bedrooms %>% mean
+avg.baths <- df.raw %>% filter(comp==1) %$% baths %>% mean
+
+addParam("\\AverageBedrooms", avg.beds  )
+addParam("\\AverageBaths", avg.baths  )
+
+#addParam("\\YearBuilt",  df.raw %>% filter(comp == 0) %$% year)
+
 addParam("\\PropertySqFt",  df.raw %>% filter(comp == 0) %$% square_feet %>% round(0) %>%
                             formatC(format = "f", digits = 0, big.mark = ",")
          )
