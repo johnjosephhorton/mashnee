@@ -89,7 +89,7 @@ def see_reports():
 def see_comps(order_id):
     db = get_db()
     cur = db.cursor()
-    cur.execute("select * from properties where order_id = ?", order_id)
+    cur.execute("select p.*, u.url from properties as p join urls as u on u.id = p.url_id where p.order_id = ? and comp = 1", order_id)
     comps = cur.fetchall()
     return render_template("comps.html", comps = comps, order_id = order_id)
 
@@ -100,8 +100,12 @@ def handle_data():
     cur.execute("INSERT INTO orders (username, property_name) VALUES ('John', 'Test');")
     db.commit()
     order_id = cur.lastrowid
-    urls = [x.rstrip() for x in request.form['urls'].split("\n")]
-    is_comp = False 
+    raw_urls = [x.rstrip() for x in request.form['urls'].split("\n")]
+    urls = []
+    for url in raw_urls:
+        if url != '':
+            urls.append(url)
+    is_comp = False
     for url in urls:
         cur.execute("INSERT INTO urls (url, order_id) VALUES (?,?)", (url, order_id))
         url_id = cur.lastrowid

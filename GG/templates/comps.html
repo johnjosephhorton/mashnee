@@ -11,7 +11,7 @@
       <h1>Comps for Order {{ order_id }}</h1>
       <ul class=comps>
 	{% for comp in comps %}
-	 <li>{{ comp.address }} </li> 
+	 <li><a href="{{comp.url}}"> {{ comp.address }} </a></li> 
 	{% else %}
 	 <li><em>Unbelievable.  No entries here so far</em>
 	{% endfor %}
