@@ -11,3 +11,6 @@ report/writeup/para*
 *~
 writeup/formula.tex
 writeup/param*
+venv
+*__pycache__*
+instance

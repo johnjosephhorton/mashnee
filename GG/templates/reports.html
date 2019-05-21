@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Galton Gauss</title>
+    </head>
+    <body>
+      <h1>Reports</h1>
+      <ul class=orders>
+	{% for order in orders %}
+	<li><a>Order: {{ order.id}}</a></li>
+	<ul>
+	  <li>Created at: {{ order.created }}</li>
+	  <li>Property: {{ order.address }} </li>
+	  <li><a href="see_comps/{{ order.id }}">See comps</a></li>
+	  <li><a href="report/{{ order.id }}">Build report</a></li>
+	  
+	  </ul>
+	{% else %}
+	<li><em>Unbelievable.  No entries here so far</em>
+	{% endfor %}
+  </ul>
+    </body>
+</html>

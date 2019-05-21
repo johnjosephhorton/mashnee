@@ -76,6 +76,23 @@ def report(report_id):
     return send_file(static_file, attachment_filename='report.pdf')
     #return "test"
 
+@app.route('/see_reports')
+def see_reports():
+    db = get_db()
+    cur = db.cursor()
+    cur.execute("select o.*, p.address from orders as o left join properties as p on o.id = p.order_id and comp = 0;")
+    orders = cur.fetchall()
+    print(orders)
+    return render_template("reports.html", orders = orders)
+
+@app.route("/see_comps/<order_id>")
+def see_comps(order_id):
+    db = get_db()
+    cur = db.cursor()
+    cur.execute("select * from properties where order_id = ?", order_id)
+    comps = cur.fetchall()
+    return render_template("comps.html", comps = comps, order_id = order_id)
+
 @app.route('/store_urls', methods=['POST'])
 def handle_data():
     db = get_db()
