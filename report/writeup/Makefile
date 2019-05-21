@@ -19,6 +19,14 @@ plots += plots/square_feet.pdf
 plots/square_feet.pdf: ../analysis/plot_square_feet.R $(data)
 	cd ../analysis && Rscript plot_square_feet.R
 
+plots += plots/age.pdf 
+plots/age.pdf: ../analysis/plot_age.R $(data)
+	cd ../analysis && Rscript plot_age.R
+
+plots += plots/lot_size.pdf 
+plots/lot_size.pdf: ../analysis/plot_lot_size.R $(data)
+	cd ../analysis && Rscript plot_lot_size.R
+
 plots += plots/price.pdf 
 plots/price.pdf: ../analysis/plot_price.R $(data)
 	cd ../analysis && Rscript plot_price.R

@@ -13,12 +13,15 @@ suppressPackageStartupMessages({
 
 source("get_data.R")
 
-df.raw %<>% mutate(sq.ft.k = square_feet / 1000)
+df.raw %<>% mutate(sq.ft.k = square_feet / 1000) %>%
+    mutate(lot.sq.ft.k = lotSize / 1000) %>% 
+    mutate(age = lubridate::year(Sys.Date()) - yearBuilt)
 
 # Create comps data set 
 df.comps <- df.raw %>% filter(comp == 1) 
 
-X <- model.matrix(~ (sq.ft.k + bedrooms + baths)^2,
+f <- "~ (sq.ft.k + bedrooms + baths + age + lot.sq.ft.k)^2"
+X <- model.matrix(as.formula(f),
                   data = df.comps)
 
 y <- df.comps$price
@@ -49,7 +52,7 @@ for(i in 2:length(vars.non.zero)){
 
 writeLines(text = formula, con = "../writeup/formula.tex")
 
-X.full <- model.matrix(~ (sq.ft.k + bedrooms + baths)^2, 
+X.full <- model.matrix(as.formula(f), 
                             data = df.raw)
 
 df.raw$price.hat <- predict(m.ridge, s = bestlam, newx = X.full) %>% as.numeric
