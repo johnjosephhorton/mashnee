@@ -15,6 +15,11 @@ tables/comps.tex: ../analysis/table_comps.R
 
 plots =
 
+plots += plots/map.pdf 
+plots/map.pdf: ../analysis/plot_map.R $(data)
+	cd ../analysis && Rscript plot_map.R
+
+
 plots += plots/square_feet.pdf 
 plots/square_feet.pdf: ../analysis/plot_square_feet.R $(data)
 	cd ../analysis && Rscript plot_square_feet.R
