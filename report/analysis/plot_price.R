@@ -10,8 +10,10 @@ suppressPackageStartupMessages({
 
 # Load comparables data 
 
-df.raw <- read.csv("../data/data.csv") %>% 
-  mutate(price = gsub(",","",price) %>% as.numeric)
+source("get_data.R")
+
+## df.raw <- read.csv("../data/data.csv") %>% 
+##   mutate(price = gsub(",","",price) %>% as.numeric)
 
 df.raw$address <- with(df.raw, reorder(address, price,  mean))
 

@@ -11,9 +11,9 @@ suppressPackageStartupMessages({
 
 # Load comparables data 
 
-df.raw <- read.csv("../data/data.csv") %>% 
-  mutate(price = gsub(",","",price) %>% as.numeric) %>%
-    mutate(sq.ft.k = square_feet / 1000)
+source("get_data.R")
+
+df.raw %<>% mutate(sq.ft.k = square_feet / 1000)
 
 # Create comps data set 
 df.comps <- df.raw %>% filter(comp == 1) 

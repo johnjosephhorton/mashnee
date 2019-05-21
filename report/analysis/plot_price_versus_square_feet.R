@@ -12,9 +12,10 @@ suppressPackageStartupMessages({
 
 # Load comparables data 
 
-df.raw <- read.csv("../data/data.csv") %>% 
-  mutate(price = gsub(",","",price) %>% as.numeric)
+#df.raw <- read.csv("../data/data.csv") %>% 
+#  mutate(price = gsub(",","",price) %>% as.numeric)
 
+source("get_data.R")
 
 g <- ggplot(data = df.raw, aes(x = square_feet, y = price, 
                           colour = factor(comp))) + 

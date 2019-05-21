@@ -13,19 +13,19 @@ suppressPackageStartupMessages({
 
 # Load comparables data 
 
-df.raw <- read.csv("../data/data.csv") %>% 
-  mutate(price = gsub(",","",price) %>% as.numeric)
+source("get_data.R")
 
 property.name <- df.raw %>% filter(comp == 0) %$% address
 
-df.raw %>% select(-mashnee_island, -water_views, -sale_price, -comp, -city, -state) %>%
+df.raw %>% 
+    select(-id, -created, -url_id) %>% 
     gt() %>%
     cols_align(align = "left", columns = vars(address)) %>%
     cols_label("address" = "Address", "square_feet" = "sqft", "bedrooms" = "Bedrooms", "baths" = "Baths", "price" = "Price", "year" = "Year") %>% 
-#    tab_header(title = paste0("Comparable properties for:"),
-#               subtitle = as.character(property.name)
-#               ) %>%
-    fmt_currency(
+    tab_header(title = paste0("Comparable properties for:"),
+               subtitle = as.character(property.name)
+               ) %>% 
+     fmt_currency(
         columns = vars(price),
         currency = "USD",
         decimals = 0 

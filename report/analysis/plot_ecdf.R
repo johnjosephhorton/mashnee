@@ -11,6 +11,7 @@ suppressPackageStartupMessages({
 })
 
 # Load comparables data 
+source("get_data.R")
 
 df.raw <- read.csv("../data/data.csv") %>% 
   mutate(price = gsub(",","",price) %>% as.numeric)
