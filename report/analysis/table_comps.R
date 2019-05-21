@@ -18,21 +18,23 @@ source("get_data.R")
 
 property.name <- df.raw %>% filter(comp == 0) %$% address
 
+
+
 df.raw %>% 
-    select(-id, -created, -url_id) %>% 
+    select(-id, -created, -url_id, -state, -latitude, -longitude, -homeType, -comp, -order_id) %>% 
     gt() %>%
     cols_align(align = "left", columns = vars(address)) %>%
-    cols_label("address" = "Address", "square_feet" = "sqft", "bedrooms" = "Bedrooms", "baths" = "Baths", "price" = "Price") %>% 
-    tab_header(title = paste0("Comparable properties for:"),
-               subtitle = as.character(property.name)
-               ) %>% 
+    cols_label("address" = "Address", "city" = "City", "yearBuilt" = "Year", "square_feet" = "Sqft", "lotSize" = "Lot", "bedrooms" = "Bedrooms", "baths" = "Baths", "price" = "Price") %>% 
+#    tab_header(title = paste0("Comparable properties for:"),
+#               subtitle = as.character(property.name)
+#               ) %>% 
      fmt_currency(
         columns = vars(price),
         currency = "USD",
         decimals = 0 
     ) %>%
     fmt_number(
-        columns = vars(square_feet),
+        columns = vars(square_feet, lotSize),
         decimals = 0
     ) %>% as_latex %>% as.character %>% writeLines(con = "../writeup/tables/comps.tex")
 

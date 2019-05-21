@@ -113,44 +113,40 @@ This report uses advanced statistical tools and predictive models to provide a g
 a \NumberOfBedrooms{}-bedroom, \NumberOfBaths{}-bath 
 \PropertyType{} built in \PropertyYearBuilt{}, and \NumberOfComps{} comparable recent property sales:
 
-
-testtest
-
 \input{tables/comps.tex}
-Data from comparable recent sales are used to analyze each of the important attributes of the target property. The analysis will enable all parties to critically assess the many components of the property and evaluate the price in a highly informed manner.
-\newline For more details on the data and analytical methods used, see Appendix~\ref{sec:methods}.
+Data from comparable recent sales are used to analyze each of the important attributes of the target property, both individually and collectively, enabling parties to evaluate the price in a highly informed manner and negotiate terms with confidence.
 
 \subsection{How to use this report}
 \begin{itemize}
 \item The report can be used to assess whether a party is making a reasonable offer, and provide justification for a price. 
-\item The report can be used to discover whether the selected comparables are reasonable and relevant for comparison. For example, the report can clarify whether a target property lies outside of the ranges for the most important property attributes. As parties work to arrive at a price, agreeing on comps can be an important first step. 
+\item The report can be used to discover whether the selected comparables are reasonable and actually relevant for purposes of comparison. For example, the report can clarify whether a target property lies outside of the range of a given property attribute among the selected comparables. As parties work to arrive at a price, agreeing on comps can be a critical first step. 
 \item The report can be used to determine the value of various attributes necessary to justify a price or offer. For example, if a target house has an outdated kitchen but the comparables do not, does the listing price discount reflect this difference? 
 \end{itemize} 
 
+For more details on the data and analytical methods used, see Appendix~\ref{sec:methods}.
+
 \subsection{Sale prices} 
-Figure~\ref{fig:price} below shows the listing price for \PropertyName{} and the sale price of each comparable property.
+Figure~\ref{fig:price} below shows the listing price for \textbf{\PropertyName{}} and the sale price of each comparable property.
 The listing price for \PropertyName{} is plotted in pink. 
 Among the comparables, the minimum sale price is \$\MinPrice{} and the maximum price is \$\MaxPrice{}.
-The listing price for \PropertyName{} \InPriceRange{} within the range of the comparable sales prices and is at the \PricePercentile{} percentile of those prices.
+The listing price for \PropertyName{} \InPriceRange{} within the range of the comparable sales prices and is at the \PricePercentile{}th percentile of those prices.
 
 
 \begin{figure}[h!]
 \centering
-\caption{Current listing price for \PropertyName{} and reported sale prices for comparable properties} 
+\caption{Current listing price for \PropertyName{} and reported sale prices of comparable properties} 
 \label{fig:price}  
 \includegraphics[width=0.95\columnwidth]{plots/price.pdf} 
 \end{figure}
-
 
 
 It is useful that the target house is within the comparable sales price range, though it is important to keep in mind that the listing price is not a sale price, and the ultimate sale price may be far away from this initial ask.
 In terms of price, the property closest to \PropertyName{} is \ClosestOnPrice{}. 
 
 \subsection{Square footage}
-An important determinant of price in any real estate market is the square footage.
-\PropertyName{} square footage is \PropertySize{} $ft^2$.
-Among the comparables, the smallest property is \MinSize{}$ft^2$ and the largest is \MaxSize{}$ft^2$---\PropertyName{} \InSizeRange{} in this range. 
-Figure~\ref{fig:square_feet} below shows the square footage of \PropertyName{} and and each comparable property.
+An important determinant of price in any real estate market is square footage.
+Among the comparables, the smallest property is \MinSize{}$ft^2$ and the largest is \MaxSize{}$ft^2$---at \PropertySize{}$ft^2$, \PropertyName{} \InSizeRange{} in this range. 
+Figure~\ref{fig:square_feet} below shows the square footage of \PropertyName{} and each comparable property.
 The square footage of \PropertyName{} is plotted in pink. 
 In terms of price, the property closest to \PropertyName{} is \ClosestOnSize{}.
 
@@ -163,6 +159,7 @@ In terms of price, the property closest to \PropertyName{} is \ClosestOnSize{}.
 Figure~\ref{fig:price_versus_square_feet} plots the price versus the square footage of \PropertyName{} and comparable properties.
 In this data, the average price per square foot among the comparables---\textit{i.e.,} excluding \PropertyName{}---is \$\MeanPricePerFoot{}/$ft^2$.
 At its listed price, the price per square foot for \PropertyName{} is \$\MeanPricePerFootFocal{}/$ft^2$.
+%---\MeanPricePerFootPct{}\% \CompareMeanPricePerFoot{} than average of the comparables.
 
 The sloped dashed line in Figure~\ref{fig:price_versus_square_feet} is a \href{https://en.wikipedia.org/wiki/Linear_regression}{regression} line that can tell us how much each additional square foot is ``worth'' in terms of sale price among the comparables.
 Among the properties comparable to \PropertyName{}, each additional square foot is worth \$\MarginalPricePerFoot{}/$ft^2$. 

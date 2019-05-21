@@ -60,7 +60,7 @@ addParam("\\InPriceRange", ifelse(property.price > min.price & property.price < 
 
 F <- df.raw %>% filter(comp == 1) %$% price %>% ecdf
 
-addParam("\\PricePercentile", 100 * F(property.price))
+addParam("\\PricePercentile", 100 * F(property.price) %>% round(0))
 
 df.raw %<>% mutate(price.error = (price - property.price)^2)
 
@@ -92,6 +92,7 @@ addParam("\\MeanPricePerFoot",  df.raw %>% filter(comp == 1) %>% mutate(price.pe
 
 addParam("\\MeanPricePerFootFocal",  df.raw %>% filter(comp == 0) %>% mutate(price.per.foot = price / square_feet) %$%
                                 price.per.foot %>% mean %>% round(0))
+
 
 m <- lm(price ~ square_feet, data = df.raw %>% filter(comp == 1))
 
