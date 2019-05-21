@@ -1,3 +1,4 @@
+
 #! /usr/bin/env Rscript
 
 suppressPackageStartupMessages({
@@ -21,7 +22,7 @@ df.raw %>%
     select(-id, -created, -url_id) %>% 
     gt() %>%
     cols_align(align = "left", columns = vars(address)) %>%
-    cols_label("address" = "Address", "square_feet" = "sqft", "bedrooms" = "Bedrooms", "baths" = "Baths", "price" = "Price", "year" = "Year") %>% 
+    cols_label("address" = "Address", "square_feet" = "sqft", "bedrooms" = "Bedrooms", "baths" = "Baths", "price" = "Price") %>% 
     tab_header(title = paste0("Comparable properties for:"),
                subtitle = as.character(property.name)
                ) %>% 

@@ -13,8 +13,8 @@ suppressPackageStartupMessages({
 # Load comparables data 
 source("get_data.R")
 
-df.raw <- read.csv("../data/data.csv") %>% 
-  mutate(price = gsub(",","",price) %>% as.numeric)
+#df.raw <- read.csv("../data/data.csv") %>% 
+#  mutate(price = gsub(",","",price) %>% as.numeric)
 
 df.comps <- df.raw %>% filter(comp == 1) %>% select(address,  baths, bedrooms, square_feet, price) %>% melt(id.vars = c("address"))
 
