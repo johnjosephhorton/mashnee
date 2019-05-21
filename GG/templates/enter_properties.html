@@ -1,14 +1,49 @@
 <html>
     <head>
-        <title>Welcome</title>
+      <title>Welcome</title>
     </head>
+    <script>
+      function myFunction() {
+  /* Get the text field */
+  var copyText = document.getElementById("sample_urls");
+
+  /* Select the text field */
+  copyText.select();
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("Copied");
+} 
+      </script> 
     <body>
+      <h1>Options</h1>
+      <ul>
+      <li><a href="/see_reports">See reports</a></li>
+      </ul>
+      <h2>Sample URLs</h2>
+
+<textarea rows="8" cols="90" name="urls" align="left" id="sample_urls">
+https://www.zillow.com/homedetails/153-Captains-Row-Bourne-MA-02532/186978093_zpid/
+https://www.zillow.com/homedetails/188-Captains-Row-Bourne-MA-02532/186978104_zpid/
+https://www.zillow.com/homedetails/88-Rope-Walk-Rd-Bourne-MA-02532/186977000_zpid/
+https://www.zillow.com/homedetails/357-Circuit-Ave-Pocasset-MA-02559/186980501_zpid/
+https://www.zillow.com/homedetails/80-Circuit-Ave-Pocasset-MA-02559/186980600_zpid/
+https://www.zillow.com/homedetails/29-Captains-Row-Bourne-MA-02532/186977022_zpid/
+https://www.zillow.com/homedetails/9-Captains-Row-Bourne-MA-02532/186977017_zpid/
+https://www.zillow.com/homedetails/579-Circuit-Ave-Pocasset-MA-02559/186980531_zpid/</textarea>
+
+<button onclick="myFunction()">Copy example URLs</button>
+      
       <h1>Enter properties</h1>
       <p>Enter Zillow URLs only, one per line. Make sure there is no
       empty last line i.e., cursor ends on last URL</p>
-      
+
+     
       <form action="/store_urls" method = "post">
-	<textarea rows="15" cols="90" name="urls"></textarea>
+	<textarea rows="15" cols="90" name="urls" align="left">
+	</textarea>
 	<input type="submit">
       </form>
 

@@ -1,6 +1,3 @@
-
-
-
 #! /usr/bin/env Rscript
 
 suppressPackageStartupMessages({
@@ -20,9 +17,13 @@ addParam <- genParamAdder("../writeup/parameters_name.tex")
 
 addParam("\\PropertyName",  df.raw %>% filter(comp == 0) %$% address)
 
-addParam("\\PropertyCityState", "TK")
-addParam("\\PropertyType", "TK")
-addParam("\\YearBuilt", "TK")
+addParam("\\PropertyCity", df.raw %>% filter(comp == 0) %$% city)
+addParam("\\PropertyState", df.raw %>% filter(comp == 0) %$% state)
+
+home.type <- df.raw %>% filter(comp == 0) %$% homeType %>% as.character
+addParam("\\PropertyType", gsub("_", " ", tolower(home.type)))
+
+addParam("\\PropertyYearBuilt", df.raw %>% filter(comp == 0) %$% yearBuilt)
 
 addParam("\\NumberOfBedrooms",  df.raw %>% filter(comp == 0) %$% bedrooms)
 

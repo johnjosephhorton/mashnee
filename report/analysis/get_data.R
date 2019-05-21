@@ -1,8 +1,7 @@
 library(DBI)
 
-by.hand <- FALSE
-if (by.hand){
-   order.number <- 4
+if (!file.exists("config.R")){
+   order.number <- 1
    path.to.db <- "~/GG/instance/GG.sqlite"
 }  else {
    source("config.R")

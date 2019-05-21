@@ -50,15 +50,17 @@ report_dir = os.path.join(root_dir(), "../report")
 
 full_db_path = os.path.join(root_dir(), "../instance/GG.sqlite")
 
+completed_report_folder = os.path.join(root_dir(), "../completed_reports")
+
 @app.route("/")
 def hello():
-    # landing page for Galton Gauss 
-    user = {'username': 'Robin'}
-    return render_template('welcome.html', title = 'Home', user = user)
+    return render_template('welcome.html')
 
 @app.route("/enter_properties")
 def properties():
-    return render_template("enter_properties.html")
+    urls = ['https://www.zillow.com/homedetails/210-Clipper-Rd-Bourne-MA-02532/186978102_zpid/',
+         'https://www.zillow.com/homedetails/188-Captains-Row-Bourne-MA-02532/186978104_zpid/']
+    return render_template("enter_properties.html", urls = urls)
 
 @app.route("/report/<report_id>")
 def report(report_id):
@@ -68,19 +70,17 @@ def report(report_id):
     lines = ['order.number <- ' + report_id, "path.to.db <- '%s'" % full_db_path]
     with open(os.path.join(d, "analysis/config.R"),  'w') as the_file:
         the_file.write("\n".join(lines))
-    #print(subprocess.check_output(["cat", os.path.join(d, "analysis/config.R")]))
     cmd = ['make', '-C', os.path.join(d, "writeup"), "-B", "report.pdf"] # runs make to build the report
     build_log = subprocess.check_output(cmd)
     copyfile(os.path.join(d, "writeup/report.pdf"), os.path.join(static_dir, "report.pdf")) # copies out the report 
     static_file = os.path.join(static_dir,"report.pdf")
     return send_file(static_file, attachment_filename='report.pdf')
-    #return "test"
 
 @app.route('/see_reports')
 def see_reports():
     db = get_db()
     cur = db.cursor()
-    cur.execute("select o.*, p.address from orders as o left join properties as p on o.id = p.order_id and comp = 0;")
+    cur.execute("select o.*, p.address from orders as o left join properties as p on o.id = p.order_id and comp = 0 order by o.id desc;")
     orders = cur.fetchall()
     print(orders)
     return render_template("reports.html", orders = orders)
@@ -107,16 +107,26 @@ def handle_data():
         url_id = cur.lastrowid
         p = GetData(url)
         address = p['streetAddress']
+        state = p['state']
+        city = p['city']
+        latitude = p['latitude']
+        longitude = p['longitude']
+        yearBuilt = p['yearBuilt']
+        homeType = p['homeType']
+        lotSize = p['lotSize']
         square_feet = p['livingArea']
         bedrooms = p['bedrooms']
         baths = p['bathrooms']
         price = p['price']
         comp = is_comp
         is_comp = True
-        cur.execute("INSERT INTO properties (url_id, address, square_feet, bedrooms, baths, price, comp, order_id) VALUES (?,?,?,?,?,?,?,?)",
-                    (url_id, address, square_feet, bedrooms, baths, price, comp, order_id))
+        fields = (url_id, address, state, city, latitude, longitude, yearBuilt, homeType, lotSize,
+                     square_feet, bedrooms, baths, price, comp, order_id)
+        cur.execute("""INSERT INTO properties (url_id, address, state, city, latitude, longitude, yearBuilt, homeType, lotSize, square_feet, 
+                            bedrooms, baths, price, comp, order_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""", fields
+                    )
         db.commit()
-    return "The order ID is %s" % order_id
+    return render_template("confirm_store_urls.html", order_id = order_id)
 
 if __name__ == "__main__":
     app.run()
