@@ -19,11 +19,13 @@ property.name <- df.raw %>% filter(comp == 0) %$% address
 
 df.raw %<>% mutate(ask = ifelse(comp == 0, "Yes", NA))
 
+#df.raw %<>% mutate(address = paste0("\\href{", url, "}{", address, "}"))
+
 df.raw %>% 
-    select(-id, -city, -created, -url_id, -state, -latitude, -longitude, -homeType, -order_id, -comp) %>% 
+    select(-id, -city, -created, -url_id, -state, -latitude, -longitude, -homeType, -order_id, -comp, -url) %>% 
     gt() %>%
     cols_align(align = "left", columns = vars(address)) %>%
-    cols_label("address" = "Address",
+    cols_label("address" = "Property",
                # "city" = "City",
                "yearBuilt" = "Built",
                "square_feet" = "Living",
