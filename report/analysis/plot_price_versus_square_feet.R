@@ -10,23 +10,20 @@ suppressPackageStartupMessages({
     library(JJHmisc)
 })
 
-# Load comparables data 
-
-#df.raw <- read.csv("../data/data.csv") %>% 
-#  mutate(price = gsub(",","",price) %>% as.numeric)
 
 source("get_data.R")
+
 
 g <- ggplot(data = df.raw, aes(x = square_feet, y = price, 
                           colour = factor(comp))) + 
     geom_point() +
     geom_smooth(data = df.raw %>% filter(comp == 1), method = "lm", linetype = "dashed", size = 0.5) + 
-    geom_text_repel(aes(label = address)) +
+    geom_label_repel(aes(label = address), size = 2) +
     scale_x_continuous(labels = scales::comma) + 
-    scale_y_continuous(labels = scales::dollar_format()) + 
+    scale_y_continuous(labels = scales::dollar) + 
     theme_bw() + 
-    theme(legend.position = "none") 
-#    ylab("Price") + 
-#    xlab("Square Feet") 
+    theme(legend.position = "none") + 
+    ylab("Price") + 
+    xlab("SqFt") 
 
-JJHmisc::writeImage(g, "price_versus_square_feet", width = 5, height = 4, path = "../writeup/plots/")
+JJHmisc::writeImage(g, "price_versus_square_feet", width = 4, height = 3, path = "../writeup/plots/")

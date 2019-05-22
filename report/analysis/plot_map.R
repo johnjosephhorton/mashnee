@@ -61,10 +61,12 @@ b <- get_map(BBox.square,maptype="toner-lite", source="stamen")
 g <- ggmap(b) +
     geom_point(data = df.raw, aes(x = longitude, y = latitude, colour = factor(comp))) +
     geom_label_repel(data = df.raw, aes(x = longitude, y = latitude, label = address, colour = factor(comp))) +
-    theme(legend.position = "none") +
     xlab("") +
     ylab("") +
-    scale_y_continuous(NULL, NULL)
+    theme_bw() +
+    theme(legend.position = "none") + 
+    scale_y_continuous(NULL, NULL) +
+    scale_x_continuous(NULL, NULL)
 
 #b <- get_map(BBox, source="google")
 #g <- ggmap(b, base_layer = ggplot(aes(x = latitude, y = longitude), data = df.raw)) + geom_point()

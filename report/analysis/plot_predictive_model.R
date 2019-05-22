@@ -12,6 +12,7 @@ suppressPackageStartupMessages({
 # Load comparables data 
 
 source("get_data.R")
+source("format_currency.R")
 
 df.raw %<>% mutate(sq.ft.k = square_feet / 1000) %>%
     mutate(lot.sq.ft.k = lotSize / 1000) %>% 
@@ -20,7 +21,7 @@ df.raw %<>% mutate(sq.ft.k = square_feet / 1000) %>%
 # Create comps data set 
 df.comps <- df.raw %>% filter(comp == 1) 
 
-f <- "~ (sq.ft.k + bedrooms + baths + age + lot.sq.ft.k)^2"
+f <- "~ (sq.ft.k + lot.sq.ft.k)^2"
 X <- model.matrix(as.formula(f),
                   data = df.comps)
 
@@ -57,20 +58,33 @@ X.full <- model.matrix(as.formula(f),
 
 df.raw$price.hat <- predict(m.ridge, s = bestlam, newx = X.full) %>% as.numeric
 
+y <- predict(m.ridge, s = bestlam, newx = X.full, interval="predict") 
 
-g <- ggplot(data = df.raw, aes(x = square_feet, y = price, 
-                          colour = factor(comp))) + 
-  geom_point() + 
-  geom_point(aes(y = price.hat), shape = 1) +
-  geom_segment(aes(yend = price.hat, xend = square_feet), 
-               arrow=arrow(type = "closed", length = unit(0.05, "inches"))) + 
-  scale_x_continuous(labels = scales::comma) + 
-  scale_y_continuous(labels = scales::comma) + 
-  theme_bw() + 
-  theme(legend.position = "none") + 
-  ylab("Price") + 
-  xlab("Square Feet") +
-  annotate("text", x = df.raw %>% filter(comp == 0) %$% square_feet, y = df.raw %>% filter(comp == 0) %$% price, label = 'Actual') + 
-  annotate("text", x = df.raw %>% filter(comp == 0) %$% square_feet, y = df.raw %>% filter(comp == 0) %$% price.hat, label = "Predicted") 
+df.compare <- df.raw %>% select(price, price.hat, address, comp) %>% melt(id.var = c("address", "comp")) %>%
+    mutate(type = ifelse(variable == "price", "Actual", "Predicted"))
+
+df.pct <- df.compare %>% group_by(address, comp) %>%
+    summarise(
+        middle.height = (value[type == "Actual"]  + value[type == "Predicted"])/2, 
+        height = value[type == "Predicted"], 
+        pct.change = round(100 * (value[type=="Predicted"] - value[type=="Actual"])/value[type=="Actual"], 1))
+
+g <- ggplot(data = df.compare, aes(x = type, y = value,
+                               group = address,
+                               colour = factor(comp)
+                               )) +
+    geom_line() + 
+    scale_y_continuous(labels = priceFormatter()) + 
+    theme_bw() + 
+    theme(legend.position = "none") +
+    geom_text_repel(data = df.compare %>% filter(type == "Actual"), aes(label = address),
+                    xlim = c(NA, 1), size = 3,  
+                    segment.colour = "grey") + 
+    ylab("") +
+    xlab("") + 
+    geom_text(data = df.pct, x = 2.15, aes(y = height, label = paste0(pct.change, "%"))) +
+    geom_label(data = df.pct %>% filter(comp == 0), x = 1.5,
+                     aes(y = middle.height, label = "% difference\nbetween\npredicted\nand actual\nprices"), size = 2)
+
 
 JJHmisc::writeImage(g, "predictive_model", width = 5, height = 4, path = "../writeup/plots/")
