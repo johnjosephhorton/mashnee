@@ -1,4 +1,3 @@
-
 #! /usr/bin/env Rscript
 
 suppressPackageStartupMessages({
@@ -18,17 +17,26 @@ source("get_data.R")
 
 property.name <- df.raw %>% filter(comp == 0) %$% address
 
-
+df.raw %<>% mutate(ask = ifelse(comp == 0, "Yes", NA))
 
 df.raw %>% 
-    select(-id, -created, -url_id, -state, -latitude, -longitude, -homeType, -comp, -order_id) %>% 
+    select(-id, -city, -created, -url_id, -state, -latitude, -longitude, -homeType, -order_id, -comp) %>% 
     gt() %>%
     cols_align(align = "left", columns = vars(address)) %>%
-    cols_label("address" = "Address", "city" = "City", "yearBuilt" = "Year", "square_feet" = "Sqft", "lotSize" = "Lot", "bedrooms" = "Bedrooms", "baths" = "Baths", "price" = "Price") %>% 
-#    tab_header(title = paste0("Comparable properties for:"),
-#               subtitle = as.character(property.name)
-#               ) %>% 
-     fmt_currency(
+    cols_label("address" = "Address",
+               # "city" = "City",
+               "yearBuilt" = "Built",
+               "square_feet" = "Living",
+               "lotSize" = "Lot",
+               "bedrooms" = "Bed",
+               "baths" = "Bath",
+               "price" = " ",
+               "ask" = "Ask?") %>%
+    tab_spanner("Rooms", c("bedrooms", "baths")) %>%
+    tab_spanner("Pricing", c("price", "ask")) %>%
+    tab_spanner("Space (sqft)", c("square_feet", "lotSize")) %>%
+    fmt_missing(columns = vars(ask), missing_text = " ") %>%
+    fmt_currency(
         columns = vars(price),
         currency = "USD",
         decimals = 0 
