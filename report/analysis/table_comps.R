@@ -21,10 +21,10 @@ property.name <- df.raw %>% filter(comp == 0) %$% address
 
 
 df.raw %>% 
-    select(-id, -created, -url_id, -state, -latitude, -longitude, -homeType, -comp, -order_id) %>% 
+    select(-id, -created, -url_id, -city, -state, -latitude, -longitude, -homeType, -comp, -order_id) %>% 
     gt() %>%
     cols_align(align = "left", columns = vars(address)) %>%
-    cols_label("address" = "Address", "city" = "City", "yearBuilt" = "Year", "square_feet" = "Sqft", "lotSize" = "Lot", "bedrooms" = "Bedrooms", "baths" = "Baths", "price" = "Price") %>% 
+    cols_label("address" = "Address", "yearBuilt" = "Year", "square_feet" = "Sqft", "lotSize" = "Lot", "bedrooms" = "Beds", "baths" = "Baths", "price" = "Price") %>% 
 #    tab_header(title = paste0("Comparable properties for:"),
 #               subtitle = as.character(property.name)
 #               ) %>% 

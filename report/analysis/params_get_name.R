@@ -60,7 +60,7 @@ addParam("\\InPriceRange", ifelse(property.price > min.price & property.price < 
 
 F <- df.raw %>% filter(comp == 1) %$% price %>% ecdf
 
-addParam("\\PricePercentile", 100 * F(property.price) %>% round(0))
+addParam("\\PricePercentile", 100 * F(property.price) %>% round(2))
 
 df.raw %<>% mutate(price.error = (price - property.price)^2)
 
@@ -92,6 +92,17 @@ addParam("\\MeanPricePerFoot",  df.raw %>% filter(comp == 1) %>% mutate(price.pe
 
 addParam("\\MeanPricePerFootFocal",  df.raw %>% filter(comp == 0) %>% mutate(price.per.foot = price / square_feet) %$%
                                 price.per.foot %>% mean %>% round(0))
+
+
+
+mean.sqft.comp <- df.raw %>% filter(comp == 1) %>% mutate(price.per.foot = price / square_feet) %$%
+                                price.per.foot %>% mean %>% round(0)
+
+mean.sqft.target <- df.raw %>% filter(comp == 0) %>% mutate(price.per.foot = price / square_feet) %$%
+                                price.per.foot %>% mean %>% round(0)
+
+addParam("\\MeanPricePerFootPct", ((mean.sqft.comp - mean.sqft.target)/mean.sqft.target) %>% multiply_by(100) %>% round(0))
+addParam("\\ComparePricePerFoot", ifelse(mean.sqft.target > mean.sqft.comp, "higher", "lower"))
 
 
 m <- lm(price ~ square_feet, data = df.raw %>% filter(comp == 1))
