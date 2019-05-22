@@ -34,7 +34,7 @@ df.raw %>%
                "bedrooms" = "Bed",
                "baths" = "Bath",
                "price" = " ",
-               "ask" = "Ask?") %>%
+               "ask" = "List?") %>%
     tab_spanner("Rooms", c("bedrooms", "baths")) %>%
     tab_spanner("Pricing", c("price", "ask")) %>%
     tab_spanner("Space (sqft)", c("square_feet", "lotSize")) %>%

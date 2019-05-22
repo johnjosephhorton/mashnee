@@ -26,7 +26,7 @@ g <- ggplot(data = df.raw, aes(x = yearBuilt, y = address,
     xlab("yearBuilt") +
     scale_x_continuous() + 
     geom_vline(data = df.raw %>% filter(comp == 0), aes(xintercept = yearBuilt), colour = "red", linetype = "dashed") +
-    ylab("") 
-#    xlab("Year Built")
+    ylab("") +
+    xlab("")
 
 JJHmisc::writeImage(g, "age", width = width, height = num.rows * inches.per.row, path = "../writeup/plots/")
