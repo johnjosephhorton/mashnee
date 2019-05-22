@@ -15,6 +15,7 @@ df.raw$address <- with(df.raw, reorder(address, price,  mean))
 
 inches.per.row <- 0.25
 num.rows <- nrow(df.raw)
+width <- 4
 
 priceFormatter <- function(...){
     f <- function(x){
@@ -37,7 +38,6 @@ g <- ggplot(data = df.raw, aes(x = price, y = address,
     geom_point(size = 2) + 
     theme_bw() + 
     theme(legend.position = "none") + 
-    xlab("(thousands)") +
     scale_x_continuous(labels = priceFormatter()) + 
     geom_vline(data = df.raw %>% filter(comp == 0),
                aes(xintercept = price),
@@ -53,4 +53,4 @@ g <- ggplot(data = df.raw, aes(x = price, y = address,
                      )
 
 
-JJHmisc::writeImage(g, "price", width = 4, height = inches.per.row * num.rows, path = "../writeup/plots/")
+JJHmisc::writeImage(g, "price", width = width, height = inches.per.row * num.rows, path = "../writeup/plots/")
