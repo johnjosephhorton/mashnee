@@ -13,6 +13,10 @@ source("get_data.R")
 
 df.raw$address <- with(df.raw, reorder(address, yearBuilt, mean))
 
+inches.per.row <- 0.25
+num.rows <- nrow(df.raw)
+width <- 4
+
 g <- ggplot(data = df.raw, aes(x = yearBuilt, y = address, 
                                colour = factor(comp),
                                shape = factor(comp))) + 
@@ -25,4 +29,4 @@ g <- ggplot(data = df.raw, aes(x = yearBuilt, y = address,
     ylab("") +
     xlab("Year Built")
 
-JJHmisc::writeImage(g, "age", width = 5, height = 2.5, path = "../writeup/plots/")
+JJHmisc::writeImage(g, "age", width = width, height = num.rows * inches.per.row, path = "../writeup/plots/")

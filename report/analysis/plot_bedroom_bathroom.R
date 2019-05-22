@@ -10,17 +10,19 @@ suppressPackageStartupMessages({
     library(JJHmisc)
 })
 
-# Load comparables data 
-
-#df.raw <- read.csv("../data/data.csv") %>% 
-#  mutate(price = gsub(",","",price) %>% as.numeric)
 
 source("get_data.R")
 
+inches.per.row <- 0.25
+num.rows <- nrow(df.raw)
+width <- 4
 
 df <- df.raw %>% select(address, comp, baths, bedrooms) %>% melt(id.vars = c("address", "comp"))
 
 df$address <- with(df, reorder(address, value, max))
+
+pretty.labels <- list("bedrooms" = "Bedrooms", "baths" = "Bathrooms")
+df$variable <- with(df, unlist(sapply(variable, function (x) pretty.labels[as.character(x)])))
 
 g <- ggplot(data = df, aes(y = address, x = value,
                            colour = factor(comp), 
@@ -33,7 +35,8 @@ g <- ggplot(data = df, aes(y = address, x = value,
     theme(legend.position = "none") +
     geom_vline(data = df %>% filter(comp == 0), aes(xintercept = value), colour = "red", linetype = "dashed") 
 
-JJHmisc::writeImage(g, "bedroom_bathroom", width = 4, height = 3, path = "../writeup/plots/")
+
+JJHmisc::writeImage(g, "bedroom_bathroom", width = width, height = num.rows * inches.per.row, path = "../writeup/plots/")
 
 
 
