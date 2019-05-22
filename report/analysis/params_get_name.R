@@ -29,11 +29,11 @@ addParam("\\NumberOfBedrooms",  df.raw %>% filter(comp == 0) %$% bedrooms)
 
 addParam("\\NumberOfBaths",  df.raw %>% filter(comp == 0) %$% baths)
 
-avg.beds  <- df.raw %>% filter(comp==1) %$% bedrooms %>% mean
-avg.baths <- df.raw %>% filter(comp==1) %$% baths %>% mean
+avg.beds  <- df.raw %>% filter(comp==1) %$% bedrooms %>% mean %>% round(1)
+avg.baths <- df.raw %>% filter(comp==1) %$% baths %>% mean %>% round(1)
 
-addParam("\\AverageBedrooms", avg.beds  )
-addParam("\\AverageBaths", avg.baths  )
+addParam("\\AverageBedrooms", avg.beds)
+addParam("\\AverageBaths", avg.baths)
 
 #addParam("\\YearBuilt",  df.raw %>% filter(comp == 0) %$% year)
 

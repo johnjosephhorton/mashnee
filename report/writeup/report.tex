@@ -143,8 +143,8 @@ For more details on the data and analytical methods used, see Appendix~\ref{sec:
 Figure~\ref{fig:price} below shows the listing price for \textbf{\PropertyName{}} and the sale price of each comparable property.
 The listing price for \PropertyName{} is plotted in pink. 
 Among the comparables, the minimum sale price is \$\MinPrice{} and the maximum price is \$\MaxPrice{}.
-The listing price for \PropertyName{} \InPriceRange{} within the range of the comparable sales prices and is at the \PricePercentile{}th percentile of those prices.
-
+The listing price for \PropertyName{} \InPriceRange{} within the range of the comparable sales prices.
+%and is at the \PricePercentile{}th percentile of those prices.
 
 \begin{figure}[h!]
 \centering
@@ -197,18 +197,22 @@ Figure~\ref{fig:bedroom_bathroom} below shows the numbers of bedrooms and bathro
 \includegraphics[width=0.95\columnwidth]{plots/bedroom_bathroom.pdf} 
 \end{figure}
 
-On average, the comparable properties have \AverageBedrooms{} bedrooms and \AverageBaths{} bathrooms. \PropertyName{} has [] bedrooms (\NumberOfBedrooms{}) and [] bathrooms (\NumberOfBaths{}).
+The comparable properties have, on average, \AverageBedrooms{} bedrooms and \AverageBaths{} bathrooms.
+\PropertyName{} has bedrooms \NumberOfBedrooms{} and \NumberOfBaths{} bathrooms.
 
 \subsection{Age}
+
+Figure~\ref{fig:age} shows the year when each property was built.
 
 \begin{figure}
 \centering
 \caption{Year built of properties comparable to \PropertyName{}} \label{fig:age}  
 \includegraphics[width=0.95\columnwidth]{plots/age.pdf} 
 \end{figure}
-\subsection{Age}
 
 \subsection{Lot size}
+
+Figure~\ref{fig:lot_size} shows the lot size for each of the properties. 
 
 \begin{figure}
 \centering
