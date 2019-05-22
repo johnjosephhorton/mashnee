@@ -15,16 +15,53 @@ source("get_data.R")
 
 addParam <- genParamAdder("../writeup/parameters_name.tex")
 
+states <- df.raw %$% state %>% table
+
+addParam("\\States",  ifelse(length(states) == 1, paste0("All the properties are in ", names(states), "."),
+                             paste0("The properties are spread out over ", length(states), ".")))
+
+cities <- df.raw %$% city %>% table
+
+ListToPhrase <- function(x){
+    num.items <- length(x)
+    if (num.items == 2){
+        paste0(x[1], " and ", x[2])
+    } else {
+        paste0(paste0(x[1:(num.items - 2)], collapse = ", "), ", ", x[num.items -1], " and ", x[num.items])
+    }
+}
+
+addParam("\\Cities",  ifelse(length(cities) == 1, paste0("All the properties are in ", names(cities), "."),
+                             paste0("The properties are spread out over ", length(cities), " cities: ",
+                                    ListToPhrase(names(cities)), ".")))
+
 
 addParam("\\PropertyName",  df.raw %>% filter(comp == 0) %$% address)
 
 addParam("\\PropertyCity", df.raw %>% filter(comp == 0) %$% city)
 addParam("\\PropertyState", df.raw %>% filter(comp == 0) %$% state)
 
+addParam("\\AvgDistance", (df.raw %>% filter(comp == 1) %$% miles %>% mean) %>% round(2))
+addParam("\\MinDistance", (df.raw %>% filter(comp == 1) %$% miles %>% min) %>% round(2))
+addParam("\\MaxDistance", (df.raw %>% filter(comp == 1) %$% miles %>% max) %>% round(2))
+
+
 home.type <- df.raw %>% filter(comp == 0) %$% homeType %>% as.character
 addParam("\\PropertyType", gsub("_", " ", tolower(home.type)))
 
-addParam("\\PropertyYearBuilt", df.raw %>% filter(comp == 0) %$% yearBuilt)
+property.built <-df.raw %>% filter(comp == 0) %$% yearBuilt
+addParam("\\PropertyYearBuilt", property.built)
+
+oldest <- df.raw %>% filter(comp == 1) %$% yearBuilt %>% min
+addParam("\\Oldest", oldest)
+youngest <- df.raw %>% filter(comp == 1) %$% yearBuilt %>% max
+addParam("\\Youngest", youngest)
+
+addParam("\\ExtremeWarningAgeYoung", ifelse(property.built > youngest,
+                                       "A potential concern is that the target property is newer than all the comparables.", "")) 
+addParam("\\ExtremeWarningAgeOld", ifelse(property.built < oldest,
+                                       "A potential concern is that the target property is younger than all the comparables.", "")) 
+
 
 addParam("\\NumberOfBedrooms",  df.raw %>% filter(comp == 0) %$% bedrooms)
 

@@ -10,6 +10,7 @@ suppressPackageStartupMessages({
     library(reshape2)
     library(JJHmisc)
     library(gt)
+    library(geosphere)
 })
 
 # Load comparables data 
@@ -20,21 +21,19 @@ property.name <- df.raw %>% filter(comp == 0) %$% address
 
 df.raw %<>% mutate(ask = ifelse(comp == 0, "Yes", NA))
 
-#df.raw %<>% mutate(address = paste0("\\href{", url, "}{", address, "}"))
-
 df.raw %>% 
-    select(-id, -city, -created, -url_id, -state, -latitude, -longitude, -homeType, -order_id, -comp, -url) %>% 
+    select(-id, -city, -created, -url_id, -state, -latitude, -longitude, -homeType, -order_id, -comp, -url, -miles) %>% 
     gt() %>%
     cols_align(align = "left", columns = vars(address)) %>%
     cols_label("address" = "Property",
-               # "city" = "City",
                "yearBuilt" = "Built",
                "square_feet" = "Living",
                "lotSize" = "Lot",
                "bedrooms" = "Bed",
                "baths" = "Bath",
                "price" = " ",
-               "ask" = "List?") %>%
+               "ask" = "List?"
+               ) %>%
     tab_spanner("Rooms", c("bedrooms", "baths")) %>%
     tab_spanner("Pricing", c("price", "ask")) %>%
     tab_spanner("Space (sqft)", c("square_feet", "lotSize")) %>%

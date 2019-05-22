@@ -50,6 +50,7 @@ This report was prepared by \href{https://www.galtongauss.com}{Galton Gauss, LLC
 All rights reserved. 
 Questions about any of the comparables, numbers or figures?
 Please email us at \texttt{support@GaltonGauss.com}.
+$\mathbb{G}\mathbb{G}$
 }}
 
 %\subtitle{} % Uncomment to display a subtitle
@@ -107,30 +108,22 @@ Please email us at \texttt{support@GaltonGauss.com}.
 %% \end{huge}
 
 \section{Comparable property sales}
-An insightful comparative market analysis depends on actual and substantially comparable sales. 
-This report uses advanced statistical tools and predictive models to provide a graphical, in-depth analysis of 
-\textbf{\PropertyName{}, \PropertyCity{}, \PropertyState{}}, 
-a \NumberOfBedrooms{}-bedroom, \NumberOfBaths{}-bath 
-\PropertyType{} built in \PropertyYearBuilt{}, and \NumberOfComps{} selected comparable recent property sales.
-
+This report analyzes a number of recently sold properties that are comparable to a target property:
+\textbf{\PropertyName{}, \PropertyCity{}, \PropertyState{}}, a \NumberOfBedrooms{}-bedroom, \NumberOfBaths{}-bath  \PropertyType{} built in \PropertyYearBuilt{}.
+The analysis is based on \NumberOfComps{} comparable properties described in the table below:
 
 \begin{small}
 \input{tables/comps.tex}
 \end{small}
 
-Data from selected comparable recent sales is used to evaluate the
-usefulness and reliability of each comparable sale and to analyze each
-of the important attributes of the target property.
-The individual and collective components of the analysis will enable parties to evaluate the price in a highly informed manner and negotiate terms with confidence.
+The table reports the street address (which we will use a short-hand when referring to a property), the year it was built, the lot and living area size (both in square feet), the reported number of bedrooms and bathrooms, and finally the sale price (for comparables) or the listed price, for \PropertyName{}. 
 
-Figure~\ref{fig:map} shows the location of the properties.
-
-\begin{figure}[h!]
-\centering
-\caption{Locations of Comparable properties}  \label{fig:map}  
-\includegraphics[width=0.95\columnwidth]{plots/map.pdf} 
-\end{figure}
-
+\subsection{What makes for a good comparables analysis?}
+The quality of this analysis depends critically on the quality of the comparables.
+A focus of the analysis will be showing how comparable---or not---these comparables are to the target property. 
+We will use the comparables to make predictions about the price for the tareget property, but these predictions are not substitutes for judgement and contextual detail that a realtor provides.
+When the report does make predictions, how, precisely, these predictions are made is explained.
+This is in keeping with our philosophy that ``black box'' predictions are typically harmful in the sale process. 
 
 \subsection{How to use this report}
 \begin{itemize}
@@ -140,12 +133,25 @@ For example, the report can clarify whether the collective attributes of a targe
 \item The report can be used to determine the value of various attributes necessary to justify a price or offer. For example, if a target house has an outdated kitchen but the comparables do not, does the listing price discount reflect this difference? 
 \end{itemize} 
 
-The report is not a ``black box''! Each component of the analysis is explained in detail. Additional information about the data and methods used are provided in Appendix~\ref{sec:methods}.
+In keeping with our ``no black boxes'' philosophy, each component of the analysis is explained in detail. 
+Additional information about the data and methods used are provided in Appendix~\ref{sec:methods}.
 
+\subsection{Geography}
+The location of the target property and the comparables are plotted in Figure~\ref{fig:map}.
+The location of the comparable properties is plotted in blue and the target property is in pink. 
 
-\subsection{Sale prices} 
-In most cases, the listing price of a target property should be well within the range of sale prices of selected comparables.
-This allows parties to compare a target property and its listing price to properties that should typically be overall more and less valuable than the target property.
+\begin{figure}[h!]
+\centering
+\caption{Locations of Comparable properties}  \label{fig:map}  
+\includegraphics[width=0.65\columnwidth]{plots/map.pdf} 
+\end{figure}
+
+On average, the comparable properties are \AvgDistance{} miles away, as the crow flies.
+The closest comparable property is only \MinDistance{} miles away, while the farthest away is \MaxDistance{}. 
+\States{}
+\Cities{}
+
+\subsection{Sale prices and \PropertyName{} listing price} 
 
 Figure~\ref{fig:price} below shows the listing price for \textbf{\PropertyName{}} and the sale price of each comparable property.
 The listing price for \PropertyName{} is plotted in pink. 
@@ -153,21 +159,21 @@ Among the comparables, the minimum sale price is \$\MinPrice{} and the maximum p
 The listing price for \PropertyName{} \InPriceRange{} within the range of the comparable sales prices. 
 %and is at the \PricePercentile{}th percentile of those prices.
 
-\begin{figure}[h!]
+\begin{figure}[htb]
 \centering
 \caption{Current listing price for \PropertyName{} and reported sale prices of comparable properties} 
 \label{fig:price}  
 \includegraphics[width=0.95\columnwidth]{plots/price.pdf} 
 \end{figure}
 
-
-It is useful that the target house is within the comparable sales price range, though it is important to keep in mind that the listing price is not a sale price, and the ultimate sale price may be far away from this initial ask.
+It is useful that the target house is within the comparable sales price range, though it is important to keep in mind that the listing price is not a sale price, and the ultimate sale price may be far away from this initial listing price.
 In terms of price, the property closest to \PropertyName{} is \ClosestOnPrice{}. 
 
 \subsection{Square footage}
-An important determinant of price in any real estate market is square footage.
+An important determinant of price in any real estate market is the amount of livable space.
 Among the comparables, the smallest property is \MinSize{}$ft^2$ and the largest is \MaxSize{}$ft^2$.
 At \PropertySize{}$ft^2$, \PropertyName{} \InSizeRange{} in this range. 
+
 Figure~\ref{fig:square_feet} below shows the square footage of \PropertyName{} and each comparable property.
 The square footage of \PropertyName{} is plotted in pink. 
 In terms of price, the property closest to \PropertyName{} is \ClosestOnSize{}.
@@ -177,6 +183,8 @@ In terms of price, the property closest to \PropertyName{} is \ClosestOnSize{}.
 \caption{Square footage of \PropertyName{} and comparable properties} \label{fig:square_feet}  
 \includegraphics[width=0.95\columnwidth]{plots/square_feet.pdf} 
 \end{figure}
+
+\subsection{Price per $ft^2$}
 
 Figure~\ref{fig:price_versus_square_feet} plots the price versus the square footage of \PropertyName{} and comparable properties.
 In this data, the average price per square foot among the comparables is \$\MeanPricePerFoot{}/$ft^2$.
@@ -193,7 +201,7 @@ Among the properties comparable to \PropertyName{}, each additional square foot 
 \includegraphics[width=0.95\columnwidth]{plots/price_versus_square_feet.pdf} 
 \end{figure}
 
-A positive relationship between square footage and price---\textit{i.e.,} a price that increases with greater square footage---is a good sign that the comparables are reasonable. If additional square footage were associated with a lower price, we might question whether the selected properties were good comparables for \PropertyName{}. 
+A positive relationship between square footage and price---i.e., a price that increases with greater square footage---is a good sign that the comparables are reasonable. If additional square footage were associated with a lower price, we might question whether the selected properties were good comparables for \PropertyName{}. 
 
 \subsection{Bedrooms and bathrooms}
 Beyond square footage, buyers care about the numbers of bedrooms and bathrooms, though because these quantities are changeable with renovations, overall space is widely regarded as more important.
@@ -209,16 +217,6 @@ Figure~\ref{fig:bedroom_bathroom} below shows the numbers of bedrooms and bathro
 The comparable properties have, on average, \AverageBedrooms{} bedrooms and \AverageBaths{} bathrooms.
 \PropertyName{} has bedrooms \NumberOfBedrooms{} and \NumberOfBaths{} bathrooms.
 
-\subsection{Age}
-
-Figure~\ref{fig:age} shows the year when each property was built.
-
-\begin{figure}
-\centering
-\caption{Year built of properties comparable to \PropertyName{}} \label{fig:age}  
-\includegraphics[width=0.95\columnwidth]{plots/age.pdf} 
-\end{figure}
-
 \subsection{Lot size}
 
 Figure~\ref{fig:lot_size} shows the lot size for each of the properties. 
@@ -229,6 +227,22 @@ Figure~\ref{fig:lot_size} shows the lot size for each of the properties.
 \includegraphics[width=0.95\columnwidth]{plots/lot_size.pdf} 
 \end{figure}
 
+\subsection{Year of construction}
+
+The age of construction can be misleading---there are centuries-old houses in excellent condition and twenty year old houses that were poorly maintained and are now ``tear downs.''
+However, all else equal, people tend to prefer newer construction.
+Figure~\ref{fig:age} shows the year when each property was built.
+
+\begin{figure}
+\centering
+\caption{Year built of properties comparable to \PropertyName{}} \label{fig:age}  
+\includegraphics[width=0.95\columnwidth]{plots/age.pdf} 
+\end{figure}
+
+The oldest property in the comparable set was built in \Oldest{}, while the newest is \Youngest{}.
+The target property was built in \PropertyYearBuilt{}. 
+\ExtremeWarningAgeYoung{}
+\ExtremeWarningAgeOld{}
 
 \subsection{Combined attributes}
 Having examined key attributes individually, we next consider the combined attributes of \PropertyName{}.
