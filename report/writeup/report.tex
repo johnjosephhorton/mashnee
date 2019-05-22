@@ -147,7 +147,6 @@ The report is not a ``black box''! Each component of the analysis is explained i
 In most cases, the listing price of a target property should be well within the range of sale prices of selected comparables.
 This allows parties to compare a target property and its listing price to properties that should typically be overall more and less valuable than the target property.
 
-\par \newline
 Figure~\ref{fig:price} below shows the listing price for \textbf{\PropertyName{}} and the sale price of each comparable property.
 The listing price for \PropertyName{} is plotted in pink. 
 Among the comparables, the minimum sale price is \$\MinPrice{} and the maximum price is \$\MaxPrice{}.
@@ -179,14 +178,12 @@ In terms of price, the property closest to \PropertyName{} is \ClosestOnSize{}.
 \includegraphics[width=0.95\columnwidth]{plots/square_feet.pdf} 
 \end{figure}
 
-\par \newline
 Figure~\ref{fig:price_versus_square_feet} plots the price versus the square footage of \PropertyName{} and comparable properties.
 In this data, the average price per square foot among the comparables is \$\MeanPricePerFoot{}/$ft^2$.
 At its listed price, the price per square foot for \PropertyName{} is \$\MeanPricePerFootFocal{}/$ft^2$,
 which is \MeanPricePerFootPct{}\% \ComparePricePerFoot{} than the average price per square foot among the comparables.
 The grey area in the plot indicates a measure of how confident the model is in that area of the curve. 
 
-\par \newline
 The sloped dashed line in Figure~\ref{fig:price_versus_square_feet} is a \href{https://en.wikipedia.org/wiki/Linear_regression}{regression} line that can tell us how much each additional square foot is ``worth'' in terms of sale price among the comparables.
 Among the properties comparable to \PropertyName{}, each additional square foot is worth \$\MarginalPricePerFoot{}/$ft^2$. 
 
@@ -196,7 +193,6 @@ Among the properties comparable to \PropertyName{}, each additional square foot 
 \includegraphics[width=0.95\columnwidth]{plots/price_versus_square_feet.pdf} 
 \end{figure}
 
-\par \newline
 A positive relationship between square footage and price---\textit{i.e.,} a price that increases with greater square footage---is a good sign that the comparables are reasonable. If additional square footage were associated with a lower price, we might question whether the selected properties were good comparables for \PropertyName{}. 
 
 \subsection{Bedrooms and bathrooms}
