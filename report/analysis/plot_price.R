@@ -29,7 +29,7 @@ priceFormatter <- function(...){
     function(x) sapply(x, f)
 }
 
-#priceFormatter(1000)
+target.price <- df.raw %>% filter(comp == 0) %$% price
 
 g <- ggplot(data = df.raw, aes(x = price, y = address, 
                                colour = factor(comp),
@@ -44,8 +44,13 @@ g <- ggplot(data = df.raw, aes(x = price, y = address,
                colour = "red",
                linetype = "dashed") +
     ylab("") +
-    xlab("")
+    xlab("") +
+    geom_label_repel(data = df.raw %>% filter(comp == 0), label = "Listing price\nfor target", size = 2, 
+                     segment.colour = "grey",
+                     arrow = arrow(length = unit(0.03, "npc"), type = "closed", ends = "last"),
+                     xlim = c(NA, 0.9 * target.price),
+                     ylim = c(num.rows - 1.5, NA)
+                     )
 
-print(g)
 
 JJHmisc::writeImage(g, "price", width = 4, height = inches.per.row * num.rows, path = "../writeup/plots/")
