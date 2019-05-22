@@ -110,6 +110,7 @@ $\mathbb{G}\mathbb{G}$
 \section{Comparable property sales}
 This report analyzes a number of recently sold properties that are comparable to a target property:
 \textbf{\PropertyName{}, \PropertyCity{}, \PropertyState{}}, a \NumberOfBedrooms{}-bedroom, \NumberOfBaths{}-bath  \PropertyType{} built in \PropertyYearBuilt{}.
+\TypeWarning{}
 The analysis is based on \NumberOfComps{} comparable properties described in the table below:
 
 \begin{small}
@@ -136,13 +137,13 @@ For example, the report can clarify whether the collective attributes of a targe
 In keeping with our ``no black boxes'' philosophy, each component of the analysis is explained in detail. 
 Additional information about the data and methods used are provided in Appendix~\ref{sec:methods}.
 
-\subsection{Geography}
+\subsection{Location}
 The location of the target property and the comparables are plotted in Figure~\ref{fig:map}.
 The location of the comparable properties is plotted in blue and the target property is in pink. 
 
 \begin{figure}[h!]
 \centering
-\caption{Locations of Comparable properties}  \label{fig:map}  
+\caption{Locations of comparable properties}  \label{fig:map}  
 \includegraphics[width=0.65\columnwidth]{plots/map.pdf} 
 \end{figure}
 
@@ -151,7 +152,14 @@ The closest comparable property is only \MinDistance{} miles away, while the far
 \States{}
 \Cities{}
 
-\subsection{Sale prices and \PropertyName{} listing price} 
+In any comparables analysis, perhaps the most important factor is finding properties is truly comparable locations.
+The location of a property strongly affects schools, property taxes, local amenities, crime, walkability and so on.
+As such, there is enormous variation in house prices explained purely by location. 
+As such, this analysis hinges about the realtor or whoever selected the comparables to pick properties that are all in more or less the same location.
+It is much more feasible for a model to account for differences due to lot sizes or square footage among properties that are broadly similar than to try to account for the differences due to geography. 
+The old saying that real estate is about ``location, location, location'' is surely true---but hopefully with good comparables, this factor is off the table.
+
+\subsection{Sale prices and \PropertyName{} listing price}
 
 Figure~\ref{fig:price} below shows the listing price for \textbf{\PropertyName{}} and the sale price of each comparable property.
 The listing price for \PropertyName{} is plotted in pink. 
@@ -169,7 +177,7 @@ The listing price for \PropertyName{} \InPriceRange{} within the range of the co
 It is useful that the target house is within the comparable sales price range, though it is important to keep in mind that the listing price is not a sale price, and the ultimate sale price may be far away from this initial listing price.
 In terms of price, the property closest to \PropertyName{} is \ClosestOnPrice{}. 
 
-\subsection{Square footage}
+\subsection{Square feet of living space}
 An important determinant of price in any real estate market is the amount of livable space.
 Among the comparables, the smallest property is \MinSize{}$ft^2$ and the largest is \MaxSize{}$ft^2$.
 At \PropertySize{}$ft^2$, \PropertyName{} \InSizeRange{} in this range. 
@@ -198,42 +206,63 @@ Among the properties comparable to \PropertyName{}, each additional square foot 
 \begin{figure}
 \centering
 \caption{Price versus square footage} \label{fig:price_versus_square_feet}  
-\includegraphics[width=0.95\columnwidth]{plots/price_versus_square_feet.pdf} 
+\includegraphics[width=0.85\columnwidth]{plots/price_versus_square_feet.pdf} 
 \end{figure}
 
-A positive relationship between square footage and price---i.e., a price that increases with greater square footage---is a good sign that the comparables are reasonable. If additional square footage were associated with a lower price, we might question whether the selected properties were good comparables for \PropertyName{}. 
+A positive relationship between square footage and price---i.e., a price that increases with greater square footage---is a good sign that the comparables are reasonable.
+If additional square footage were associated with a lower price, we might question whether the selected properties were good comparables for \PropertyName{}. 
 
 \subsection{Bedrooms and bathrooms}
-Beyond square footage, buyers care about the numbers of bedrooms and bathrooms, though because these quantities are changeable with renovations, overall space is widely regarded as more important.
-However, if a buyer is not interested in performing renovations to a property, the number of existing rooms could be quite important.
-Figure~\ref{fig:bedroom_bathroom} below shows the numbers of bedrooms and bathrooms of \PropertyName{} and comparable properties. 
+Beyond square footage, buyers care about the numbers of bedrooms and bathrooms.
+However, because these quantities are changeable with renovations, overall space is widely regarded as more important.
+Keeping a square footage fixed, adding aother bedroom just more finely divides the space already available, potentially leading to cramped quarters. 
+Furthermore, each additional bedroom or bathroom might be worth less than the previous one.
 
-\begin{figure}
+Figure~\ref{fig:bedroom_bathroom} below shows the numbers of bedrooms and bathrooms of \PropertyName{} and comparable properties. 
+In the figure, the properties are listed from most to fewest bedrooms.
+The number of bedrooms is plotted in the left facet, and the number of bathrooms is plotted in the right facet. 
+The comparable properties have, on average, \AverageBedrooms{} bedrooms and \AverageBaths{} bathrooms.
+\PropertyName{} has bedrooms \NumberOfBedrooms{} and \NumberOfBaths{} bathrooms.
+
+\begin{figure}[!]
 \centering
 \caption{Numbers of bedrooms and bathrooms of properties comparable to \PropertyName{}} \label{fig:bedroom_bathroom}  
 \includegraphics[width=0.95\columnwidth]{plots/bedroom_bathroom.pdf} 
 \end{figure}
 
-The comparable properties have, on average, \AverageBedrooms{} bedrooms and \AverageBaths{} bathrooms.
-\PropertyName{} has bedrooms \NumberOfBedrooms{} and \NumberOfBaths{} bathrooms.
 
 \subsection{Lot size}
+In addition to living space, another determinant of the price is the lot size.
+All else equal, people generally prefer more land to less.
+However, it matters a great deal what the status of that land is---some properties may have land that might be sub-divided, creating another (valuable) house lot;
+other parcels of land may not be buildable, though the contribute to the owner's enjoyment of the land, through greater quiet and privacy.
 
-Figure~\ref{fig:lot_size} shows the lot size for each of the properties. 
+The enjoyment of unbuildable land in turn depends on factors not captured in a model, such as the shape, setting, views, what it abutts and so on.
+For example, owners typically value land behind their house more than land in front of their house. 
+Land subject to vernal pools or easements of various kinds will be less valued.
+Land that is mostly frontage on a busy street will be less valuable, and so on.
 
-\begin{figure}
+\begin{figure}[!]
 \centering
 \caption{Lot size (in acres) of properties comparable to \PropertyName{}} \label{fig:lot_size}  
 \includegraphics[width=0.95\columnwidth]{plots/lot_size.pdf} 
 \end{figure}
 
+These caveats aside, in Figure~\ref{fig:lot_size} plots the lot size for each of the properties. 
+Properties are listed from largest to smallest.
+The smallest lot is \SmallestLot{} acres, while the largest lot is \LargestLot{} acres.
+The target property has a lot size of \PropertyLotSize{} acres.
+To help with intrepreation, note that a US football field is about 1.3 acres.
+\ExtremeWarningLargestLot{}
+\ExtremeWarningSmallestLot{}
+
 \subsection{Year of construction}
 
-The age of construction can be misleading---there are centuries-old houses in excellent condition and twenty year old houses that were poorly maintained and are now ``tear downs.''
-However, all else equal, people tend to prefer newer construction.
-Figure~\ref{fig:age} shows the year when each property was built.
+The age of construction can be misleading---there are centuries-old houses in excellent condition and twenty year old houses that were poorly maintained and are now ``tear-downs.''
+However, all else equal, people tend to prefer newer construction, in part because of lower maintenance costs, greater energe efficiency, and so on. 
+Figure~\ref{fig:age} shows the year when each property was built, with properties ordered from newest to oldest. 
 
-\begin{figure}
+\begin{figure}[!]
 \centering
 \caption{Year built of properties comparable to \PropertyName{}} \label{fig:age}  
 \includegraphics[width=0.95\columnwidth]{plots/age.pdf} 
@@ -255,28 +284,29 @@ For each numerical value, we show the percentage difference between the attribut
 \includegraphics[width=0.95\columnwidth]{plots/ecdf.pdf} 
 \end{figure}
 
-\begin{figure}
-\centering
-\caption{Combined attributes of properties comparable to \PropertyName{}} \label{fig:hist}  
-\includegraphics[width=0.95\columnwidth]{plots/hist.pdf} 
-\end{figure}
+%% \begin{figure}
+%% \centering
+%% \caption{Combined attributes of properties comparable to \PropertyName{}} \label{fig:hist}  
+%% \includegraphics[width=0.95\columnwidth]{plots/hist.pdf} 
+%% \end{figure}
 
-We order the properties by the average percentile difference---the a
+We order the properties by the average percentile difference.
 At a glance, we can see how far away each property is from \PropertyName{} on a number of dimensions. 
 
 \section{Predicted sale price}
 Based on the comparables, we can make predictions about the likely sale price for \PropertyName{}. 
-To being, we simply use square footage.
+To begin, we simply use square footage.
 After that, we allow for more factors to affect the price.
 Automated Valuation Models (AVMs) are frequently a black box, with buyers and sellers taking the predictions on the company's say-so.\footnote{\href{https://www.washingtonpost.com/news/where-we-live/wp/2014/06/10/how-accurate-is-zillows-zestimate-not-very-says-one-washington-area-agent/?noredirect=on&utm_term=.e3453c7b3677}{How accurate is Zillow's Zestimate? Not very, says one Washington-area agent.}
   }
+
 Our view is that transparent models that show you actually how the predictions are derived---are ultimately more useful at arriving at a price.
 Buyers, sellers and agents can discuss the comparables and the predictions.
 If the model is too low because it doesn't reflect the value of a new kitchen, it is better for all parties to understand why the model isn't working (kitchen renovation is not used as a predictor), rather wonder how that information may or may not be factored in.
 We also purposefully exclude listing prices in our predictions, as these are choices made by parities.
 If models systematically used this information to generated predictions, parties would have an incentive to manipulate their listing price to try to influence the bargain. 
 
-\subsection{From square footage}
+\subsection{Predicting price from square feet of living space}
 
 The regression line from Figure~\ref{fig:price_versus_square_feet} can be used to make a prediction about the sale price for \PropertyName{}. 
 The formula based only on square footage would be

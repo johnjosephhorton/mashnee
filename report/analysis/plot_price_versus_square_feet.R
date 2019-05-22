@@ -26,4 +26,4 @@ g <- ggplot(data = df.raw, aes(x = square_feet, y = price,
     ylab("Price") + 
     xlab("SqFt") 
 
-JJHmisc::writeImage(g, "price_versus_square_feet", width = 4, height = 3, path = "../writeup/plots/")
+JJHmisc::writeImage(g, "price_versus_square_feet", width = 4, height = 2.5, path = "../writeup/plots/")

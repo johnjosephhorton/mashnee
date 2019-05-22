@@ -47,7 +47,12 @@ addParam("\\MaxDistance", (df.raw %>% filter(comp == 1) %$% miles %>% max) %>% r
 
 
 home.type <- df.raw %>% filter(comp == 0) %$% homeType %>% as.character
+
 addParam("\\PropertyType", gsub("_", " ", tolower(home.type)))
+
+property.types <- df.raw %>% filter(comp == 1) %$% homeType %>% table
+                                 
+addParam("\\TypeWarning", ifelse(length(property.types) > 1, "Not all comparables are the same property type, which could negatively impact the quality of the analysis.", ""))
 
 property.built <-df.raw %>% filter(comp == 0) %$% yearBuilt
 addParam("\\PropertyYearBuilt", property.built)
@@ -101,6 +106,30 @@ F <- df.raw %>% filter(comp == 1) %$% price %>% ecdf
 addParam("\\PricePercentile", 100 * F(property.price) %>% round(0))
 
 df.raw %<>% mutate(price.error = (price - property.price)^2)
+
+####
+## Lot size
+####
+
+df.raw$acres <- with(df.raw, lotSize / 43560)
+
+smallest.lot <- df.raw %$% acres %>% min
+addParam("\\SmallestLot", smallest.lot %>% round(2))
+largest.lot <- df.raw %$% acres %>% max
+addParam("\\LargestLot", largest.lot %>% round(2))
+
+property.lot.size <- df.raw %>% filter(comp == 0) %$% acres 
+addParam("\\PropertyLotSize", property.lot.size %>% formatC(format = "f", big.mark = ",", digits = 2))
+
+addParam("\\ExtremeWarningLargestLot", ifelse(property.lot.size > largest.lot,
+                                       "A potential concern is that the target property has a larger lot than all the comparables.", "")) 
+addParam("\\ExtremeWarningSmallestLot", ifelse(property.lot.size < smallest.lot,
+                                       "A potential concern is that the target property is younger than all the comparables.", "")) 
+
+
+
+addParam("\\PricePercentile", 100 * F(property.price) %>% round(0))
+
 
 ###############
 # Property size 
