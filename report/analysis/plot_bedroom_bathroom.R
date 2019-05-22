@@ -29,8 +29,8 @@ g <- ggplot(data = df, aes(y = address, x = value,
                            shape = factor(variable))) +
     facet_wrap(~variable, ncol = 2) +  
     geom_point()  + 
-    ylab("") + 
-    xlab("Number of rooms") +
+#    ylab("") + 
+#    xlab("Number of rooms") +
     theme_bw() +
     theme(legend.position = "none") +
     geom_vline(data = df %>% filter(comp == 0), aes(xintercept = value), colour = "red", linetype = "dashed") 

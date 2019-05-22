@@ -27,7 +27,7 @@ g <- ggplot(data = df.raw, aes(x = acres, y = address,
     theme(legend.position = "none") + 
     scale_x_continuous() + 
     geom_vline(data = df.raw %>% filter(comp == 0), aes(xintercept = acres), colour = "red", linetype = "dashed") +
-    ylab("") +
-    xlab("(acres)")
+    ylab("") 
+#    xlab("(acres)")
 
 JJHmisc::writeImage(g, "lot_size", width = width, height = num.rows * inches.per.row, path = "../writeup/plots/")
