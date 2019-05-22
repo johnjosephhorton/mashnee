@@ -1,3 +1,4 @@
+
 #! /usr/bin/env Rscript
 
 suppressPackageStartupMessages({
@@ -43,7 +44,7 @@ addParam("\\PropertySqFt",  df.raw %>% filter(comp == 0) %$% square_feet %>% rou
 
 property.price <-  df.raw %>% filter(comp == 0) %$% price
 
-addParam("\\PropertyPrice",   property.price %>% round(0) %>%
+addParam("\\PropertyPrice", property.price %>% round(0) %>%
                             formatC(format = "f", digits = 0, big.mark = ",")
          )
 
@@ -60,7 +61,7 @@ addParam("\\InPriceRange", ifelse(property.price > min.price & property.price < 
 
 F <- df.raw %>% filter(comp == 1) %$% price %>% ecdf
 
-addParam("\\PricePercentile", 100 * F(property.price) %>% round(2))
+addParam("\\PricePercentile", 100 * F(property.price) %>% round(0))
 
 df.raw %<>% mutate(price.error = (price - property.price)^2)
 
