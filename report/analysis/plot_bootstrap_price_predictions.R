@@ -7,10 +7,7 @@ suppressPackageStartupMessages({
 
 source("get_data.R")
 
-#df.raw <- read.csv("../data/data.csv") %>% 
-#  mutate(price = gsub(",","",price) %>% as.numeric)
-
-m <- lm(price ~ square_feet, data = df.raw %>% filter(comp == 1))
+m <- lm(price ~ square_feet + lotSize, data = df.raw %>% filter(comp == 1))
 
 property.price <- df.raw %>% filter(comp == 0) %$% price
 predicted.price <- predict(m, newdata = df.raw %>% filter(comp == 0)) %>% as.numeric
@@ -26,6 +23,8 @@ GetPrediction <- function(){
 
 df.results <- data.frame(sapply(1:500, function(x) GetPrediction() ))
 colnames(df.results) <- c("predictions")
+
+df.results %<>% mutate(pctile = ecdf(predictions)(predictions)) %>% filter(pctile > 0.05) %>% filter(pctile < 0.95)
 
 g <- ggplot(data = df.results, aes(x = predictions)) +
     geom_histogram() +
