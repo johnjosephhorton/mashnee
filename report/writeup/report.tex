@@ -1,4 +1,3 @@
-
 \documentclass[
 12pt, % Main document font size
 letterpaper, % Paper type, use 'letterpaper' for US Letter paper
@@ -121,10 +120,11 @@ Data from selected comparable recent sales is used to evaluate the usefulness an
 \input{tables/comps.tex}
 
 
+Figure~\ref{fig:map} shows the location of the properties.
+
 \begin{figure}[h!]
 \centering
-\caption{Comparable properties} 
-\label{fig:map}  
+\caption{Locations of Comparable properties}  \label{fig:map}  
 \includegraphics[width=0.95\columnwidth]{plots/map.pdf} 
 \end{figure}
 
@@ -181,6 +181,7 @@ Figure~\ref{fig:price_versus_square_feet} plots the price versus the square foot
 In this data, the average price per square foot among the comparables is \$\MeanPricePerFoot{}/$ft^2$.
 At its listed price, the price per square foot for \PropertyName{} is \$\MeanPricePerFootFocal{}/$ft^2$,
 which is \MeanPricePerFootPct{}\% \ComparePricePerFoot{} than the average price per square foot among the comparables.
+The grey area in the plot indicates a measure of how confident the model is in that area of the curve. 
 
 \par \newline
 The sloped dashed line in Figure~\ref{fig:price_versus_square_feet} is a \href{https://en.wikipedia.org/wiki/Linear_regression}{regression} line that can tell us how much each additional square foot is ``worth'' in terms of sale price among the comparables.

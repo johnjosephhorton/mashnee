@@ -25,17 +25,19 @@ pretty.labels <- list("baths" = "Baths",
 #df.combo$variable <- with(df.combo, as.character(sapply(variable, function(x) pretty.labels[as.character(x)])))
 
 df.comps %<>% group_by(variable) %>%
-    mutate(value = (value - min(value)) / max(value)) %>% ungroup
+    mutate(value = (value - min(value)) / (max(value) - min(value))) %>% ungroup
 
 g <- ggplot(data = df.comps, aes(x = value, fill = factor(comp))) +
-    facet_wrap(~variable, ncol = 1, scale = "free") +
-    geom_dotplot() + 
+    facet_wrap(~variable, ncol = 3) +
+    geom_dotplot(stackgroups = TRUE, method = "dotdensity", binwidth = 0.1, binpositions = "bygroup") + 
     theme_bw() +
     theme(axis.text.x = element_text(angle = 90)) +
     theme(legend.position = "none", strip.text.y = element_text(angle = 0)) +
+ #   scale_y_continuous(NULL, breaks = NULL) + 
     ylab("% relative to target property") +
-    xlab("") 
-
+    xlab("") +
+    scale_x_continuous(breaks = (0:10)/10)
+#    coord_fixed() +
 print(g)
 
 JJHmisc::writeImage(g, "hist", width = 5, height = 5, path = "../writeup/plots/")
