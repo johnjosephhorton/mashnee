@@ -70,7 +70,7 @@ def report(report_id):
     lines = ['order.number <- ' + report_id, "path.to.db <- '%s'" % full_db_path]
     with open(os.path.join(d, "analysis/config.R"),  'w') as the_file:
         the_file.write("\n".join(lines))
-    cmd = ['make', '-C', os.path.join(d, "writeup"), "-B", "report.pdf"] # runs make to build the report
+    cmd = ['make', '-j', '-C', os.path.join(d, "writeup"), "-B", "report.pdf"] # runs make to build the report
     build_log = subprocess.check_output(cmd)
     copyfile(os.path.join(d, "writeup/report.pdf"), os.path.join(static_dir, "report.pdf")) # copies out the report 
     static_file = os.path.join(static_dir,"report.pdf")
