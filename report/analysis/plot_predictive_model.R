@@ -31,6 +31,9 @@ m.ridge <- glmnet(X,y)
 plot(m.ridge)
 
 cv.out <- cv.glmnet(X,y)
+
+plot(cv.out)
+
 bestlam <- cv.out$lambda.min
 
 fit <- glmnet(X, y, lambda=bestlam)
@@ -63,11 +66,14 @@ y <- predict(m.ridge, s = bestlam, newx = X.full, interval="predict")
 df.compare <- df.raw %>% select(price, price.hat, address, comp) %>% melt(id.var = c("address", "comp")) %>%
     mutate(type = ifelse(variable == "price", "Actual", "Predicted"))
 
+
 df.pct <- df.compare %>% group_by(address, comp) %>%
     summarise(
         middle.height = (value[type == "Actual"]  + value[type == "Predicted"])/2, 
         height = value[type == "Predicted"], 
         pct.change = round(100 * (value[type=="Predicted"] - value[type=="Actual"])/value[type=="Actual"], 1))
+
+df.pct %>% filter(comp == 1) %>% mutate(abs.pct.change = abs(pct.change)) %$% abs.pct.change %>% median
 
 g <- ggplot(data = df.compare, aes(x = type, y = value,
                                group = address,
