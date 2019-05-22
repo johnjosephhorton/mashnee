@@ -19,6 +19,10 @@ plots += plots/map.pdf
 plots/map.pdf: ../analysis/plot_map.R $(data)
 	cd ../analysis && Rscript plot_map.R
 
+plots += plots/hist.pdf 
+plots/hist.pdf: ../analysis/plot_hist.R $(data)
+	cd ../analysis && Rscript plot_hist.R
+
 
 plots += plots/square_feet.pdf 
 plots/square_feet.pdf: ../analysis/plot_square_feet.R $(data)
