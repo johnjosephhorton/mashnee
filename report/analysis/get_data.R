@@ -1,12 +1,12 @@
 library(DBI)
 
 if (!file.exists("config.R")){
-   order.number <- 5
-   path.to.db <- "~/GG/instance/GG.sqlite"
+    path.to.db <- "~/GG/instance/GG.sqlite"
+    con <- dbConnect(RSQLite::SQLite(), path.to.db)
+    order.number <- as.numeric(dbGetQuery(con, "select max(id) from orders") )
 }  else {
    source("config.R")
 }
-
 
 con <- dbConnect(RSQLite::SQLite(), path.to.db)
 
