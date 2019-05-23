@@ -118,50 +118,50 @@ The analysis is based on \NumberOfComps{} comparable properties described in the
 \input{tables/comps.tex}
 \end{small}
 
-The table reports the street address (which we will use a short-hand when referring to a property), the year it was built, the lot and living area size (both in square feet), the reported number of bedrooms and bathrooms, and finally the sale price (for comparables) or the listed price, for \PropertyName{}.
+The table reports the street address (which we will use as short-hand when referring to a property), the year it was built, the lot and living area sizes (both in square feet), the reported number of bedrooms and bathrooms, and finally the listing price for \PropertyName{} and the sale prices of comparables.
 URLs for each of the properties is in Appendix~\ref{sec:urls}.
 
-\subsection{What makes for a good comparables analysis?}
+\subsection{What makes for a good comparable sales analysis?}
 The quality of this analysis depends critically on the quality of the comparables.
-A focus of the analysis will be showing how comparable---or not---these comparables are to the target property. 
-We will use the comparables to make predictions about the price for the tareget property, but these predictions are not substitutes for judgement and contextual detail that a realtor provides.
-When the report does make predictions, how, precisely, these predictions are made is explained.
-This is in keeping with our philosophy that ``black box'' predictions are typically harmful in the sale process. 
+A focus of the analysis will be showing how comparable or not the selected comparables are to the target listing.
+We will use the comparable sales to make predictions about the ultimate sale price for the target property, but these predictions are not substitutes for individual judgment and contextual details that a professional realtor can provide.
+When the report does make predictions, we explain precisely how those predictions are made.
+This is in keeping with our philosophy that ``black box'' predictions are typically harmful in the sale process because they hide important details and force parties to make assumptions about information that should be clearly understood.
 
 \subsection{How to use this report}
 \begin{itemize}
 \item The report can be used to assess whether a party is making a reasonable offer, and provide justification for a price. 
 \item The report can be used to discover whether the selected comparables are reasonable and relevant for purposes of comparison. 
-For example, the report can clarify whether the collective attributes of a target property are sufficiently within the ranges of the selected comparables. As parties work to arrive at a price, agreeing on comps can be a critical first step. 
-\item The report can be used to determine the value of various attributes necessary to justify a price or offer. For example, if a target house has an outdated kitchen but the comparables do not, does the listing price discount reflect this difference? 
+For example, the report can clarify whether the collective attributes of a target property are sufficiently within the ranges of the selected comparables. As parties work to arrive at a price, agreeing on comparable sales can be a critical first step. 
+\item The report can be used to determine the value of various attributes necessary to justify a price or offer. For example, if a target house has an outdated kitchen but comparable sales properties were new or renovated, does the listing price discount reflect this difference? 
 \end{itemize} 
 
 In keeping with our ``no black boxes'' philosophy, each component of the analysis is explained in detail. 
 %Additional information about the data and methods used are provided in Appendix~\ref{sec:methods}.
 
 \subsection{Location}
-In any comparables analysis, perhaps the most important factor is finding properties in truly comparable locations.
-The location of a property strongly affects schools, property taxes, local amenities, crime, walkability and so on.
-As such, there is enormous variation in house prices explained purely by location. 
-As such, this analysis hinges about the realtor or whoever selected the comparables to pick properties that are all in more or less the same location.
-It is much more feasible for a model to account for differences due to lot sizes or square footage among properties that are broadly similar than to try to account for the differences due to geography. 
-The old saying that real estate is about ``location, location, location'' is surely true---but hopefully with good comparables, this factor is off the table.
+In any comparable sales analysis, perhaps the most important first step is finding properties in truly comparable locations.
+The location of a property strongly affects schools, property taxes, local amenities, crime, walkability and myriad other factors.
+An enormous amount of variation in house prices is explained by location. 
+As a result, this analysis depends on a real estate professional to select properties for comparison that are all in more or less the same location.
+It is much more feasible to computationally account for differences that are due to lot size or square footage among properties that are broadly similar than to try to account for differences due to geography. 
+The old saying that real estate is all about ``location, location, location'' is surely true. But hopefully with good comparables, this factor is off the table.
 
 The location of the target property and the comparables are plotted in Figure~\ref{fig:map}.
-The location of the comparable properties is plotted in blue and the target property is in pink. 
+Comparable properties are plotted in blue and the target property is plotted in pink. 
 
 \begin{figure}[h!]
 \centering
-\caption{Locations of comparable properties}  \label{fig:map}  
+\caption{Mapped locations of \PropertyName{} and comparable properties}  \label{fig:map}  
 \includegraphics[width=0.65\columnwidth]{plots/map.pdf} 
 \end{figure}
 
 On average, the comparable properties are \AvgDistance{} miles away, as the crow flies.
-The closest comparable property is only \MinDistance{} miles away, while the farthest away is \MaxDistance{}. 
+The closest comparable property is only \MinDistance{} miles away and the furthest is \MaxDistance{} miles away.
 \States{}
 \Cities{}
 
-\subsection{Sale prices and \PropertyName{} listing price}
+\subsection{The listing price and comparable sales prices}
 
 Figure~\ref{fig:price} below shows the listing price for \textbf{\PropertyName{}} and the sale price of each comparable property.
 The listing price for \PropertyName{} is plotted in pink. 
