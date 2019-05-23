@@ -21,14 +21,17 @@ df.raw %<>% mutate(sq.ft.k = square_feet / 1000) %>%
 # Create comps data set 
 df.comps <- df.raw %>% filter(comp == 1) 
 
-f <- "~ (sq.ft.k + lot.sq.ft.k)^2"
-X <- model.matrix(as.formula(f),
-                  data = df.comps)
+f <- "price ~ poly(sq.ft.k,2) + poly(lot.sq.ft.k,2) + lot.sq.ft.k:sq.ft.k+0"
+
+X <- model.matrix(as.formula(f), data = df.comps)
 
 y <- df.comps$price
+
 m.ridge <- glmnet(X,y)
 
 plot(m.ridge)
+
+#summary(m.ridge)
 
 cv.out <- cv.glmnet(X,y)
 
