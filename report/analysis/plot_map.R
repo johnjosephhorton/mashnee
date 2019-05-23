@@ -39,7 +39,7 @@ SquareOff <- function(box){
     } else {
         delta = width - height
         new.top = top + delta / 2
-        new.bottom = top - delta/2
+        new.bottom = bottom - delta/2
         new.right = right
         new.left = left
     }
@@ -50,10 +50,10 @@ SquareOff <- function(box){
 
 BBox.square <- SquareOff(BBox)
 
-#BBox.square[4] - BBox.square[2]
-#BBox.square[3] - BBox.square[1]
 
 b <- get_map(BBox.square,maptype="toner-lite", source="stamen")
+
+# b <- get_map(BBox,maptype="toner-lite", source="stamen")
 
 #height <- BBox$top - BBox$bottom
 #width <- b["right"] - b["left"]
@@ -75,5 +75,7 @@ g <- ggmap(b) +
 #    geom_point(data = df.raw, aes(x = longitude, y = latitude, colour = factor(comp))) +
 #    geom_label_repel(data = df.raw, aes(x = longitude, y = latitude, label = address, colour = factor(comp)))
 # print(g)
+
+print(g)
 
 JJHmisc::writeImage(g, "map", width = 8, height = 8, path = "../writeup/plots/")
