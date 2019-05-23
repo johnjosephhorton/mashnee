@@ -27,6 +27,7 @@ dottedtoc % Dotted lines leading to the page numbers in the table of contents
 \usepackage{amsmath}
 
 \input{parameters_name.tex}
+\input{parameters_models.tex}
 
 \hypersetup{
 %draft, % Uncomment to remove all links (useful for printing in black and white)
@@ -353,7 +354,7 @@ Using this formula, the predicted price for \PropertyName{}, given that is is \P
 \textsc{Predicted Price} & = \$ \Intercept{} + (\$ \MarginalPricePerFoot{}/\textsc{SqFt}) \times \PropertySqFt{}. \\ \nonumber
                          & = \$ \PropertyPredict{} \nonumber 
 \end{align}
-which is \PctDiff{}\% \ComparePredictedToActual{} than the asking price of \$\PropertyPrice{}.
+which is \PctDiff{}\% away from the listing price of \$\PropertyPrice{}.
 
 With any prediciton, there is uncertainty in the prediciton.
 We can account for some of it using a technique called bootstrapping---see Appendix~\ref{sec:bootstrapping} for details. 
@@ -369,18 +370,29 @@ The listing price for \PropertyName{} is plotted as a vertical line.
 \end{figure}
 
 \subsection{Using more property attributes in prediction}
-We also fit a model that allows for bedrooms and bathrooms to affect the price, as well as allow the return to more square footage depend on the number of other rooms.
-This kind of more flexible model can lead to better predictions. albeit at the cost of more model complexity and greater danger of what is called ``over-fitting'' which is the statistical equilvalent of a hasty generalization.
+We can improve this model by adding more predictors---namely the lot size as well the lot size and square footage both (a) squared and (b) interacted with each other.
+What these other terms offer is flexibility.
+In the simpler model, more square footage always has the same effect on price---going from 800 square feet to 1,000 square feet has the same effect on price as going from 3,500 square feet to 3,700 square feet.
+This unlikely to be true in reality.
+Without getting two much into the details of the regression, adding a square term on the price allows the return to more square footage as the amoutn of square footage changes.
+Similarly, by adding the square footage times the lot size as a predictor, the model can allow more square footage to be more or less valued for bigger or smaller lots. 
+This kind of more flexible model can lead to better predictions, albeit at the cost of more model complexity and greater danger of what is called ``over-fitting'' which is the statistical equilvalent of a hasty generalization.
 See Appendix~\ref{sec:regularization} for details. 
 
-After a large search of possible models, the best model to predict the sale price of \PropertyName{} from the comparables is: 
-\begin{align}
+Using only the comparables, our fitted model predicting sale price is 
+\begin{align*}
 \mbox{Predicted Price} = \input{formula.tex}.
-\end{align}
+\end{align*}
 If we added a new comparable property, we could use this formula to predict their sale price.
 This is turn could help us see whehther it is a reasonable comparable---if we find the predicted sale price is wildly different from the actual sale price---either the model is wrong or the property is not actually comparable (say it is a location that radically increases or decreases the price). 
 
-Using our model, we predict the price of all the properties, including \PropertyName{}.
+
+The main value of the model is that it lets us predict the value \PropertyName{}.
+The prediction for \PropertyName{} is \$\PropertyPricePredictionComplex{}, which is \PropertyPricePredictionComplexPercent{}\% away from the listing price of \$\PropertyPrice{}.  
+Using our model, we predict the price of all the properties, including \PropertyName{}.\footnote{
+  Solely among the comparables, the median absolute percentage error for this model is \MAPE{}\%, though this likely over-states the performance of the model, given the dataset is relatively small. 
+}
+
 We do this in Figure~\ref{fig:predictive_model}, which will take a moment to explain.
 This is called a slope graph.
 In the left side, each line starts at the actual sale price (or the listing price in the case \PropertyName{}).

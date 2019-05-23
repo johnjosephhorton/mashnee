@@ -7,6 +7,7 @@ suppressPackageStartupMessages({
     library(ggrepel)
     library(glmnet)
     library(reshape2)
+    library(JJHmisc)
 })
 
 source("get_data.R")
@@ -61,7 +62,33 @@ df.pct <- df.compare %>% group_by(address, comp) %>%
         height = value[type == "Predicted"], 
         pct.change = round(100 * (value[type=="Predicted"] - value[type=="Actual"])/value[type=="Actual"], 1))
 
-df.pct %>% filter(comp == 1) %>% mutate(abs.pct.change = abs(pct.change)) %$% abs.pct.change %>% median
+addParam <- genParamAdder("../writeup/parameters_models.tex")
+
+median.abs.pct.diff <- df.pct %>% filter(comp == 1) %>% mutate(abs.pct.change = abs(pct.change)) %$% abs.pct.change %>% median
+
+addParam("\\MAPE", median.abs.pct.diff)
+
+# The prediction for 
+
+y.hat <- predict(m, newdata = df.raw %>% filter(comp==0))
+
+y.hat.interval <- predict(m, newdata = df.raw %>% filter(comp==0), interval = "prediction")
+
+y.lower <- y.hat.interval[2]
+y.upper <- y.hat.interval[3]
+se <- (y.upper - y.lower)/(4 * 1.96)
+
+num.draws <- 1000
+df.norm <- data.frame(value = rnorm(num.draws, mean = y.hat, sd = se)) %>%
+    mutate(address = "", comp = 0)
+
+addParam("\\PropertyPricePredictionComplex", formatC(y.hat, big.mark = ",", format="f", digits = 0))
+
+
+
+y.actual <- df.raw %>% filter(comp == 0) %$% price
+
+addParam("\\PropertyPricePredictionComplexPercent", round(100*(y.hat - y.actual)/y.actual, digits = 1))
 
 g <- ggplot(data = df.compare, aes(x = type, y = value,
                                group = address,
@@ -79,7 +106,10 @@ g <- ggplot(data = df.compare, aes(x = type, y = value,
     geom_text_repel(data = df.pct, x = 2, aes(y = height, label = paste0(pct.change, "%")), segment.colour = "grey",
                     xlim = c(2, NA)) +
     geom_label(data = df.pct %>% filter(comp == 0), x = 1.5,
-                     aes(y = middle.height, label = "% difference\nbetween\npredicted sale price and list\nprice"), size = 2.5)
+               aes(y = middle.height, label = "% difference\nbetween\npredicted sale price and list\nprice"), size = 2.5) +
+                                        #  geom_rug(data = df.norm, aes(x = 3, y = value), sides = "r") +
+    geom_boxplot(data = df.norm, aes(x = 2.5, y = value), width = 0.1, outlier.size = -1)
+    
 
 
 JJHmisc::writeImage(g, "predictive_model", width = 5, height = 4, path = "../writeup/plots/")
