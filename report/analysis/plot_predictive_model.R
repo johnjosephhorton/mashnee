@@ -88,7 +88,7 @@ g <- ggplot(data = df.compare, aes(x = type, y = value,
                     segment.colour = "grey") + 
     ylab("") +
     xlab("") + 
-    geom_text(data = df.pct, x = 2.15, aes(y = height, label = paste0(pct.change, "%"))) +
+    geom_text_repel(data = df.pct, x = 2, aes(y = height, label = paste0(pct.change, "%"))) +
     geom_label(data = df.pct %>% filter(comp == 0), x = 1.5,
                      aes(y = middle.height, label = "% difference\nbetween\npredicted\nand actual\nprices"), size = 2)
 

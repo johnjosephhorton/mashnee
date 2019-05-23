@@ -27,7 +27,7 @@ ListToPhrase <- function(x){
 }
 
 addParam("\\States",  ifelse(length(states) == 1, paste0("All the properties are in ", names(states), "."),
-                             paste0("The properties are spread out over ", length(states), " states: ", ListToPhrase(states))))
+                             paste0("The properties are spread out over ", length(states), " states: ", ListToPhrase(names(states)), ".")))
 
 cities <- df.raw %$% city %>% table
 
