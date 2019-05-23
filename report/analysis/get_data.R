@@ -5,10 +5,9 @@ if (!file.exists("config.R")){
     con <- dbConnect(RSQLite::SQLite(), path.to.db)
     order.number <- as.numeric(dbGetQuery(con, "select max(id) from orders") )
 }  else {
-   source("config.R")
+    source("config.R")
+    con <- dbConnect(RSQLite::SQLite(), path.to.db)
 }
-
-con <- dbConnect(RSQLite::SQLite(), path.to.db)
 
 df.raw <- dbGetQuery(con, paste0("select p.*, u.url from properties as p join urls as u on u.id = p.url_id where p.order_id = ",
                                  order.number))
