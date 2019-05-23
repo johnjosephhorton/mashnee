@@ -356,18 +356,18 @@ Using this formula, the predicted price for \PropertyName{}, given that is is \P
 \end{align}
 which is \PctDiff{}\% away from the listing price of \$\PropertyPrice{}.
 
-With any prediciton, there is uncertainty in the prediciton.
-We can account for some of it using a technique called bootstrapping---see Appendix~\ref{sec:bootstrapping} for details. 
-Using this method, we get a whole range or price predictions for \PropertyName{}, which we plot as a historgram in Figure~\ref{fig:bootstrap_price_predictions}.
-We exclude estimates below the 5th percentile and above the 95th percentile. 
-The listing price for \PropertyName{} is plotted as a vertical line. 
-%We can see that 5\% to 95\% is TK.
+%% With any prediciton, there is uncertainty in the prediciton.
+%% We can account for some of it using a technique called bootstrapping---see Appendix~\ref{sec:bootstrapping} for details. 
+%% Using this method, we get a whole range or price predictions for \PropertyName{}, which we plot as a historgram in Figure~\ref{fig:bootstrap_price_predictions}.
+%% We exclude estimates below the 5th percentile and above the 95th percentile. 
+%% The listing price for \PropertyName{} is plotted as a vertical line. 
+%% %We can see that 5\% to 95\% is TK.
 
-\begin{figure}
-\centering
-\caption{Price predictions for \PropertyName{} versus listing price} \label{fig:bootstrap_price_predictions}  
-\includegraphics[width=0.55\columnwidth]{plots/bootstrap_price_predictions.pdf} 
-\end{figure}
+%% \begin{figure}
+%% \centering
+%% \caption{Price predictions for \PropertyName{} versus listing price} \label{fig:bootstrap_price_predictions}  
+%% \includegraphics[width=0.55\columnwidth]{plots/bootstrap_price_predictions.pdf} 
+%% \end{figure}
 
 \subsection{Using more property attributes in prediction}
 We can improve this model by adding more predictors---namely the lot size as well the lot size and square footage both (a) squared and (b) interacted with each other.
@@ -386,13 +386,13 @@ Using only the comparables, our fitted model predicting sale price is
 If we added a new comparable property, we could use this formula to predict their sale price.
 This is turn could help us see whehther it is a reasonable comparable---if we find the predicted sale price is wildly different from the actual sale price---either the model is wrong or the property is not actually comparable (say it is a location that radically increases or decreases the price). 
 
-
 The main value of the model is that it lets us predict the value \PropertyName{}.
 The prediction for \PropertyName{} is \$\PropertyPricePredictionComplex{}, which is \PropertyPricePredictionComplexPercent{}\% away from the listing price of \$\PropertyPrice{}.  
+With any prediciton, there is uncertainty in the prediciton, which we will discuss in a moment. 
+
 Using our model, we predict the price of all the properties, including \PropertyName{}.\footnote{
   Solely among the comparables, the median absolute percentage error for this model is \MAPE{}\%, though this likely over-states the performance of the model, given the dataset is relatively small. 
 }
-
 We do this in Figure~\ref{fig:predictive_model}, which will take a moment to explain.
 This is called a slope graph.
 In the left side, each line starts at the actual sale price (or the listing price in the case \PropertyName{}).
@@ -404,6 +404,12 @@ Each point on the right side is labeled with the percentage change.
 \caption{Predictive model predicttions for properties versus prices for \PropertyName{}} \label{fig:predictive_model}  
 \includegraphics[width=0.95\columnwidth]{plots/predictive_model.pdf} 
 \end{figure}
+
+In the far right of the figure, we show a box blot of predictions for \PropertyName{}.
+It illustrates the the distribution of predictions we would get, given the uncertainty in our model. 
+The distribution is centered near the true prediction.
+The top of the box is the 75th percentile and the bottom of the box is the 25th percentile.
+The ``whiskers'' above and below represent the 95th and 5th percentils, respectively. 
 
 There are other automated valuation methods available online, though many simply serve as lead generation services.
 There \href{https://www.fhfa.gov/DataTools/Tools/Pages/HPI-Calculator.aspx}{Federal Housing Finance Authority has an online tool} that helps project a price recorded in the past to some date in the future, under the assumption that the property appreciated at the same rate as other properties. 
