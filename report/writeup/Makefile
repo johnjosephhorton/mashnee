@@ -13,6 +13,10 @@ tables += tables/comps.tex
 tables/comps.tex: ../analysis/table_comps.R
 	cd ../analysis && Rscript table_comps.R
 
+tables += tables/links.tex
+tables/links.tex: ../analysis/table_links.R
+	cd ../analysis && Rscript table_links.R
+
 plots =
 
 plots += plots/map.pdf 
