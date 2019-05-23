@@ -27,7 +27,7 @@ g <- ggplot(data = df.raw, aes(x = price, y = address,
     geom_point(size = 2) + 
     theme_bw() + 
     theme(legend.position = "none") + 
-#    scale_x_continuous(labels = priceFormatter) + 
+    scale_x_continuous(labels = priceFormatter()) + 
     geom_vline(data = df.raw %>% filter(comp == 0),
                aes(xintercept = price),
                colour = "red",
