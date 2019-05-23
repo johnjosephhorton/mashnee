@@ -1,7 +1,7 @@
 library(DBI)
 
 if (!file.exists("config.R")){
-   order.number <- 1
+   order.number <- 5
    path.to.db <- "~/GG/instance/GG.sqlite"
 }  else {
    source("config.R")

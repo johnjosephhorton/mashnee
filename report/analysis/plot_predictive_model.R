@@ -80,7 +80,7 @@ g <- ggplot(data = df.compare, aes(x = type, y = value,
                                colour = factor(comp)
                                )) +
     geom_line() + 
-    scale_y_continuous(labels = priceFormatter()) + 
+#    scale_y_continuous(labels = priceFormatter()) + 
     theme_bw() + 
     theme(legend.position = "none") +
     geom_text_repel(data = df.compare %>% filter(type == "Actual"), aes(label = address),

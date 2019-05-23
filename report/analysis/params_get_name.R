@@ -17,11 +17,6 @@ addParam <- genParamAdder("../writeup/parameters_name.tex")
 
 states <- df.raw %$% state %>% table
 
-addParam("\\States",  ifelse(length(states) == 1, paste0("All the properties are in ", names(states), "."),
-                             paste0("The properties are spread out over ", length(states), ".")))
-
-cities <- df.raw %$% city %>% table
-
 ListToPhrase <- function(x){
     num.items <- length(x)
     if (num.items == 2){
@@ -30,6 +25,13 @@ ListToPhrase <- function(x){
         paste0(paste0(x[1:(num.items - 2)], collapse = ", "), ", ", x[num.items -1], " and ", x[num.items])
     }
 }
+
+addParam("\\States",  ifelse(length(states) == 1, paste0("All the properties are in ", names(states), "."),
+                             paste0("The properties are spread out over ", length(states), " states: ", ListToPhrase(states))))
+
+cities <- df.raw %$% city %>% table
+
+
 
 addParam("\\Cities",  ifelse(length(cities) == 1, paste0("All the properties are in ", names(cities), "."),
                              paste0("The properties are spread out over ", length(cities), " cities: ",
