@@ -13,8 +13,9 @@ suppressPackageStartupMessages({
 # Load comparables data 
 source("get_data.R")
 
-#df.raw <- read.csv("../data/data.csv") %>% 
-#  mutate(price = gsub(",","",price) %>% as.numeric)
+inches.per.row <- 0.6
+num.rows <- nrow(df.raw)
+width <- 4
 
 df.comps <- df.raw %>% filter(comp == 1) %>% select(address,  baths, bedrooms, square_feet, price, lotSize) %>% melt(id.vars = c("address"))
 
@@ -54,7 +55,7 @@ g <- ggplot(data = df.combo, aes(x = variable, y = percentile)) +
     xlab("") +
     coord_flip()
 
-JJHmisc::writeImage(g, "ecdf", width = 5, height = 5, path = "../writeup/plots/")
+JJHmisc::writeImage(g, "ecdf", width = width, height = num.rows * inches.per.row, path = "../writeup/plots/")
 
 
 
