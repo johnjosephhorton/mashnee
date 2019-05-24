@@ -19,6 +19,12 @@ tables/links.tex: ../analysis/table_links.R
 
 plots =
 
+
+plots += plots/diagnostics.pdf 
+plots/diagnostics.pdf: ../analysis/plot_diagnostics.R $(data)
+	cd ../analysis && Rscript plot_diagnostics.R
+
+
 plots += plots/map.pdf 
 plots/map.pdf: ../analysis/plot_map.R $(data)
 	cd ../analysis && Rscript plot_map.R
