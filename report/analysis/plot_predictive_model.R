@@ -113,5 +113,10 @@ g <- ggplot(data = df.compare, aes(x = type, y = value,
     geom_boxplot(data = df.norm, aes(x = 2.5, y = value), width = 0.1, outlier.size = -1)
     
 
+#df.model <- cbind(df.comps %>% select(address), fortify(m))
+
+#ggplot(data = df.model, aes(x = address, y = .cooksd)) + geom_bar(stat = "identity") + coord_flip()
 
 JJHmisc::writeImage(g, "predictive_model", width = 5, height = 4, path = "../writeup/plots/")
+
+
