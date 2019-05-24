@@ -90,6 +90,9 @@ y.actual <- df.raw %>% filter(comp == 0) %$% price
 
 addParam("\\PropertyPricePredictionComplexPercent", round(100*(y.hat - y.actual)/y.actual, digits = 1))
 
+phrase <- system("echo '% difference between predicted sale price and list price' | fold -w 18 -s", intern = TRUE) %>%
+    paste0(collapse = "\n")
+
 g <- ggplot(data = df.compare, aes(x = type, y = value,
                                group = address,
                                colour = factor(comp)
@@ -106,8 +109,7 @@ g <- ggplot(data = df.compare, aes(x = type, y = value,
     geom_text_repel(data = df.pct, x = 2, aes(y = height, label = paste0(pct.change, "%")), segment.colour = "grey",
                     xlim = c(2, NA)) +
     geom_label(data = df.pct %>% filter(comp == 0), x = 1.5,
-               aes(y = middle.height, label = "% difference\nbetween\npredicted sale price and list\nprice"), size = 2.5) +
-                                        #  geom_rug(data = df.norm, aes(x = 3, y = value), sides = "r") +
+               aes(y = middle.height, label = phrase), size = 2.5) +
     geom_boxplot(data = df.norm, aes(x = 2.5, y = value), width = 0.1, outlier.size = -1)
     
 
