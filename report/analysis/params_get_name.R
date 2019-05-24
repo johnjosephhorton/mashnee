@@ -169,7 +169,7 @@ mean.sqft.comp <- df.raw %>% filter(comp == 1) %>% mutate(price.per.foot = price
 mean.sqft.target <- df.raw %>% filter(comp == 0) %>% mutate(price.per.foot = price / square_feet) %$%
                                 price.per.foot %>% mean %>% round(0)
 
-addParam("\\MeanPricePerFootPct", ((mean.sqft.comp - mean.sqft.target)/mean.sqft.target) %>% multiply_by(100) %>% round(0))
+addParam("\\MeanPricePerFootPct", ((mean.sqft.comp - mean.sqft.target)/mean.sqft.target) %>% multiply_by(100) %>% round(0) %>% abs) 
 addParam("\\ComparePricePerFoot", ifelse(mean.sqft.target > mean.sqft.comp, "higher", "lower"))
 
 

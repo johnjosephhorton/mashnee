@@ -163,7 +163,7 @@ The closest comparable property is only \MinDistance{} miles away and the furthe
 
 \subsection{The listing price and comparable sales prices}
 
-Figure~\ref{fig:price} below shows the listing price for \textbf{\PropertyName{}} and the sale price of each comparable property.
+Figure~\ref{fig:price} shows the listing price for \textbf{\PropertyName{}} and the sale price of each comparable property.
 The listing price for \PropertyName{} is plotted in pink. 
 Among the comparables, the minimum sale price is \$\MinPrice{} and the maximum price is \$\MaxPrice{}.
 The listing price for \PropertyName{} \InPriceRange{} within the range of the comparable sales prices. 
@@ -176,14 +176,14 @@ The listing price for \PropertyName{} \InPriceRange{} within the range of the co
 \includegraphics[width=0.95\columnwidth]{plots/price.pdf} 
 \end{figure}
 
-It is useful that the target house is within the comparable sales price range, though it is important to keep in mind that the listing price is not a sale price, and the ultimate sale price may be far away from this initial listing price.
+It is useful that the target property is within the comparable sales price range, though it is important to keep in mind that the listing price is not a sale price, and the ultimate sale price may be far away from this initial listing price.
 In terms of price, the property closest to \PropertyName{} is \ClosestOnPrice{}. 
 
 \subsection{Square feet of living space}
-An important determinant of price in any real estate market is the amount of livable space.
-Of course, not all square footage is the same.
-A luxury home with custom finishes, high-quality building materials, hardwood floors, architectual details and so on, is not worth the same as a same-sized home with carpeting, lineoleum bathrooms and hollow-core doors.
-Again, these kinds of differences are not captured in a model and it is incumbent upon the realtor to make sure that the comparables truly are comparable to the target property. 
+An important determinant of price is the amount of livable space.
+Of course, not all square footage is the valued equally.
+Square footage in a luxury home with custom finishes, high-quality building materials, hardwood floors, architectual details, and so on will bear a different value than square footage in a same-sized home with carpeting, lineoleum bathrooms and hollow-core doors.
+Again, these kinds of differences are not captured in most models and it is incumbent upon a real estate professional to ensure that selected comparables are substantially similar in quality to the target property. 
 
 Among the comparables, the smallest property is \MinSize{}$ft^2$ and the largest is \MaxSize{}$ft^2$.
 At \PropertySize{}$ft^2$, \PropertyName{} \InSizeRange{} in this range. 
@@ -220,10 +220,10 @@ If additional square footage were associated with a lower price, we might questi
 \subsection{Bedrooms and bathrooms}
 Beyond square footage, buyers care about the numbers of bedrooms and bathrooms.
 However, because these quantities are changeable with renovations, overall space is widely regarded as more important.
-Keeping a square footage fixed, adding aother bedroom just more finely divides the space already available, potentially leading to cramped quarters. 
-Furthermore, each additional bedroom or bathroom might be worth less than the previous one.
+Without changing the square footage, adding another bedroom more finely divides the available space, potentially leading to cramped quarters. 
+Depending on the buyer, each additional bedroom or bathroom might be worth substantially less than the previous one.
 
-Figure~\ref{fig:bedroom_bathroom} below shows the numbers of bedrooms and bathrooms of \PropertyName{} and comparable properties. 
+Figure~\ref{fig:bedroom_bathroom} shows the numbers of bedrooms and bathrooms of \PropertyName{} and comparable properties. 
 In the figure, the properties are listed from most to fewest bedrooms.
 The number of bedrooms is plotted in the left facet, and the number of bathrooms is plotted in the right facet. 
 The comparable properties have, on average, \AverageBedrooms{} bedrooms and \AverageBaths{} bathrooms.
@@ -238,55 +238,55 @@ The comparable properties have, on average, \AverageBedrooms{} bedrooms and \Ave
 \subsection{Lot size}
 In addition to living space, another determinant of the price is the lot size.
 All else equal, people generally prefer more land to less.
-However, it matters a great deal what the status of that land is---some properties have land that could be sub-divided, creating another (valuable) house lot;
-other parcels of land may not be buildable, though the contribute to the owner's enjoyment of the land, through greater quiet and privacy.
+However, the land condition matters a great deal. Some properties have land that could be sub-divided, creating another valuable lot; other parcels of land may not be buildable, though the contribute to the owner’s enjoyment of the land, through greater quiet
+and privacy. Some lots are only usable for certain purposes, etc.
 
 \begin{figure}[!]
 \centering
-\caption{Lot size (in acres) of properties comparable to \PropertyName{}} \label{fig:lot_size}  
+\caption{Lot size (in acres) of \PropertyName{} and comparable properties} \label{fig:lot_size}  
 \includegraphics[width=0.95\columnwidth]{plots/lot_size.pdf} 
 \end{figure}
 
-The enjoyment of land in turn depends on factors not captured in a model or just the acreage for that matter, such as the shape of the parcel, setting, views, what it abutts and so on.
-For example, owners typically value land behind their house more than land in front of their house; 
-Land subject to vernal pools or easements of various kinds will be less valued;
-Land that is mostly frontage on a busy street will be less valuable, and so on.
+The enjoyment of land in turn depends on factors not captured in a model or purely determinable by acreage, such as the shape of the parcel, setting, views, and neighboring lots.
+For example, homeowners typically value land behind their house more than land in front of their house; 
+Land subject to vernal pools or easements of various kinds will be less valuable.
+Residential land with frontage on a busy street may be less valuable, and so on.
 
-These caveats aside, in Figure~\ref{fig:lot_size} plots the lot size for each of the properties. 
+These caveats aside, in Figure~\ref{fig:lot_size} we plot the lot size for each of the comparable properties. 
 Properties are listed from largest to smallest.
 The smallest lot is \SmallestLot{} acres, while the largest lot is \LargestLot{} acres.
 The target property has a lot size of \PropertyLotSize{} acres.
-To help with intrepreation, note that a US football field is about 1.3 acres.
+For reference, a US football field is about 1.3 acres.
 \ExtremeWarningLargestLot{}
 \ExtremeWarningSmallestLot{}
 
 \subsection{Year of construction}
-The age of construction can be misleading---there are centuries-old houses in excellent condition and twenty year old houses that were poorly maintained and are now ``tear-downs.''
-Furthermore, the date of the last rennovation is probably more relevant than the year of construction in assessing in how ``dated'' a property might look. 
-However, all else equal, people tend to prefer newer construction, in part because of lower maintenance costs, greater energe efficiency, and so on. 
-Figure~\ref{fig:age} shows the year when each property was built, with properties ordered from newest to oldest. 
+The age of building's construction can be misleading. There are centuries-old houses in excellent condition and poorly constructed twenty-year-old houses that are ``tear-downs.''
+The date of the last renovation is probably more relevant than the year of construction in assessing in how ``dated'' a property might look. 
+However, all else being equal, people tend to prefer newer construction, in part because of lower maintenance costs, greater energe efficiency and modern spacing and utilities. 
+Figure~\ref{fig:age} shows the year when \PropertyName{} and each comparable property was built, ordered from newest to oldest original construction.
 
 \begin{figure}
 \centering
-\caption{Year built of properties comparable to \PropertyName{}} \label{fig:age}  
+\caption{Original construction year of \PropertyName{} and comparable properties} \label{fig:age}  
 \includegraphics[width=0.95\columnwidth]{plots/age.pdf} 
 \end{figure}
 
-The oldest property in the comparable set was built in \Oldest{}, while the newest is \Youngest{}.
-The target property was built in \PropertyYearBuilt{}. 
+The oldest property in the comparables was built in \Oldest{}. The newest was built in \Youngest{}.
+\PropertyName{} was built in \PropertyYearBuilt{}. 
 \ExtremeWarningAgeYoung{}
 \ExtremeWarningAgeOld{}
 
 \subsection{Assessing comparability with respect to all attributes}
-As we have re-iterated many times, the key to a good comparables analysis is having comparables that are truly comparable.
-Although we have looked at each attribute individually---square footage, lot size, age, and so on---we now consider all of them collectively in a single plot.
+%As we have re-iterated many times, the key to a good comparables analysis is having comparables that are truly comparable.
+%Although we have looked at each attribute individually---square footage, lot size, age, and so on---we now consider all of them collectively in a single plot.
 
-Having examined key attributes individually, we next consider the combined attributes of \PropertyName{}.
+Having examined key attributes individually, we next consider the attributes of \PropertyName{} collectively.
 In Figure~\ref{fig:ecdf}, each of the comparable properties is listed in its own facet.
-For each attribute, we compute the percentage difference between that comparable proeprty and \PropertyName{}.
+For each attribute, we compute the percentage difference between that comparable property and \PropertyName{}.
 The x-axis is centered at 0.  
-If the comparable is larger on the dimension, the bar is positive and shaded green;
-if the comparare is smaller, then bar is negative and shared red. 
+If the comparable is greater than the target on a given dimension, the bar is positive and shaded green;
+if the comparable is smaller than the target on a given dimension, then bar is negative and shared red. 
 
 \begin{figure}
 \centering
@@ -294,9 +294,9 @@ if the comparare is smaller, then bar is negative and shared red.
 \includegraphics[width=0.95\columnwidth]{plots/ecdf.pdf} 
 \end{figure}
 
-Comparable propeties are ordered by the average value of the percentage difference, from high to low. 
-With good set of comparables, ideally, the percentage differences would all be fairly small.
-If there are large differences, ideally there would be a mix of green and red, both ``verically'' and ``horizontally.'' 
+Comparable properties are ordered by the average value of the percentage difference, from highest to lowest.
+Ideally, with a good set of comparables, the percentage differences would all be fairly small.
+If there are large differences, ideally there would nevertheless be a mix of green and red, both ``verically'' and ``horizontally'', indicating that although a target and a comparable property differ in individual attributes, they are collectively comparable.
 
 %% \begin{figure}
 %% \centering
@@ -305,17 +305,17 @@ If there are large differences, ideally there would be a mix of green and red, b
 %% \end{figure}
 
 \section{Predicted sale price}
-The basic idea behind \href{https://en.wikipedia.org/wiki/Comparables}{comparables} analysis is to find similar properties, but then ``adjust'' for differences, such as square footage to make a prediction.
+The basic idea behind \href{https://en.wikipedia.org/wiki/Comparables}{comparables} analysis is to find similar properties, but then ``adjust'' for differences such as square footage to make a prediction.
 This raises the question of what what should we adjust for and by how much.
 An extra square foot might be more valuable in one neighborhood than an other. 
 Perhaps just as important is assessing whether the comparables are actually reasonable for the target property. 
 
 This report focuses on comparing what are sometimes called ``vertical'' attributes of a property, or things that most people value in a ``more is better'' fashion.
-Examples include things like more square footage, more land, more bathrooms, more bedrooms, a newer roof, a newer furnace and so on.
+Examples include things like more square footage, more land, more bathrooms, more bedrooms, a newer roof, a newer furnace, and so on.
 Because these factors are nearly universally valued, more/newer means a higher price.
-These are the factors that should be considered when making ``comparables'' more, well, comparable. 
+These are the factors that should be considered when selecting ``comparables'' that are truly comparable. 
 
-There are also other factors that economists call ``horizontal'' that have an unclear or even non-existent relationship to price because they just reflect tasts.  
+There are also other factors that economists call ``horizontal'' that have an unclear or even non-existent relationship to price because they just reflect tastes.
 Some people like modern houses; some people like the Cape Cod style.
 If these factors are associated with price, it is typically just because they are related to some other factor.
 
@@ -324,19 +324,19 @@ To begin, we use a very simple model, in that we adjust for square footage.
 After that, we allow for more factors to affect the price.
 
 Our basic approach is essentially a simple version of what are called Automated Valuation Models (AVMs).
-Unlike our model, however, most of these models are inherently a ``black box'' with the details of how predictions are being being either proprietary or too complex to explain.
+Unlike our model, however, most of these models are inherently a ``black box'' with the details of how predictions are being msde either kept proprietary or too complex to explain.
 In truth, the most complex models may not really be understandable even by their creators. 
 
 With these kinds of models, consumers of the model are taking the predictions on the company's say-so.\footnote{\href{https://www.washingtonpost.com/news/where-we-live/wp/2014/06/10/how-accurate-is-zillows-zestimate-not-very-says-one-washington-area-agent/?noredirect=on&utm_term=.e3453c7b3677}{How accurate is Zillow's Zestimate? Not very, says one Washington-area agent.}
 }
 Our view is that black box models have a real downside relative to simpler, transparent models.
-With simple models, it is possible to show how preditions are derives.
+With simple models, it is possible to show how predictions are derived.
 This in turn enables parties to more confidently arrive at a price.
 
 With a simple model, buyers, sellers and realtors can discuss the comparables and the predictions.
 If the model is too low because it doesn't reflect the value of a new kitchen, it is better for all parties to understand why the model isn't working (kitchen renovation is not used as a predictor), rather wonder how that information may or may not be factored in.
 
-In our simple models, we also purposefully exclude listing prices in our predictions, as these are choices made by parities.
+In our simple models, we also purposefully exclude listing prices in our predictions, as these are choices made by parties.
 If models systematically used this information to generated predictions, parties would have an incentive to manipulate their listing price to try to influence the bargain. 
 
 While more complex models might be slightly more accurate, as they are based on more factors, these also rapidly run into diminishing returns with more data.
