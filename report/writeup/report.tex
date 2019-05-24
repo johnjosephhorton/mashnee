@@ -119,12 +119,12 @@ The analysis is based on \NumberOfComps{} comparable properties described in the
 \input{tables/comps.tex}
 \end{small}
 
-The table reports the street address (which we will use as short-hand when referring to a property), the year it was built, the lot and living area sizes (both in square feet), the reported number of bedrooms and bathrooms, and finally the listing price for \PropertyName{} and the sale prices of comparables.
-URLs for each of the properties is in Appendix~\ref{sec:urls}.
+For each property, the table reports the street address (which we will use as short-hand when referring to a property), the year it was built, the lot and living area sizes (both in square feet), the reported number of bedrooms and bathrooms, and finally the listing price for \PropertyName{} and the sale prices of the comparable properties.
+URLs for the properties are in Appendix~\ref{sec:urls}.
 
 \subsection{What makes for a good comparable sales analysis?}
 The quality of this analysis depends critically on the quality of the comparables.
-A focus of the analysis will be showing how comparable or not the selected comparables are to the target listing.
+A focus of the analysis will be measuring and showing how comparable or not each of the selected comparable sales is to the target listing.
 We will use the comparable sales to make predictions about the ultimate sale price for the target property, but these predictions are not substitutes for individual judgment and contextual details that a professional realtor can provide.
 When the report does make predictions, we explain precisely how those predictions are made.
 This is in keeping with our philosophy that ``black box'' predictions are typically harmful in the sale process because they hide important details and force parties to make assumptions about information that should be clearly understood.
@@ -148,8 +148,8 @@ As a result, this analysis depends on a real estate professional to select prope
 It is much more feasible to computationally account for differences that are due to lot size or square footage among properties that are broadly similar than to try to account for differences due to geography. 
 The old saying that real estate is all about ``location, location, location'' is surely true. But hopefully with good comparables, this factor is off the table.
 
-The location of the target property and the comparables are plotted in Figure~\ref{fig:map}.
-Comparable properties are plotted in blue and the target property is plotted in pink. 
+The location of \PropertyName{} and the comparables are plotted in Figure~\ref{fig:map}.
+Comparable properties are plotted in blue and \PropertyName{} is plotted in pink. 
 
 \begin{figure}[h!]
 \centering
@@ -164,7 +164,7 @@ The closest comparable property is only \MinDistance{} miles away and the furthe
 
 \subsection{The listing price and comparable sales prices}
 
-Figure~\ref{fig:price} shows the listing price for \textbf{\PropertyName{}} and the sale price of each comparable property.
+Figure~\ref{fig:price} shows the listing price for \PropertyName{} and the sale price of each comparable property.
 The listing price for \PropertyName{} is plotted in pink. 
 Among the comparables, the minimum sale price is \$\MinPrice{} and the maximum price is \$\MaxPrice{}.
 The listing price for \PropertyName{} \InPriceRange{} within the range of the comparable sales prices. 
@@ -239,7 +239,7 @@ The comparable properties have, on average, \AverageBedrooms{} bedrooms and \Ave
 \subsection{Lot size}
 In addition to living space, another determinant of the price is the lot size.
 All else equal, people generally prefer more land to less.
-However, the land condition matters a great deal. Some properties have land that could be sub-divided, creating another valuable lot; other parcels of land may not be buildable, though the contribute to the owner’s enjoyment of the land, through greater quiet
+However, the land condition matters a great deal. Some properties have land that could be sub-divided, creating additional valuable lots; other parcels of land may not be buildable, but contribute an owner’s enjoyment of the land, through greater quiet
 and privacy. Some lots are only usable for certain purposes, etc.
 
 \begin{figure}[!]
@@ -249,8 +249,8 @@ and privacy. Some lots are only usable for certain purposes, etc.
 \end{figure}
 
 The enjoyment of land in turn depends on factors not captured in a model or purely determinable by acreage, such as the shape of the parcel, setting, views, and neighboring lots.
-For example, homeowners typically value land behind their house more than land in front of their house; 
-Land subject to vernal pools or easements of various kinds will be less valuable.
+For example, homeowners typically value land behind their house more than land in front of their house. 
+Properties subject to easements of various kinds will be less valuable.
 Residential land with frontage on a busy street may be less valuable, and so on.
 
 These caveats aside, in Figure~\ref{fig:lot_size} we plot the lot size for each of the comparable properties. 
@@ -263,8 +263,8 @@ For reference, a US football field is about 1.3 acres.
 
 \subsection{Year of construction}
 A building's age can be misleading. There are centuries-old houses in excellent condition and poorly constructed twenty-year-old houses that are ``tear-downs.''
-The date of the most recent renovation is probably more relevant than the year of original construction in assessing in how ``dated'' a property's interior or exterior might look. 
-However, all else being equal, people tend to prefer newer construction, in part because of lower maintenance costs, greater energe efficiency and modern spacing and utilities. 
+The date of the most recent renovation is probably more relevant than the year of original construction in assessing how ``dated'' a property's interior or exterior might look. 
+However, all else being equal, people tend to prefer newer construction, in part because of lower maintenance costs, greater energy efficiency and modern styles and fixtures.
 Figure~\ref{fig:age} shows the year when \PropertyName{} and each comparable property was built, ordered from newest to oldest original construction.
 
 \begin{figure}
@@ -287,7 +287,7 @@ In Figure~\ref{fig:ecdf}, each of the comparable properties is listed in its own
 For each attribute, we compute the percentage difference between that comparable property and \PropertyName{}.
 The x-axis is centered at 0.  
 If the comparable is greater than the target on a given dimension, the bar is positive and shaded green;
-if the comparable is smaller than the target on a given dimension, then bar is negative and shared red. 
+if the comparable is smaller than the target on a given dimension, the bar is negative and shared red. 
 
 \begin{figure}
 \centering
@@ -306,9 +306,9 @@ If there are large differences, ideally there would nevertheless be a mix of gre
 %% \end{figure}
 
 \section{Predicted sale price}
-The basic idea behind \href{https://en.wikipedia.org/wiki/Comparables}{comparables} analysis is to find similar properties, but then ``adjust'' for differences such as square footage to make a prediction.
-This raises the question of what what should we adjust for and by how much.
-An extra square foot might be more valuable in one neighborhood than an other. 
+The basic idea behind a \href{https://en.wikipedia.org/wiki/Comparables}{comparables} analysis is to find similar properties, but then ``adjust'' for differences such as square footage to make a prediction.
+This raises the question of what we should adjust for and by how much.
+An extra square foot might be more valuable in one neighborhood than another. 
 Perhaps just as important is assessing whether the comparables are actually reasonable for the target property. 
 
 This report focuses on comparing what are sometimes called ``vertical'' attributes of a property, or things that most people value in a ``more is better'' fashion.
@@ -325,7 +325,7 @@ To begin, we use a very simple model, in that we adjust for square footage.
 After that, we allow for more factors to affect the price.
 
 Our basic approach is essentially a simple version of what are called Automated Valuation Models (AVMs).
-Unlike our model, however, most of these models are inherently a ``black box'' with the details of how predictions are being msde either kept proprietary or too complex to explain.
+Unlike our model, however, most of these models are inherently ``black boxes'' with the details of how predictions are being made either kept proprietary or too complex to explain.
 In truth, the most complex models may not really be understandable even by their creators. 
 
 With these kinds of models, consumers of the model are taking the predictions on the company's say-so.\footnote{\href{https://www.washingtonpost.com/news/where-we-live/wp/2014/06/10/how-accurate-is-zillows-zestimate-not-very-says-one-washington-area-agent/?noredirect=on&utm_term=.e3453c7b3677}{How accurate is Zillow's Zestimate? Not very, says one Washington-area agent.}
@@ -335,9 +335,9 @@ With simple models, it is possible to show how predictions are derived.
 This in turn enables parties to more confidently arrive at a price.
 
 With a simple model, buyers, sellers and realtors can discuss the comparables and the predictions.
-If the model is too low because it doesn't reflect the value of a new kitchen, it is better for all parties to understand why the model isn't working (kitchen renovation is not used as a predictor), rather wonder how that information may or may not be factored in.
+If the model's prediction is too low because it doesn't reflect the value of a new kitchen, it is better for all parties to understand why the model isn't working (kitchen renovation is not used as a predictor), rather than wonder how that information may or may not be factored in.
 
-In our simple models, we also purposefully exclude listing prices in our predictions, as these are choices made by parties.
+In our simple models, we also purposefully exclude listing prices from the predictors, as these are choices made by parties.
 If models systematically used this information to generate predictions, parties would have an incentive to manipulate their listing price to try to influence the bargain. 
 
 While more complex models might be slightly more accurate, as they are based on more factors, they also rapidly run into diminishing returns as more data is added.
@@ -377,10 +377,10 @@ In the simpler model, more square footage always has the same effect on price---
 This is unlikely to be true in reality.
 %Without getting two much into the details of the regression, 
 
-We can address this issue by using a slightly more complicated model, by including not just the square footage, but also the square footage, \emph{squared} (e.g., if the house was $1,000$ square feet, we would also include $1,000 \times 1,000 = 1,000,000$ as a predictor). 
-By adding the squared square footage, to the model, it allows the return to more square footage to depend on how much square footage is alread present. 
+We can address this issue by using a slightly more complicated model, by including not just the square footage but also the square footage \emph{squared} (e.g., if the house was $1,000$ square feet, we would also include $1,000 \times 1,000 = 1,000,000$ as a predictor). 
+Adding the squared square footage to the model allows the return to more square footage to depend on how much square footage is already present. 
 Similarly, by adding the square footage times the lot size as a predictor, the model can allow more square footage to be more or less valued for bigger or smaller lots. 
-This kind of more flexible model can lead to better predictions, albeit at the cost of more model complexity and greater danger of what is called ``over-fitting'', which is the statistical equilvalent of a hasty generalization.
+This kind of more flexible model can lead to better predictions, albeit at the cost of more model complexity and greater danger of ``over-fitting'', which is the statistical equivalent of a hasty generalization.
 See Appendix~\ref{sec:regularization} for more details. 
 
 Using only the comparables, our fitted model predicting sale price is 
@@ -388,11 +388,11 @@ Using only the comparables, our fitted model predicting sale price is
 \mbox{Predicted Price} = \input{formula.tex}.
 \end{align*}
 If we added a new comparable property, we could use this formula to predict its sale price.
-This is turn could help us see whether it is a reasonable comparable. If we find the predicted sale price is wildly different from the actual sale price, then either the model is wrong or the property is not actually comparable (for example, it might be in a location that radically increases or decreases the price). 
+This in turn could help us see whether it is a reasonable comparable. If we find the predicted sale price is wildly different from the actual sale price, then either the model is wrong or the property is not actually comparable (for example, it might be in a location that radically increases or decreases the price). 
 
 The main value of the model is that it lets us predict the sale price of our target property.
 The prediction for \PropertyName{} is \$\PropertyPricePredictionComplex{}, which is \PropertyPricePredictionComplexPercent{}\% away from the listing price of \$\PropertyPrice{}.  
-With any prediction, there is uncertainty in the prediciton, which we will discuss in a moment. 
+With any prediction, there is uncertainty, which we will discuss in a moment. 
 
 Using our model, we predict the price of all the properties, including \PropertyName{}.\footnote{
   Solely among the comparables, the median absolute percentage error for this model is \MAPE{}\%, though this likely over-states the performance of the model, given that the dataset is relatively small. 
@@ -409,11 +409,11 @@ Each point on the right side is labeled with the percentage change.
 \includegraphics[width=0.95\columnwidth]{plots/predictive_model.pdf} 
 \end{figure}
 
-In the far right of the figure, we show a box blot of predictions for \PropertyName{}.
-It illustrates the the distribution of predictions we would get, given the uncertainty in our model. 
+In the far right of the figure, we show a box plot of predictions for \PropertyName{}.
+It illustrates the distribution of predictions we would get, given the uncertainty in our model. 
 The distribution is centered near the true prediction.
 The top of the box is the 75th percentile and the bottom of the box is the 25th percentile.
-The ``whiskers'' above and below represent the 95th and 5th percentils, respectively. 
+The ``whiskers'' above and below represent the 95th and 5th percentiles, respectively. 
 
 There are other automated valuation methods that are available online, though many simply serve as lead generation services.
 The \href{https://www.fhfa.gov/DataTools/Tools/Pages/HPI-Calculator.aspx}{Federal Housing Finance Authority has an online tool} that takes a price recorded in the past and attempts to project it to some date in the future, under the assumption that the property appreciated at the same rate as other properties. 
@@ -425,6 +425,15 @@ The \href{https://www.fhfa.gov/DataTools/Tools/Pages/HPI-Calculator.aspx}{Federa
 \end{figure}
 
 \section{Conclusion}
+Our analysis of comparable sales to evaluate a target property can be modified and improved in myriad ways to fit the individual user's purposes and goals.
+This particular report for \PropertyName{} was prepared using comparable sales identified by Trulia on the public listing page for the property. 
+No information is shown for how the comparable sales were algorithmically selected.
+With better comparables knowledgeably chosen by a real estate professional armed with local context and experience, we can regenerate the analysis and better understand the improved results.
+
+Galton Gauss is brand new. We aim to build long-term relationships with realtors to provide tailored reports useful to all parties to real estate transactions.
+We welcome any feedback on our reports to better understand what is clear and helpful and what needs improvement.
+
+Please contact us at \texttt{support@GaltonGauss.com}.
 
 
 \renewcommand{\refname}{\spacedlowsmallcaps{References}} % For modifying the bibliography heading
