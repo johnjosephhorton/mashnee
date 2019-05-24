@@ -22,8 +22,8 @@ g <- ggplot(data = df.raw, aes(x = square_feet, y = price,
     scale_x_continuous(labels = scales::comma) + 
     scale_y_continuous(labels = scales::dollar) + 
     theme_bw() + 
-    theme(legend.position = "none") + 
-    ylab("Price") + 
-    xlab("SqFt") 
+    theme(legend.position = "none") 
+#    ylab("Price") + 
+#    xlab("SqFt") 
 
 JJHmisc::writeImage(g, "price_versus_square_feet", width = 4, height = 2.5, path = "../writeup/plots/")
