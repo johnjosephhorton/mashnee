@@ -337,10 +337,10 @@ With a simple model, buyers, sellers and realtors can discuss the comparables an
 If the model is too low because it doesn't reflect the value of a new kitchen, it is better for all parties to understand why the model isn't working (kitchen renovation is not used as a predictor), rather wonder how that information may or may not be factored in.
 
 In our simple models, we also purposefully exclude listing prices in our predictions, as these are choices made by parties.
-If models systematically used this information to generated predictions, parties would have an incentive to manipulate their listing price to try to influence the bargain. 
+If models systematically used this information to generate predictions, parties would have an incentive to manipulate their listing price to try to influence the bargain. 
 
-While more complex models might be slightly more accurate, as they are based on more factors, these also rapidly run into diminishing returns with more data.
-After accounting for location, square footage and lot size, there are not lots of widely available factors that will matter a great deal, particularly in a set of already carefully choosing comparables.
+While more complex models might be slightly more accurate, as they are based on more factors, they also rapidly run into diminishing returns as more data is added.
+After accounting for location, square footage and lot size, there are not many additional available factors that will matter a great deal, particularly in a set of already carefully chosen comparables.
 
 \subsection{A very simple model: predicting price from square feet of living space}
 
@@ -349,12 +349,12 @@ The formula based only on square footage would be
 \begin{equation}
   \textsc{Price} = \$ \Intercept{} + (\$ \MarginalPricePerFoot{}/\textsc{SqFt}) \times \textsc{SqFt}. \nonumber
 \end{equation}
-Using this formula, the predicted price for \PropertyName{}, given that is is \PropertySqFt{} \textsc{SqFT}, would be
+Using this formula, the predicted price for \PropertyName{}, at \PropertySqFt{} \textsc{SqFT}, would be
 \begin{align}
 \textsc{Predicted Price} & = \$ \Intercept{} + (\$ \MarginalPricePerFoot{}/\textsc{SqFt}) \times \PropertySqFt{}. \\ \nonumber
                          & = \$ \PropertyPredict{} \nonumber 
 \end{align}
-which is \PctDiff{}\% away from the listing price of \$\PropertyPrice{}.
+which is a \PctDiff{}\% difference from the listing price of \$\PropertyPrice{}.
 
 %% With any prediciton, there is uncertainty in the prediciton.
 %% We can account for some of it using a technique called bootstrapping---see Appendix~\ref{sec:bootstrapping} for details. 
@@ -373,25 +373,26 @@ which is \PctDiff{}\% away from the listing price of \$\PropertyPrice{}.
 We can improve this model by adding more predictors---namely the lot size as well the lot size and square footage both (a) squared and (b) interacted with each other.
 What these other terms offer is flexibility.
 In the simpler model, more square footage always has the same effect on price---going from 800 square feet to 1,000 square feet has the same effect on price as going from 3,500 square feet to 3,700 square feet.
-This unlikely to be true in reality.
-Without getting two much into the details of the regression, adding a square term on the price allows the return to more square footage as the amoutn of square footage changes.
+This is unlikely to be true in reality.
+%Without getting two much into the details of the regression, 
+Adding a square term on the price allows the return to more square footage as the amoutn of square footage changes.
 Similarly, by adding the square footage times the lot size as a predictor, the model can allow more square footage to be more or less valued for bigger or smaller lots. 
-This kind of more flexible model can lead to better predictions, albeit at the cost of more model complexity and greater danger of what is called ``over-fitting'' which is the statistical equilvalent of a hasty generalization.
-See Appendix~\ref{sec:regularization} for details. 
+This kind of more flexible model can lead to better predictions, albeit at the cost of more model complexity and greater danger of what is called ``over-fitting'', which is the statistical equilvalent of a hasty generalization.
+See Appendix~\ref{sec:regularization} for more details. 
 
 Using only the comparables, our fitted model predicting sale price is 
 \begin{align*}
 \mbox{Predicted Price} = \input{formula.tex}.
 \end{align*}
-If we added a new comparable property, we could use this formula to predict their sale price.
-This is turn could help us see whehther it is a reasonable comparable---if we find the predicted sale price is wildly different from the actual sale price---either the model is wrong or the property is not actually comparable (say it is a location that radically increases or decreases the price). 
+If we added a new comparable property, we could use this formula to predict its sale price.
+This is turn could help us see whether it is a reasonable comparable. If we find the predicted sale price is wildly different from the actual sale price, then either the model is wrong or the property is not actually comparable (for example, it might be in a location that radically increases or decreases the price). 
 
-The main value of the model is that it lets us predict the value \PropertyName{}.
+The main value of the model is that it lets us predict the sale price of our target property.
 The prediction for \PropertyName{} is \$\PropertyPricePredictionComplex{}, which is \PropertyPricePredictionComplexPercent{}\% away from the listing price of \$\PropertyPrice{}.  
-With any prediciton, there is uncertainty in the prediciton, which we will discuss in a moment. 
+With any prediction, there is uncertainty in the prediciton, which we will discuss in a moment. 
 
 Using our model, we predict the price of all the properties, including \PropertyName{}.\footnote{
-  Solely among the comparables, the median absolute percentage error for this model is \MAPE{}\%, though this likely over-states the performance of the model, given the dataset is relatively small. 
+  Solely among the comparables, the median absolute percentage error for this model is \MAPE{}\%, though this likely over-states the performance of the model, given that the dataset is relatively small. 
 }
 We do this in Figure~\ref{fig:predictive_model}, which will take a moment to explain.
 This is called a slope graph.
@@ -401,7 +402,7 @@ Each point on the right side is labeled with the percentage change.
 
 \begin{figure}
 \centering
-\caption{Predictive model predicttions for properties versus prices for \PropertyName{}} \label{fig:predictive_model}  
+\caption{Predictive model predictions for properties versus prices for \PropertyName{}} \label{fig:predictive_model}  
 \includegraphics[width=0.95\columnwidth]{plots/predictive_model.pdf} 
 \end{figure}
 
@@ -411,8 +412,8 @@ The distribution is centered near the true prediction.
 The top of the box is the 75th percentile and the bottom of the box is the 25th percentile.
 The ``whiskers'' above and below represent the 95th and 5th percentils, respectively. 
 
-There are other automated valuation methods available online, though many simply serve as lead generation services.
-There \href{https://www.fhfa.gov/DataTools/Tools/Pages/HPI-Calculator.aspx}{Federal Housing Finance Authority has an online tool} that helps project a price recorded in the past to some date in the future, under the assumption that the property appreciated at the same rate as other properties. 
+There are other automated valuation methods that are available online, though many simply serve as lead generation services.
+The \href{https://www.fhfa.gov/DataTools/Tools/Pages/HPI-Calculator.aspx}{Federal Housing Finance Authority has an online tool} that takes a price recorded in the past and attempts to project it to some date in the future, under the assumption that the property appreciated at the same rate as other properties. 
 
 \renewcommand{\refname}{\spacedlowsmallcaps{References}} % For modifying the bibliography heading
 \bibliographystyle{unsrt}
@@ -431,34 +432,35 @@ There \href{https://www.fhfa.gov/DataTools/Tools/Pages/HPI-Calculator.aspx}{Fede
 
 \subsection{Dealing with prediction uncertainty}  \label{sec:bootstrapping} 
 In any estimate about the future, there is uncertainty.
-There are many sources of uncertainty that could cause the prediction for any particular property to differ from the price the property is ultimately sold at.
-For example, there could be local market conditions, a motivated seller, unique amenities not captured by relatively crude metrics like square footage---is the house particularly charming? have an interesting history? great views?---and so on. 
+There are many sources of uncertainty that could cause the prediction for any particular property to differ from the price at which the property is ultimately sold.
+For example, there could be local market conditions, a motivated seller, unique amenities not captured by relatively crude metrics like square footage. Is the house particularly charming? Have an interesting history? Great views? And so on. 
 
-These idiosyncratic factors certainly affected the price of the comparables.
-This in turn can affect the prediction for the focal property. 
-For example, suppose a particularly beautiful but small house was chosen as a comparable.
-This small house ``punches above its weight'' having a higher-than-anticipated price, given the size.
+%These idiosyncratic factors certainly affected the prices of the comparables.
+%This in turn can affect the prediction for the focal property. 
+Idiosyncratic factors among the comparables will affect the prediction for the sale price of the target property.
+For example, suppose a particularly beautiful but small house were chosen as a comparable.
+This small house ``punches above its weight'' in having a higher-than-anticipated price, given the size.
 This will tend to cause the regression line to be not quite as steep, in turn implying that size doesn't matter as much.
-Similarly, a large but ugly that does poorly on the market will also make our regression line not as steep.
+Similarly, a large but unattractive house that performs poorly on the market will also make our regression line not as steep.
 
 To see how our choice of comparables affects our prediction, we can do something called \href{https://en.wikipedia.org/wiki/Bootstrapping_(statistics)}{``bootstrapping.''}
 In essence, we create ``new'' sets of comparables from our existing set.
-We take our comparables and then ``draw'' from that pool many times, \emph{with replacement} meaning that one property could show up more than once or not at all.
+We take our comparables and then ``draw'' from that pool many times \emph{with replacement}, meaning that one property could show up more than once or not at all.
 We then pretend that this bootrap sample of comparables is real and estimate our regression model, just like before.
-With a computer, we can do this many, many times and see the range of predictions we get. 
+With a computer, we can do this many, many times and see the range of predictions that we get. 
 
 \subsection{Avoiding over-fitting} \label{sec:regularization}
-Suppose you meet someone named ``Dave'' who happens to be very rich.
-Would you start assuming that everyone you meet named Dave is rich?
+Suppose you meet someone who happens to be very rich.
+Would you start assuming that everyone you met with the same name is rich?
 Of course not---you would rightly view this as an over-generalization.
 You would also rely on your knowledge that there probably is not much of a relationship between name and wealth---unlike say occupation and wealth.
-If you learned that Dave was a banker and rich, you might use your knowledge of the world to generalize about future bankers.
+If you learned that the person was a banker and rich, you might use your knowledge of the world to generalize about future bankers.
 
 Statistical models don't ``know'' what features are general and which are not.
-As such, they are prone to over-generalization that is analgous to the rich-Dave example. 
+As such, they are prone to over-generalization that is analgous to the rich person example. 
 This is called \href{https://en.wikipedia.org/wiki/Overfitting}{``over-fitting.''}
 To prevent this, we can do a number of things, including penalizing models that are too complicted.
-If we use both name and occupation to make a prediction about Dave, we'd find that getting rid of the name part and keeping the occupation part is helpful, especially since the occupation part is the better predictor. 
+If we use both name and occupation to make a prediction, we'd find that ignoring the name part of the model and keeping the occupation part is helpful, especially since occupation is the better predictor. 
 
 Among our comparables, we can leave one comparable out and try to predict the price.
 As we know the price for this, we can assess how well our model does.
