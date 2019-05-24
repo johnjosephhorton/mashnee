@@ -375,7 +375,9 @@ What these other terms offer is flexibility.
 In the simpler model, more square footage always has the same effect on price---going from 800 square feet to 1,000 square feet has the same effect on price as going from 3,500 square feet to 3,700 square feet.
 This is unlikely to be true in reality.
 %Without getting two much into the details of the regression, 
-Adding a square term on the price allows the return to more square footage as the amoutn of square footage changes.
+
+We can address this issue by using a slightly more complicated model, by including not just the square footage, but also the square footage, \emph{squared}. 
+By adding the square footage, \emph{squared} to the model, it allows the return to more square footage to depend on how much square footage is alread present. 
 Similarly, by adding the square footage times the lot size as a predictor, the model can allow more square footage to be more or less valued for bigger or smaller lots. 
 This kind of more flexible model can lead to better predictions, albeit at the cost of more model complexity and greater danger of what is called ``over-fitting'', which is the statistical equilvalent of a hasty generalization.
 See Appendix~\ref{sec:regularization} for more details. 
