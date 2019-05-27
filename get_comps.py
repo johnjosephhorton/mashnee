@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+import click 
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from urllib.request import Request, urlopen
@@ -15,8 +18,8 @@ import webbrowser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-CHROME_PATH = '/usr/bin/google-chrome'
-CHROMEDRIVER_PATH = '/usr/bin/chromedriver'
+CHROME_PATH = '/usr/bin/local/google-chrome'
+CHROMEDRIVER_PATH = '/usr/bin/local/chromedriver'
 WINDOW_SIZE = "1920,1080"
 
 chrome_options = Options()  
@@ -24,13 +27,16 @@ chrome_options.add_argument("--headless")
 chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
 chrome_options.binary_location = CHROME_PATH
 
-driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH,
-                          chrome_options=chrome_options
-                         )  
+#driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH,
+#                          chrome_options=chrome_options
+#                         )  
+
+driver = webdriver.Chrome()
 
 # driver.get("https://www.google.com")
 # driver.get_screenshot_as_file("capture.png")
 # driver.close()
+
 
 def GetSoupRequests(url): 
     req_headers = {
@@ -110,18 +116,25 @@ def ForGG(address, selenium = True):
 
 #address = "80 Captain's Row, Bourne, MA"
 #address = "36 E Main St #A Salisbury, CT 06068"
-address =  "39 Reservoir Rd Lakeville, CT 06039"
-trulia_url = GetTruliaURL(address, selenium = True)
-comp_locations = GetComparableURLs(trulia_url, selenium = False)['locations']
-target_zillow = GetZillowURL(address, selenium = True)
-zillow_comp_urls = [] 
-for comp in comp_locations:
-    url = GetZillowURL(comp, selenium = True)
-    zillow_comp_urls.append(url)
+
+@click.command()
+@click.option("--address", help="Enter the street address.")
+def GetComps(address):
+    #address =  "39 Reservoir Rd Lakeville, CT 06039"
+    trulia_url = GetTruliaURL(address, selenium = True)
+    comp_locations = GetComparableURLs(trulia_url, selenium = False)['locations']
+    target_zillow = GetZillowURL(address, selenium = True)
+    zillow_comp_urls = [] 
+    for comp in comp_locations:
+        url = GetZillowURL(comp, selenium = True)
+        zillow_comp_urls.append(url)
+    print("")
+    print(target_zillow)
+    for z in zillow_comp_urls:
+        print(z)
 
 
-print("")
-print(target_zillow)
-for z in zillow_comp_urls:
-    print(z)
+
+if __name__ == '__main__':
+    GetComps()
     
