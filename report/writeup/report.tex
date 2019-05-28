@@ -426,7 +426,7 @@ Properties are ordered from those that do the most to \emph{increase} the estima
 
 \begin{figure}
 \centering
-\caption{How much each comparable affectes the predicted sale price for \PropertyName{}} \label{fig:diagnostics}  
+\caption{How much each comparable affects the predicted sale price for \PropertyName{}} \label{fig:diagnostics}  
 \includegraphics[width=0.95\columnwidth]{plots/diagnostics.pdf} 
 \end{figure}
 
@@ -464,7 +464,7 @@ For example, there could be local market conditions, a motivated seller, unique 
 
 %These idiosyncratic factors certainly affected the prices of the comparables.
 %This in turn can affect the prediction for the focal property. 
-Idiosyncratic factors among the comparables will affect the prediction for the sale price of the target property.
+Idiosyncratic factors among the comparables will affect the predicted sale price of the target property.
 For example, suppose a particularly beautiful but small house were chosen as a comparable.
 This small house ``punches above its weight'' in having a higher-than-anticipated price, given the size.
 This will tend to cause the regression line to be not quite as steep, in turn implying that size doesn't matter as much.
@@ -477,17 +477,17 @@ We then pretend that this bootrap sample of comparables is real and estimate our
 With a computer, we can do this many, many times and see the range of predictions that we get. 
 
 \subsection{Avoiding over-fitting} \label{sec:regularization}
-Suppose you meet someone who happens to be very rich.
-Would you start assuming that everyone you met with the same name is rich?
+Suppose you meet someone who is brilliant.
+Would you start assuming that everyone you met with the same name is brilliant?
 Of course not---you would rightly view this as an over-generalization.
-You would also rely on your knowledge that there probably is not much of a relationship between name and wealth---unlike say occupation and wealth.
-If you learned that the person was a banker and rich, you might use your knowledge of the world to generalize about future bankers.
+You would also rely on your knowledge that there probably is not much of a relationship between name and intelligence, where as there may be such a relationship between \textit{occupation} and intelligence.
+If you learned that the person was a scientist and brilliant, you might use your knowledge of the world to generalize about future scientists.
 
 Statistical models don't ``know'' what features are general and which are not.
-As such, they are prone to over-generalization that is analgous to the rich person example. 
+As such, they are prone to over-generalization that is analgous to the brilliant person example. 
 This is called \href{https://en.wikipedia.org/wiki/Overfitting}{``over-fitting.''}
-To prevent this, we can do a number of things, including penalizing models that are too complicted.
-If we use both name and occupation to make a prediction, we'd find that ignoring the name part of the model and keeping the occupation part is helpful, especially since occupation is the better predictor. 
+To prevent this, we can do a number of things, including penalizing models that are too complicated.
+If we use both name and occupation to make a prediction, we would find that ignoring the name part of the model and keeping the occupation part is helpful, especially since occupation is the better predictor. 
 
 Among our comparables, we can leave one comparable out and try to predict the price.
 As we know the price for this, we can assess how well our model does.

@@ -49,7 +49,7 @@ g <- ggplot(df.left.out, aes(x = address, y = pct.change, fill = direction), col
                       ) + theme_bw() +
     geom_label_repel(data = df.left.out %>% filter(pct.change == min(df.left.out$pct.change)),
                      aes(y = 0, label = phrase), ylim = c(0, NA), size = 2) +
-    ylab("Change to predicton") +
+    ylab("Change to prediction") +
     scale_y_continuous(label = scales::percent) + 
     xlab("") + 
     coord_flip() +
