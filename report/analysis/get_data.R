@@ -1,9 +1,13 @@
+
+
 library(DBI)
+
 
 if (!file.exists("config.R")){
     path.to.db <- "~/GG/instance/GG.sqlite"
     con <- dbConnect(RSQLite::SQLite(), path.to.db)
     order.number <- as.numeric(dbGetQuery(con, "select max(id) from orders") )
+    print(order.number)
 }  else {
     source("config.R")
     con <- dbConnect(RSQLite::SQLite(), path.to.db)
@@ -26,5 +30,7 @@ df.dist <- df.raw %>% filter(comp == 1) %>%
 x <- with(df.raw, matrix(c(longitude, latitude), ncol = 2))
 y <- with(df.raw, matrix(c(target.lon, target.lat), ncol = 2))
 
-df.raw$miles <- (distm(x, y, fun = distHaversine) / 1609.34) 
+df.raw$miles <- (distm(x, y, fun = distHaversine) / 1609.34)
 
+CleanName <- function(x) gsub("#", "Num.", x)
+df.raw$address <- sapply(df.raw$address, CleanName)
