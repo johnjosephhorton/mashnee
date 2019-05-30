@@ -101,7 +101,7 @@ g <- ggplot(data = df.compare, aes(x = type, y = value,
                                colour = factor(comp)
                                )) +
     geom_line() + 
-    scale_y_continuous(labels = priceFormatter()) + 
+    scale_y_continuous(labels = priceFormatter(), limits = c(0.9 * min.y, 1.1 * max.y)) + 
     theme_bw() + 
     theme(legend.position = "none") +
     geom_text_repel(data = df.compare %>% filter(type == "Actual"), aes(label = address),
@@ -113,8 +113,7 @@ g <- ggplot(data = df.compare, aes(x = type, y = value,
                     xlim = c(2, NA)) +
     geom_label(data = df.pct %>% filter(comp == 0), x = 1.5,
                aes(y = middle.height, label = phrase), size = 2.5) +
-    geom_boxplot(data = df.norm, aes(x = 2.5, y = value), width = 0.1, outlier.size = -1) +
-    ylim(0.9 * min.y, 1.1 * max.y)
+    geom_boxplot(data = df.norm, aes(x = 2.5, y = value), width = 0.1, outlier.size = -1) 
     
 
 #df.model <- cbind(df.comps %>% select(address), fortify(m))
