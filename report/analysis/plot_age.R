@@ -9,7 +9,7 @@ library(glmnet)
 library(reshape2)
 })
 
-source("get_data.R")
+df.raw <- readRDS("../data/data.rds")
 
 df.raw$address <- with(df.raw, reorder(address, yearBuilt, mean))
 

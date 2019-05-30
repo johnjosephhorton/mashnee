@@ -15,11 +15,13 @@ suppressPackageStartupMessages({
 
 # Load comparables data 
 
-source("get_data.R")
+df.raw <- readRDS("../data/data.rds")
 
 property.name <- df.raw %>% filter(comp == 0) %$% address
 
 df.raw %<>% mutate(ask = ifelse(comp == 0, "Yes", NA))
+
+df.raw$lotSize = with(df.raw, ifelse(homeType == "CONDO", 0, lotSize))
 
 df.raw %>% 
     select(-id, -city, -created, -url_id, -state, -latitude, -longitude, -homeType, -order_id, -comp, -url, -miles) %>% 

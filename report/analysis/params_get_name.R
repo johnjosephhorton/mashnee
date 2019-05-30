@@ -7,10 +7,7 @@ suppressPackageStartupMessages({
     library(ggplot2)
 })
 
-source("get_data.R")
-## df.raw <- read.csv("../data/data.csv") %>% 
-##   mutate(price = gsub(",","",price) %>% as.numeric)
-# Load comparables data 
+df.raw <- readRDS("../data/data.rds") 
 
 addParam <- genParamAdder("../writeup/parameters_name.tex")
 

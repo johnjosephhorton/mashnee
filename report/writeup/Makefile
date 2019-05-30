@@ -1,20 +1,23 @@
-data = ../data/data.csv
+
 
 params =
 
-params += parameters_name.tex
-parameters_name.tex: $(data) ../analysis/params_get_name.R
-	cd ../analysis && Rscript params_get_name.R 
+data = ../data/data.rds
+../data/data.rds: ../analysis/get_data.R
+	cd ../analysis && Rscript get_data.R 
 
+params += parameters_name.tex
+parameters_name.tex: $(data) ../analysis/params_get_name.R 
+	cd ../analysis && Rscript params_get_name.R 
 
 tables =
 
 tables += tables/comps.tex
-tables/comps.tex: ../analysis/table_comps.R
+tables/comps.tex: ../analysis/table_comps.R $(data)
 	cd ../analysis && Rscript table_comps.R
 
-tables += tables/links.tex
-tables/links.tex: ../analysis/table_links.R
+tables += tables/links.tex 
+tables/links.tex: ../analysis/table_links.R $(data)
 	cd ../analysis && Rscript table_links.R
 
 plots =
@@ -29,9 +32,9 @@ plots += plots/map.pdf
 plots/map.pdf: ../analysis/plot_map.R $(data)
 	cd ../analysis && Rscript plot_map.R
 
-plots += plots/hist.pdf 
-plots/hist.pdf: ../analysis/plot_hist.R $(data)
-	cd ../analysis && Rscript plot_hist.R
+# plots += plots/hist.pdf 
+# plots/hist.pdf: ../analysis/plot_hist.R $(data)
+# 	cd ../analysis && Rscript plot_hist.R
 
 
 plots += plots/square_feet.pdf 
@@ -58,17 +61,17 @@ plots += plots/bedroom_bathroom.pdf
 plots/bedroom_bathroom.pdf: ../analysis/plot_bedroom_bathroom.R $(data)
 	cd ../analysis && Rscript plot_bedroom_bathroom.R
 
-plots += plots/baths_versus_bedrooms.pdf 
-plots/baths_versus_bedrooms.pdf: ../analysis/plot_baths_versus_bedrooms.R $(data)
-	cd ../analysis && Rscript plot_baths_versus_bedrooms.R
+# plots += plots/baths_versus_bedrooms.pdf 
+# plots/baths_versus_bedrooms.pdf: ../analysis/plot_baths_versus_bedrooms.R $(data)
+# 	cd ../analysis && Rscript plot_baths_versus_bedrooms.R
 
 plots += plots/ecdf.pdf 
 plots/ecdf.pdf: ../analysis/plot_ecdf.R $(data)
 	cd ../analysis && Rscript plot_ecdf.R
 
-plots += plots/bootstrap_price_predictions.pdf 
-plots/bootstrap_price_predictions.pdf: ../analysis/plot_bootstrap_price_predictions.R $(data)
-	cd ../analysis && Rscript plot_bootstrap_price_predictions.R
+# plots += plots/bootstrap_price_predictions.pdf 
+# plots/bootstrap_price_predictions.pdf: ../analysis/plot_bootstrap_price_predictions.R $(data)
+# 	cd ../analysis && Rscript plot_bootstrap_price_predictions.R
 
 plots += plots/predictive_model.pdf 
 plots/predictive_model.pdf: ../analysis/plot_predictive_model.R $(data)

@@ -11,7 +11,7 @@ suppressPackageStartupMessages({
 })
 
 # Load comparables data 
-source("get_data.R")
+df.raw <- readRDS("../data/data.rds")
 
 inches.per.row <- 0.6
 num.rows <- nrow(df.raw)

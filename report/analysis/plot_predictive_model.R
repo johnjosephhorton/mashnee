@@ -10,7 +10,9 @@ suppressPackageStartupMessages({
     library(JJHmisc)
 })
 
-source("get_data.R")
+df.raw <- readRDS("../data/data.rds")
+
+#source("get_data.R")
 source("format_currency.R")
 
 df.comps <- df.raw %>% filter(comp == 1) 

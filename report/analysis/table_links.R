@@ -7,8 +7,7 @@ suppressPackageStartupMessages({
     library(JJHmisc)
 })
 
-# Load comparables data 
-source("get_data.R")
+df.raw <- readRDS("../data/data.rds")
 
 df.raw %>% select(address, url) %>%
     mutate(line = paste0("\\item \\href{", url, "}{", address, "}")) %$% line %>% 

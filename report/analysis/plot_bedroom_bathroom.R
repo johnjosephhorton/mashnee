@@ -11,7 +11,7 @@ suppressPackageStartupMessages({
 })
 
 
-source("get_data.R")
+df.raw <- readRDS("../data/data.rds")
 
 inches.per.row <- 0.25
 num.rows <- nrow(df.raw)

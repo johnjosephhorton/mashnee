@@ -10,8 +10,8 @@ suppressPackageStartupMessages({
 
 # Load comparables data 
 
-source("get_data.R")
-
+#source("get_data.R")
+df.raw <- readRDS("../data/data.rds")
 
 # Needs to the development version 
 #library(devtools)

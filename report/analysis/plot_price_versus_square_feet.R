@@ -11,7 +11,7 @@ suppressPackageStartupMessages({
 })
 
 
-source("get_data.R")
+df.raw <- readRDS("../data/data.rds")
 
 
 g <- ggplot(data = df.raw, aes(x = square_feet, y = price, 
