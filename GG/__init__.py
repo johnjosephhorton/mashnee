@@ -101,6 +101,19 @@ def delete_property(order_id, property_id):
     db.commit()
     return see_comps(order_id)
 
+@app.route('/modify_attribute/', methods=['POST'])
+def modify_attribute():
+    order_id = request.form['order_id']
+    key = request.form['key']
+    property_id = request.form['property_id']
+    value = request.form['value']
+    db = get_db()
+    cur = db.cursor()
+    query = "update properties set {0} = ? where id = ?".format(key)
+    cur.execute(query, (value, property_id))
+    db.commit()
+    return see_comps(order_id)
+
 @app.route('/store_urls', methods=['POST'])
 def handle_data():
     db = get_db()

@@ -17,7 +17,12 @@
 	</form>
 	<ul>
 	  {% for key, value in dict(comp).items() %}
-	  <li>{{key}}:{{value}}</li>
+	  <form action="/modify_attribute/" method="POST">
+	    <input type="hidden" name="property_id" value={{ comp.id }}>
+	    <input type="hidden" name="order_id" value={{ order_id }}>
+	    <input type="hidden" name="key" value={{ key }}>
+	    <li>{{key}}:{{value}} <input type="text" name="value", value={{ value }}> <input type="submit", value = "update"> </li>
+	  </form>
 	  {% endfor %}
 	  </ul>
 	{% else %}
