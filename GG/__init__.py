@@ -89,9 +89,17 @@ def see_reports():
 def see_comps(order_id):
     db = get_db()
     cur = db.cursor()
-    cur.execute("select p.*, u.url from properties as p join urls as u on u.id = p.url_id where p.order_id = ? and comp = 1", order_id)
+    cur.execute("select p.*, u.url from properties as p join urls as u on u.id = p.url_id where p.order_id = ? and comp = 1", (order_id,))
     comps = cur.fetchall()
     return render_template("comps.html", comps = comps, order_id = order_id)
+
+@app.route("/delete_property/<order_id>/<property_id>")
+def delete_property(order_id, property_id):
+    db = get_db()
+    cur = db.cursor()
+    cur.execute("delete from properties where id = ?", (property_id,))
+    db.commit()
+    return see_comps(order_id)
 
 @app.route('/store_urls', methods=['POST'])
 def handle_data():
