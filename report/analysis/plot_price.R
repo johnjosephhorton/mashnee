@@ -36,9 +36,9 @@ g <- ggplot(data = df.raw, aes(x = price, y = address,
     xlab("") +
     geom_label_repel(data = df.raw %>% filter(comp == 0), label = "Listing price\nfor target", size = 2, 
                      segment.colour = "grey",
-                     arrow = arrow(length = unit(0.03, "npc"), type = "closed", ends = "last"),
-                     xlim = c(NA, 0.9 * target.price),
-                     ylim = c(num.rows - 1.5, NA)
+                     arrow = arrow(length = unit(0.03, "npc"), type = "closed", ends = "last")
+                     #xlim = c(NA, 0.9 * target.price),
+                     #ylim = c(num.rows - 1.5, NA)
                      )
 
 
